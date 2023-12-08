@@ -165,3 +165,4 @@ Coca-Cola Original; Coca-Cola Zero Sugar; Coca-Cola Light; Coca-Cola Life; Coca-
 > [Deepai](https://deepai.org/machine-learning-model/text2img)<br>
 > **[Faker Provider Collection](https://github.com/mbezhanov/faker-provider-collection)**<br>
 > **[Faker](https://github.com/fakerphp/faker)**<br>
+> **[PHP OpenAI API](https://github.com/openai-php/client)**<br>
