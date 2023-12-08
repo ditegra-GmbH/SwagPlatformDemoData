@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * (c) shopware AG <info@shopware.com>
  * For the full copyright and license information, please view the LICENSE
@@ -7,6 +9,7 @@
 
 namespace Swag\PlatformDemoData;
 
+use Bezhanov\Faker\Provider\Demographic;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Shopware\Core\Framework\Api\Controller\SyncController;
 use Shopware\Core\Framework\Context;
@@ -20,6 +23,16 @@ use Symfony\Component\HttpFoundation\RequestStack;
 #[Package('services-settings')]
 class DemoDataService
 {
+
+
+    private static int $categories;
+    private static int $subcategories;
+    private static int $brands;
+
+    private static array $categoriesList;
+    private static array $subcategorieList;
+    private static array $brandList;
+
     private SyncController $sync;
 
     /**
@@ -100,9 +113,59 @@ class DemoDataService
                 if ($response->getStatusCode() >= 400) {
                     throw new \RuntimeException(\sprintf('Error deleting "%s": %s', $dataProvider->getEntity(), \print_r($result, true)));
                 }
-            } catch (RestrictDeleteViolationException|ForeignKeyConstraintViolationException) {
+            } catch (RestrictDeleteViolationException | ForeignKeyConstraintViolationException) {
                 // ignore
             }
         }
+    }
+
+
+    public static function setCategories($categories)
+    {
+        self::$categories = $categories;
+    }
+    public static function getCategories()
+    {
+        return  self::$categories;
+    }
+    public static function setSubcategories($subcategories)
+    {
+         self::$subcategories = $subcategories;
+    }
+    public static function getSubcategories()
+    {
+        return  self::$subcategories;
+    }
+    public static function setBrands($brands)
+    {
+         self::$brands = $brands;
+    }
+    public static function getBrands()
+    {
+        return  self::$brands;
+    }
+    public static function setCategoriesList($categoriesList)
+    {
+         self::$categoriesList = $categoriesList;
+    }
+    public static function getCategoriesList()
+    {
+        return  self::$categoriesList;
+    }
+    public static function setSubcategorieList($subcategorieList)
+    {
+         self::$subcategorieList = $subcategorieList;
+    }
+    public static function getSubcategorieList()
+    {
+        return  self::$subcategorieList;
+    }
+    public static function setBrandList($brandList)
+    {
+         self::$brandList = $brandList;
+    }
+    public static function getBrandList()
+    {
+        return  self::$brandList;
     }
 }

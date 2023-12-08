@@ -1,7 +1,8 @@
 # DigaAIDemoData
 Demo Data generation based ont Shopbranch
 
-[DigaAIDemoData Dev Doc](./dev/_DigaAIDemoData%20[Idea].MD)
+to try out the generation:<br>
+`dataai:test`
 
 ---
 ---

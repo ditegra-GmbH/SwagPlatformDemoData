@@ -64,12 +64,12 @@
             <tag name="swag.demo_data.data_provider" priority="200" />
         </service>
 
+        <!--CLI Commands-->
         <service id="Swag\PlatformDemoData\Command\TestCommand">
             <tag name="console.command"/>
         </service>
         <service id="Swag\PlatformDemoData\Command\CreateDataCommand">
             <tag name="console.command"/>
         </service>
-
     </services>
 </container>
