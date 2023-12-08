@@ -26,7 +26,7 @@ class TestCommand extends Command
     {
         $this->openAi = new ServiceOpenAi();
 
-        $categories = $this->openAi->generateCategories("100" , "Autos");//Uses local test data for now
+        $categories = $this->openAi->generateCategories((int)"100" , "Autos");//Uses local test data for now
         //TODO: This categories needs to be usede by the CategoryProvider.php! 
         
 

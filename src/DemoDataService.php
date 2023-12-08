@@ -23,12 +23,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 #[Package('services-settings')]
 class DemoDataService
 {
-
-
-    private static int $categories;
-    private static int $subcategories;
-    private static int $brands;
-
     private static array $categoriesList;
     private static array $subcategorieList;
     private static array $brandList;
@@ -118,33 +112,8 @@ class DemoDataService
             }
         }
     }
-
-
-    public static function setCategories($categories)
-    {
-        self::$categories = $categories;
-    }
-    public static function getCategories()
-    {
-        return  self::$categories;
-    }
-    public static function setSubcategories($subcategories)
-    {
-         self::$subcategories = $subcategories;
-    }
-    public static function getSubcategories()
-    {
-        return  self::$subcategories;
-    }
-    public static function setBrands($brands)
-    {
-         self::$brands = $brands;
-    }
-    public static function getBrands()
-    {
-        return  self::$brands;
-    }
-    public static function setCategoriesList($categoriesList)
+    //Arrays
+    public static function setCategoriesList(array $categoriesList)
     {
          self::$categoriesList = $categoriesList;
     }
@@ -152,7 +121,7 @@ class DemoDataService
     {
         return  self::$categoriesList;
     }
-    public static function setSubcategorieList($subcategorieList)
+    public static function setSubcategorieList(array $subcategorieList)
     {
          self::$subcategorieList = $subcategorieList;
     }
@@ -160,7 +129,7 @@ class DemoDataService
     {
         return  self::$subcategorieList;
     }
-    public static function setBrandList($brandList)
+    public static function setBrandList(array $brandList)
     {
          self::$brandList = $brandList;
     }
