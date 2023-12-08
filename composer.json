@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "shopware/core": "~6.5.0"
+        "shopware/core": "~6.5.0",
+        "mbezhanov/faker-provider-collection": "^2.0"
     },
     "extra": {
         "shopware-plugin-class": "Swag\\PlatformDemoData\\SwagPlatformDemoData",
@@ -34,6 +35,11 @@
     "autoload": {
         "psr-4": {
             "Swag\\PlatformDemoData\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true
         }
     }
 }
