@@ -38,7 +38,7 @@ class ServiceOpenAi
 
     public function __construct()
     {
-        $this->openAi = new OpenAi(""); //Test API-Key: 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
+        $this->openAi = new OpenAi(""); //Test API-Key:
     }
 
     public function generateCategories(string $amount, string $branche): array
