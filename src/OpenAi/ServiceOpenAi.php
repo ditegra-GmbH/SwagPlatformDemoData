@@ -74,13 +74,13 @@ class ServiceOpenAi
       'presence_penalty' => 0.0,
     ]);
 
-    //TODO: Error handeling when the return is not a message with content.
+    //TODO: the AI somtetimes crates a list. I have to finde a way to check if this is a list. "Thrgh line checks?"
     // $responseObj = json_decode($response, true);
      $responseObj = json_decode($this->exampleResponse, true);
-    // $responseObj = '{}';
+    // $responseObj = '{}'; //when te respons is an empty json
 
 
-    //when the response body dose not have any of the keyword catch the exception and say that there is something wrong
+    //when the response body dose not have any of the keyword go to the end and say that there is something wrong
     if (isset($responseObj['error'])) {
       //TODO: Implement Error msg
       throw new Exception($responseObj['error']['message'] . "\n" . $responseObj['error']['code']);
