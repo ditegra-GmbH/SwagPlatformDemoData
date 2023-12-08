@@ -1,3 +1,11 @@
+# DigaAIDemoData
+Demo Data generation based ont Shopbranch
+
+[DigaAIDemoData Dev Doc](./dev/_DigaAIDemoData%20[Idea].MD)
+
+---
+---
+
 # Shopware Demo Data Plugin
 Do not use in production environments!
 
