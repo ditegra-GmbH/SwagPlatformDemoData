@@ -64,8 +64,8 @@ class ServiceOpenAi
 
         //TODO: Error handeling when the return is not a message with content.
         // $responseObj = json_decode($response, true);
-        // $responseObj = json_decode($this->exampleResponse, true);
-        $responseObj = '{}';
+         $responseObj = json_decode($this->exampleResponse, true);
+        // $responseObj = '{}';
 
 
         //when the response body dose not have any of the keyword catch the exception and say that there is something wrong

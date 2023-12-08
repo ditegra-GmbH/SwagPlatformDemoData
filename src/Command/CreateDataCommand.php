@@ -20,6 +20,8 @@ class CreateDataCommand extends Command
     {
         // input shop branche and how maney categories, sub-categories and products should be created.
         // default values: 3 categories, 4 sub-categories, 5 products -> Maximum of 100 prompts!
+        // creating data will start $this->container->get(DemoDataService::class)->generate($activateContext->getContext());
+        // The generat function needs to be modified
         return Command::SUCCESS;
     }
 }
