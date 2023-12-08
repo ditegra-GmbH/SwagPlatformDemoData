@@ -8,7 +8,7 @@ php bin/console ai-demodata:generate:products --keywords=''
 there also some settings you can do at the Admin Page
 ![AdminPage](image-2.png)
 
-Chat GPT bekommt diesen Text zugesendet:
+Chat GPT gets that string:
 ```php
         $prompt = 'Create a list of demo products with these properties, separated values with ";". Only write down values and no property names ' . PHP_EOL;
         $prompt .= PHP_EOL;
