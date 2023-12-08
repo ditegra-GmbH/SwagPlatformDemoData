@@ -1,9 +1,9 @@
 # Idea
 
 We want to extend the **SwagPlatformDemoData** and add IA Generation for every aspect of this Plugin. 
-I think the best way is to add the AI parts into the Provider classes. Testing out if the API with faker works correctly.
-Faker is a JS based and runs on the browser or node. Therefor I have to add JS code.
-When this test works, we can create a [selectable list or CLI command] on What the Shop is trying to sell (Bikes, Cars, etc).
+<strike>I think the best way is to add the AI parts into the Provider classes. Testing out if the API with faker works correctly.
+Faker is a JS based and runs on the browser or node. Therefor I have to add JS code.</strike>
+Using OpenAI API we will fetch Data stepp by stepp. <strike>When this test works,</strike> we can create a [selectable list or CLI command] on What the Shop is trying to sell (Bikes, Cars, etc). Wiht that that the API will create stepp by stepp the neccesery context data like Images, Categorys, and Headlins for Products. We will fill out large String sets for Description with Faker
 
 > Future plans can be: Adding how many products should be generated.
 
@@ -162,4 +162,6 @@ Coca-Cola Original; Coca-Cola Zero Sugar; Coca-Cola Light; Coca-Cola Life; Coca-
 > [Falso](https://ngneat.github.io/falso/)<br>
 > [mocker-data-generator](https://github.com/danibram/mocker-data-generator) Uses `FakerJS` but is controllable<br>
 > [Freepik](https://www.freepik.com/api)<br>
-> [Deepai](https://deepai.org/machine-learning-model/text2img)
+> [Deepai](https://deepai.org/machine-learning-model/text2img)<br>
+> **[Faker Provider Collection](https://github.com/mbezhanov/faker-provider-collection)**<br>
+> **[Faker](https://github.com/fakerphp/faker)**<br>
