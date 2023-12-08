@@ -7,7 +7,16 @@
     "authors": [
         {
             "name": "shopware AG"
+        },
+        {
+            "name": "ditegra GmbH",
+            "homepage": "https://ditegra.de/"
+        },
+        {
+            "name": "Arthur Erlich",
+            "role": "Developer"
         }
+
     ],
     "require": {
         "shopware/core": "~6.5.0",
