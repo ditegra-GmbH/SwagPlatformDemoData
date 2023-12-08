@@ -15,6 +15,8 @@ use Shopware\Core\Framework\Plugin\Context\DeactivateContext;
 #[Package('services-settings')]
 class SwagPlatformDemoData extends Plugin
 {
+    //Disable plugin running on activation
+    /* 
     public function activate(ActivateContext $activateContext): void
     {
         // @phpstan-ignore-next-line
@@ -26,4 +28,5 @@ class SwagPlatformDemoData extends Plugin
         // @phpstan-ignore-next-line
         $this->container->get(DemoDataService::class)->delete($deactivateContext->getContext());
     }
+    */
 }
