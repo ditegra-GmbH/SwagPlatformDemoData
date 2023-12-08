@@ -16,11 +16,11 @@
             "name": "Arthur Erlich",
             "role": "Developer"
         }
-
     ],
     "require": {
         "shopware/core": "~6.5.0",
-        "mbezhanov/faker-provider-collection": "^2.0"
+        "mbezhanov/faker-provider-collection": "2.0.1.0",
+        "orhanerday/open-ai": "4.9.1.0"
     },
     "extra": {
         "shopware-plugin-class": "Swag\\PlatformDemoData\\SwagPlatformDemoData",
@@ -48,7 +48,8 @@
     },
     "config": {
         "allow-plugins": {
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "php-http/discovery": true
         }
     }
 }
