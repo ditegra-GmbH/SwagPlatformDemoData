@@ -6,14 +6,14 @@ namespace Swag\PlatformDemoData\OpenAi;
 
 use Orhanerday\OpenAi\OpenAi;
 use Exception;
-use Swag\PlatformDemoData\DemoDataService;
+use Swag\PlatformDemoData\AiDemoDataService;
 
-class ServiceOpenAi
+
+class GeneratorOpenAi
 {
 
   private OpenAI $openAi;
   private int $maxCategories = 10; //shuld use the Config later
-  private string $apiSecret = "";//also config stuff!
 
   //TODO: REMOVE DEMO DATA
   private string $exampleResponse = '{
@@ -30,7 +30,7 @@ class ServiceOpenAi
           {
             "message": {
               "role": "assistant",
-              "content": "Sedan; Coupé; Cabriolet; Kombi; Luxuslimousine; Sportlimousine; Elektrolimousine; Hybridlimousine; Kompaktlimousine; Oberklasse-Limousine"
+              "content": "Sedan; Coupé; Cabriolet; Kombi"
             },
             "finish_reason": "stop",
             "index": 0
@@ -41,23 +41,21 @@ class ServiceOpenAi
 
   public function __construct()
   {
-    //maybe get the api via the construcot of the config page?
-    $this->openAi = new OpenAi($this->apiSecret); //Test API-Key:
+    $this->openAi = new OpenAi("seecret"); //Test API-Key from Configs
   }
 
   public function generateCategories(int $amount, string $branche): array
   {
 
     if($amount > $this->maxCategories){
+      echo 'Too many Categories are selected! ('. $amount .') Reducing to '. $this->maxCategories.".\n";
       $amount = $this->maxCategories;
     }
 
     $msg = 'Erstelle Demo-Kategorien, trennen die Kategorien mit ";". Schreiben nur die Kategorien und keine Unter-Kategorien auf. Die Kategorien sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Die Branche der Produkte sollte sein: ' . $branche . ' Erstelle nur ' . $amount . ' Kategorien!';
     $categoriesList = $this->createDataAi($msg);
 
-    //sets importent data
-    DemoDataService::setCategoriesList($categoriesList);
-
+    print_r($categoriesList); 
     return $categoriesList;
   }
 
@@ -93,7 +91,7 @@ class ServiceOpenAi
       //TODO: Implement array conversion and error handeling
       $ai_dataClumb =  preg_replace('/\s+/', '', $ai_dataClumb); //removes whitespace
       $ai_data = explode(';', $ai_dataClumb);
-      return [$ai_data];
+      return $ai_data;
     }
     throw new Exception("Unexpected response body of AI request. Please check the response JSON for \"choices\",\"error\": \n" . $responseObj);
     return ["NO_DATA"]; //When nothing is found
