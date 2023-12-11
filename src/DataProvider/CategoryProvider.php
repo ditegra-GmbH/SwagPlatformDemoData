@@ -54,9 +54,6 @@ class CategoryProvider extends DemoDataProvider
     {
         $cmsPageId = $this->getDefaultCmsListingPageId();
 
-
-        //TODO: this return needs to be changed!
-        //I will implement an looop to create Categories in a loop
         return [
             [
                 'id' => $this->getRootCategoryId(),
