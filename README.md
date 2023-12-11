@@ -3,7 +3,12 @@ Demo Data generation based ont Shopbranch
 
 to try out the generation:<br>
 `dataai:test`
-
+```Ruby
+Options:
+      --api-key=API-KEY  Your seecret Open API key [default: "0"]
+      --rm               Remove generated Data
+      --mk               Creates Data
+```
 ---
 ---
 
