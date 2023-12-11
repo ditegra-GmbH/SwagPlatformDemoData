@@ -11,10 +11,6 @@
         {
             "name": "ditegra GmbH",
             "homepage": "https://ditegra.de/"
-        },
-        {
-            "name": "Arthur Erlich",
-            "role": "Developer"
         }
     ],
     "require": {
