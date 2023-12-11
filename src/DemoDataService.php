@@ -21,11 +21,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 #[Package('services-settings')]
-class DemoDataService
+class DemoDataService 
 {
-    private static array $categoriesList;
-    private static array $subcategorieList;
-    private static array $brandList;
 
     private SyncController $sync;
 
@@ -46,7 +43,6 @@ class DemoDataService
         $this->requestStack = $requestStack;
     }
 
-    //TODO: Ovveride or not?
     public function generate(Context $context): void
     {
         foreach ($this->demoDataProvider as $dataProvider) {
@@ -59,7 +55,6 @@ class DemoDataService
             ];
 
             $request = new Request([], [], [], [], [], [], \json_encode($payload, JSON_THROW_ON_ERROR));
-
             $this->requestStack->push($request);
             $response = $this->sync->sync($request, $context);
             $this->requestStack->pop();
@@ -95,7 +90,6 @@ class DemoDataService
                     'payload' => $payloadsIds,
                 ],
             ];
-
             $request = new Request([], [], [], [], [], [], \json_encode($payload, JSON_THROW_ON_ERROR));
 
             try {
@@ -112,30 +106,5 @@ class DemoDataService
                 // ignore
             }
         }
-    }
-    //Arrays
-    public static function setCategoriesList(array $categoriesList)
-    {
-         self::$categoriesList = $categoriesList;
-    }
-    public static function getCategoriesList()
-    {
-        return  self::$categoriesList;
-    }
-    public static function setSubcategorieList(array $subcategorieList)
-    {
-         self::$subcategorieList = $subcategorieList;
-    }
-    public static function getSubcategorieList()
-    {
-        return  self::$subcategorieList;
-    }
-    public static function setBrandList(array $brandList)
-    {
-         self::$brandList = $brandList;
-    }
-    public static function getBrandList()
-    {
-        return  self::$brandList;
     }
 }
