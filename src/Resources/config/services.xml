@@ -14,6 +14,12 @@
             <argument>%kernel.environment%</argument>
         </service>
 
+        <service id="Swag\PlatformDemoData\DataProvider\ProductStreamProvider">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+
+            <tag name="swag.demo_data.data_provider" priority="1100" />
+        </service>
+
         <service id="Swag\PlatformDemoData\DataProvider\MediaProvider">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver"/>
