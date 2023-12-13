@@ -47,7 +47,7 @@ class ProductProvider extends DemoDataProvider
         return [
             [
                 'id' => '11dc680240b04f469ccba354cbf0b967',
-                'productNumber' => 'SWDEMO10002',
+                'productNumber' => 'QPC10002',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 10,
@@ -132,7 +132,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '1901dc5e888f4b1ea4168c2c5f005540',
-                'productNumber' => 'SWDEMO100013',
+                'productNumber' => 'QPC100013',
                 'active' => false,
                 'taxId' => $taxId,
                 'stock' => 40,
@@ -197,7 +197,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '2a88d9b59d474c7e869d8071649be43c',
-                'productNumber' => 'SWDEMO10001',
+                'productNumber' => 'QPC10001',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 10,
@@ -240,8 +240,8 @@ class ProductProvider extends DemoDataProvider
                     ],
                 ],
                 'price' => [[
-                    'net' => 416.76,
-                    'gross' => 495.95,
+                    'net' => 168.06722,
+                    'gross' => 200,
                     'linked' => true,
                     'currencyId' => Defaults::CURRENCY,
                 ]],
@@ -269,7 +269,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '3ac014f329884b57a2cce5a29f34779c',
-                'productNumber' => 'SWDEMO10006',
+                'productNumber' => 'QPC10006',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 50,
@@ -331,7 +331,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '43a23e0c03bf4ceabc6055a2185faa87',
-                'productNumber' => 'SWDEMO10005',
+                'productNumber' => 'QPC10005',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 50,
@@ -415,7 +415,7 @@ class ProductProvider extends DemoDataProvider
                 ],
                 'children' => [
                     [
-                        'productNumber' => 'SWDEMO10005.1',
+                        'productNumber' => 'QPC10005.1',
                         'stock' => 50,
                         'options' => [
                             [
@@ -427,7 +427,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10005.2',
+                        'productNumber' => 'QPC10005.2',
                         'stock' => 50,
                         'options' => [
                             [
@@ -439,7 +439,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10005.3',
+                        'productNumber' => 'QPC10005.3',
                         'stock' => 50,
                         'options' => [
                             [
@@ -451,7 +451,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10005.4',
+                        'productNumber' => 'QPC10005.4',
                         'stock' => 50,
                         'options' => [
                             [
@@ -463,7 +463,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10005.5',
+                        'productNumber' => 'QPC10005.5',
                         'stock' => 50,
                         'options' => [
                             [
@@ -475,7 +475,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10005.6',
+                        'productNumber' => 'QPC10005.6',
                         'stock' => 50,
                         'options' => [
                             [
@@ -490,7 +490,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => 'c7bca22753c84d08b6178a50052b4146',
-                'productNumber' => 'SWDEMO10007',
+                'productNumber' => 'QPC10007',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 50,
@@ -576,7 +576,7 @@ class ProductProvider extends DemoDataProvider
                 ],
                 'children' => [
                     [
-                        'productNumber' => 'SWDEMO10007.1',
+                        'productNumber' => 'QPC10007.1',
                         'stock' => 50,
                         'options' => [
                             [
@@ -585,7 +585,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10007.2',
+                        'productNumber' => 'QPC10007.2',
                         'stock' => 50,
                         'options' => [
                             [
@@ -594,7 +594,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10007.3',
+                        'productNumber' => 'QPC10007.3',
                         'stock' => 50,
                         'options' => [
                             [
@@ -603,7 +603,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10007.4',
+                        'productNumber' => 'QPC10007.4',
                         'stock' => 50,
                         'options' => [
                             [
