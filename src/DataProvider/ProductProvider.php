@@ -1,20 +1,13 @@
 <?php declare(strict_types=1);
-/*
- * (c) shopware AG <info@shopware.com>
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace Swag\PlatformDemoData\DataProvider;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use Shopware\Core\Defaults;
-use Shopware\Core\Framework\Log\Package;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Swag\PlatformDemoData\Resources\helper\TranslationHelper;
 
-#[Package('services-settings')]
 class ProductProvider extends DemoDataProvider
 {
     private const LOREM_IPSUM = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
@@ -47,7 +40,7 @@ class ProductProvider extends DemoDataProvider
         return [
             [
                 'id' => '11dc680240b04f469ccba354cbf0b967',
-                'productNumber' => 'QPC10002',
+                'productNumber' => 'SWDEMO10002',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 10,
@@ -64,19 +57,16 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Hauptprodukt mit erweiterten Preisen',
                     'en-GB' => 'Main product with advanced prices',
-                    'pl-PL' => 'Produkt główny z zaawansowanymi cenami',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturer' => [
                     'id' => 'cc1c20c365d34cfb88bfab3c3e81d350',
                     'name' => $this->translationHelper->adjustTranslations([
                         'de-DE' => 'Shopware Freizeit',
                         'en-GB' => 'Shopware Freetime',
-                        'pl-PL' => 'Shopware Wypoczynek',
                     ]),
                 ],
                 'media' => [
@@ -132,7 +122,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '1901dc5e888f4b1ea4168c2c5f005540',
-                'productNumber' => 'QPC100013',
+                'productNumber' => 'SWDEMO100013',
                 'active' => false,
                 'taxId' => $taxId,
                 'stock' => 40,
@@ -145,19 +135,16 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Hauptprodukt mit Bewertungen',
                     'en-GB' => 'Main product with reviews',
-                    'pl-PL' => 'Produkt główny z opiniami',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturer' => [
                     'id' => '2326d67406134c88bcf80e52d9d2ecb7',
                     'name' => $this->translationHelper->adjustTranslations([
                         'de-DE' => 'Shopware Lebensmittel',
                         'en-GB' => 'Shopware Food',
-                        'pl-PL' => 'Shopware Jedzenie',
                     ]),
                 ],
                 'media' => [
@@ -197,7 +184,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '2a88d9b59d474c7e869d8071649be43c',
-                'productNumber' => 'QPC10001',
+                'productNumber' => 'SWDEMO10001',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 10,
@@ -211,19 +198,16 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Hauptartikel',
                     'en-GB' => 'Main product',
-                    'pl-PL' => 'Produkt główny',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturer' => [
                     'id' => '7f24e96676e944b0a0addc20d56728cb',
                     'name' => $this->translationHelper->adjustTranslations([
                         'de-DE' => 'Shopware Kleidung',
                         'en-GB' => 'Shopware Fashion',
-                        'pl-PL' => 'Shopware Moda',
                     ]),
                 ],
                 'media' => [
@@ -240,8 +224,8 @@ class ProductProvider extends DemoDataProvider
                     ],
                 ],
                 'price' => [[
-                    'net' => 168.06722,
-                    'gross' => 200,
+                    'net' => 416.76,
+                    'gross' => 495.95,
                     'linked' => true,
                     'currencyId' => Defaults::CURRENCY,
                 ]],
@@ -269,7 +253,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '3ac014f329884b57a2cce5a29f34779c',
-                'productNumber' => 'QPC10006',
+                'productNumber' => 'SWDEMO10006',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 50,
@@ -283,12 +267,10 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Hauptprodukt, versandkostenfrei mit Hervorhebung',
                     'en-GB' => 'Main product, free shipping with highlighting',
-                    'pl-PL' => 'Produkt główny, darmowa wysyłka z wyróżnieniem',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturerId' => 'cc1c20c365d34cfb88bfab3c3e81d350',
                 'media' => [
@@ -331,7 +313,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '43a23e0c03bf4ceabc6055a2185faa87',
-                'productNumber' => 'QPC10005',
+                'productNumber' => 'SWDEMO10005',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 50,
@@ -345,12 +327,10 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Variantenprodukt',
                     'en-GB' => 'Variant product',
-                    'pl-PL' => 'Warianty produktu',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturerId' => '7f24e96676e944b0a0addc20d56728cb',
                 'media' => [
@@ -415,7 +395,7 @@ class ProductProvider extends DemoDataProvider
                 ],
                 'children' => [
                     [
-                        'productNumber' => 'QPC10005.1',
+                        'productNumber' => 'SWDEMO10005.1',
                         'stock' => 50,
                         'options' => [
                             [
@@ -427,7 +407,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'QPC10005.2',
+                        'productNumber' => 'SWDEMO10005.2',
                         'stock' => 50,
                         'options' => [
                             [
@@ -439,7 +419,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'QPC10005.3',
+                        'productNumber' => 'SWDEMO10005.3',
                         'stock' => 50,
                         'options' => [
                             [
@@ -451,7 +431,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'QPC10005.4',
+                        'productNumber' => 'SWDEMO10005.4',
                         'stock' => 50,
                         'options' => [
                             [
@@ -463,7 +443,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'QPC10005.5',
+                        'productNumber' => 'SWDEMO10005.5',
                         'stock' => 50,
                         'options' => [
                             [
@@ -475,7 +455,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'QPC10005.6',
+                        'productNumber' => 'SWDEMO10005.6',
                         'stock' => 50,
                         'options' => [
                             [
@@ -490,7 +470,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => 'c7bca22753c84d08b6178a50052b4146',
-                'productNumber' => 'QPC10007',
+                'productNumber' => 'SWDEMO10007',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 50,
@@ -503,12 +483,10 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Hauptprodukt mit Eigenschaften',
                     'en-GB' => 'Main product with properties',
-                    'pl-PL' => 'Produkt główny z właściwościami',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturerId' => '7f24e96676e944b0a0addc20d56728cb',
                 'media' => [
@@ -576,7 +554,7 @@ class ProductProvider extends DemoDataProvider
                 ],
                 'children' => [
                     [
-                        'productNumber' => 'QPC10007.1',
+                        'productNumber' => 'SWDEMO10007.1',
                         'stock' => 50,
                         'options' => [
                             [
@@ -585,7 +563,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'QPC10007.2',
+                        'productNumber' => 'SWDEMO10007.2',
                         'stock' => 50,
                         'options' => [
                             [
@@ -594,7 +572,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'QPC10007.3',
+                        'productNumber' => 'SWDEMO10007.3',
                         'stock' => 50,
                         'options' => [
                             [
@@ -603,7 +581,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'QPC10007.4',
+                        'productNumber' => 'SWDEMO10007.4',
                         'stock' => 50,
                         'options' => [
                             [

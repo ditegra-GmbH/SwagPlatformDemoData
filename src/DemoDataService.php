@@ -1,42 +1,33 @@
 <?php declare(strict_types=1);
-/*
- * (c) shopware AG <info@shopware.com>
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace Swag\PlatformDemoData;
 
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Shopware\Core\Framework\Api\Controller\SyncController;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\Write\Validation\RestrictDeleteViolationException;
-use Shopware\Core\Framework\Log\Package;
 use Shopware\Core\PlatformRequest;
 use Swag\PlatformDemoData\DataProvider\DemoDataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-#[Package('services-settings')]
 class DemoDataService
 {
     private SyncController $sync;
 
     /**
-     * @var iterable<DemoDataProvider>
+     * @var DemoDataProvider[]
      */
-    private iterable $demoDataProvider;
+    private array $demoDataProvider;
 
     private RequestStack $requestStack;
 
-    /**
-     * @param iterable<DemoDataProvider> $demoDataProvider
-     */
-    public function __construct(SyncController $sync, iterable $demoDataProvider, RequestStack $requestStack)
+    private string $env;
+
+    public function __construct(SyncController $sync, iterable $demoDataProvider, RequestStack $requestStack, string $env)
     {
         $this->sync = $sync;
-        $this->demoDataProvider = $demoDataProvider;
+        $this->demoDataProvider = \is_array($demoDataProvider) ? $demoDataProvider : \iterator_to_array($demoDataProvider);
         $this->requestStack = $requestStack;
+        $this->env = $env;
     }
 
     public function generate(Context $context): void
@@ -51,6 +42,11 @@ class DemoDataService
             ];
 
             $request = new Request([], [], [], [], [], [], \json_encode($payload, JSON_THROW_ON_ERROR));
+            // ignore deprecations in prod
+            if ($this->env !== 'prod') {
+                $request->headers->set(PlatformRequest::HEADER_IGNORE_DEPRECATIONS, 'true');
+            }
+            $request->headers->set(PlatformRequest::HEADER_FAIL_ON_ERROR, 'false');
 
             $this->requestStack->push($request);
             $response = $this->sync->sync($request, $context);
@@ -89,19 +85,20 @@ class DemoDataService
             ];
 
             $request = new Request([], [], [], [], [], [], \json_encode($payload, JSON_THROW_ON_ERROR));
+            // ignore deprecations in prod
+            if ($this->env !== 'prod') {
+                $request->headers->set(PlatformRequest::HEADER_IGNORE_DEPRECATIONS, 'true');
+            }
+            $request->headers->set(PlatformRequest::HEADER_FAIL_ON_ERROR, 'false');
 
-            try {
-                $this->requestStack->push($request);
-                $response = $this->sync->sync($request, $context);
-                $this->requestStack->pop();
+            $this->requestStack->push($request);
+            $response = $this->sync->sync($request, $context);
+            $this->requestStack->pop();
 
-                $result = \json_decode((string)$response->getContent(), true);
+            $result = \json_decode((string)$response->getContent(), true);
 
-                if ($response->getStatusCode() >= 400) {
-                    throw new \RuntimeException(\sprintf('Error deleting "%s": %s', $dataProvider->getEntity(), \print_r($result, true)));
-                }
-            } catch (RestrictDeleteViolationException|ForeignKeyConstraintViolationException) {
-                // ignore
+            if ($response->getStatusCode() >= 400) {
+                throw new \RuntimeException(\sprintf('Error deleting "%s": %s', $dataProvider->getEntity(), \print_r($result, true)));
             }
         }
     }

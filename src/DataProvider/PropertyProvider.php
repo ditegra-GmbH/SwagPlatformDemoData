@@ -1,18 +1,11 @@
 <?php declare(strict_types=1);
-/*
- * (c) shopware AG <info@shopware.com>
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace Swag\PlatformDemoData\DataProvider;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Content\Property\PropertyGroupDefinition;
-use Shopware\Core\Framework\Log\Package;
 use Swag\PlatformDemoData\Resources\helper\TranslationHelper;
 
-#[Package('services-settings')]
 class PropertyProvider extends DemoDataProvider
 {
     private TranslationHelper $translationHelper;
@@ -42,7 +35,6 @@ class PropertyProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Zielgruppe',
                     'en-GB' => 'Target group',
-                    'pl-PL' => 'Grupa docelowa',
                 ]),
                 'options' => [
                     [
@@ -50,7 +42,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Mann',
                             'en-GB' => 'Man',
-                            'pl-PL' => 'Mężczyzna',
                         ]),
                     ],
                     [
@@ -58,7 +49,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Frau',
                             'en-GB' => 'Woman',
-                            'pl-PL' => 'Kobieta',
                         ]),
                     ],
                     [
@@ -66,7 +56,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Kinder',
                             'en-GB' => 'Children',
-                            'pl-PL' => 'Dziecko',
                         ]),
                     ],
                 ],
@@ -78,7 +67,6 @@ class PropertyProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Farbe',
                     'en-GB' => 'Colour',
-                    'pl-PL' => 'Kolor',
                 ]),
                 'options' => [
                     [
@@ -87,7 +75,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Blau',
                             'en-GB' => 'Blue',
-                            'pl-PL' => 'Niebieski',
                         ]),
                     ],
                     [
@@ -96,7 +83,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Rot',
                             'en-GB' => 'Red',
-                            'pl-PL' => 'Czerwony',
                         ]),
                     ],
                     [
@@ -105,7 +91,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Weiß',
                             'en-GB' => 'White',
-                            'pl-PL' => 'Biały',
                         ]),
                     ],
                 ],
@@ -117,7 +102,6 @@ class PropertyProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Zutaten',
                     'en-GB' => 'Ingredients',
-                    'pl-PL' => 'Składniki',
                 ]),
                 'options' => [
                     [
@@ -125,7 +109,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Zucker',
                             'en-GB' => 'Sugar',
-                            'pl-PL' => 'Cukier',
                         ]),
                     ],
                     [
@@ -133,7 +116,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Fisch',
                             'en-GB' => 'Fish',
-                            'pl-PL' => 'Ryba',
                         ]),
                     ],
                     [
@@ -141,7 +123,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Weizen',
                             'en-GB' => 'Wheat',
-                            'pl-PL' => 'Pszenica',
                         ]),
                     ],
                     [
@@ -149,7 +130,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Salz',
                             'en-GB' => 'Salt',
-                            'pl-PL' => 'Sól',
                         ]),
                     ],
                     [
@@ -157,7 +137,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Milch',
                             'en-GB' => 'Milk',
-                            'pl-PL' => 'Mleko',
                         ]),
                     ],
                     [
@@ -165,7 +144,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Pfeffer',
                             'en-GB' => 'Pepper',
-                            'pl-PL' => 'Pieprz',
                         ]),
                     ],
                 ],
@@ -177,7 +155,6 @@ class PropertyProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Größe',
                     'en-GB' => 'Size',
-                    'pl-PL' => 'Rozmiar',
                 ]),
                 'options' => [
                     [
@@ -185,7 +162,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'S',
                             'en-GB' => 'S',
-                            'pl-PL' => 'S',
                         ]),
                     ],
                     [
@@ -193,7 +169,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'M',
                             'en-GB' => 'M',
-                            'pl-PL' => 'M',
                         ]),
                     ],
                     [
@@ -201,7 +176,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'L',
                             'en-GB' => 'L',
-                            'pl-PL' => 'L',
                         ]),
                     ],
                     [
@@ -209,7 +183,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'XL',
                             'en-GB' => 'XL',
-                            'pl-PL' => 'XL',
                         ]),
                     ],
                 ],
@@ -221,7 +194,6 @@ class PropertyProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Material',
                     'en-GB' => 'Material',
-                    'pl-PL' => 'Materiał',
                 ]),
                 'options' => [
                     [
@@ -229,7 +201,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Polyester',
                             'en-GB' => 'Polyester',
-                            'pl-PL' => 'Poliester',
                         ]),
                     ],
                     [
@@ -237,7 +208,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Baumwolle',
                             'en-GB' => 'Cotton',
-                            'pl-PL' => 'Bawełna',
                         ]),
                     ],
                     [
@@ -245,7 +215,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Seide',
                             'en-GB' => 'Silk',
-                            'pl-PL' => 'Jedwab',
                         ]),
                     ],
                     [
@@ -253,7 +222,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Edelstahl',
                             'en-GB' => 'Stainless steel',
-                            'pl-PL' => 'Stal nierdzewna',
                         ]),
                     ],
                     [
@@ -261,7 +229,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Leder',
                             'en-GB' => 'Leather',
-                            'pl-PL' => 'Skóra',
                         ]),
                     ],
                     [
@@ -269,7 +236,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Kunstoff',
                             'en-GB' => 'Plastic',
-                            'pl-PL' => 'Plastik',
                         ]),
                     ],
                     [
@@ -277,7 +243,6 @@ class PropertyProvider extends DemoDataProvider
                         'name' => $this->translationHelper->adjustTranslations([
                             'de-DE' => 'Nylon',
                             'en-GB' => 'Nylon',
-                            'pl-PL' => 'Nylon',
                         ]),
                     ],
                 ],
