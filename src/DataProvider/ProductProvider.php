@@ -224,8 +224,8 @@ class ProductProvider extends DemoDataProvider
                     ],
                 ],
                 'price' => [[
-                    'net' => 416.76,
-                    'gross' => 495.95,
+                    'net' => 168.06722,
+                    'gross' => 200,
                     'linked' => true,
                     'currencyId' => Defaults::CURRENCY,
                 ]],
