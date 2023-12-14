@@ -53,7 +53,7 @@ class ProductStreamProvider extends DemoDataProvider
             ],
             [
                 'id' => '40969639d0eb4aecba3321a8ba81ed1c',
-                'name' => 'TST100 - QPC10002',
+                'name' => 'TST110 - QPC10002',
                 'filters' => [
                     [
                         'type' => 'multi',
