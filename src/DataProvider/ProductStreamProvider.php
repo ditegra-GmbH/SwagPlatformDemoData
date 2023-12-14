@@ -3,7 +3,6 @@
 namespace Swag\PlatformDemoData\DataProvider;
 
 use Doctrine\DBAL\Connection;
-use Swag\PlatformDemoData\Resources\helper\TranslationHelper;
 
 class ProductStreamProvider extends DemoDataProvider
 {
@@ -29,7 +28,7 @@ class ProductStreamProvider extends DemoDataProvider
         return [
             [
                 'id' => 'dc6ea235320c4f40aeb28dcc16496a28',
-                'name' => 'TST100 - QPC10001',
+                'name' => 'Stream - QPC10001',
                 'filters' => [
                     [
                         'type' => 'multi',
@@ -38,14 +37,19 @@ class ProductStreamProvider extends DemoDataProvider
                             [
                                 'type'=> 'multi',
                                 'operator'=> 'AND',
-                                'position'=> 0,
                                 'queries'=> [
                                     [
-                                        'type'=> 'equals',
-                                        'field'=> 'id',
-                                        'value'=> '2a88d9b59d474c7e869d8071649be43c'
-                                    ]
-                                ]
+                                        'type'=> 'multi',
+                                        'operator'=> 'OR',
+                                        'queries'=> [
+                                            [
+                                                'type'=> 'equals',
+                                                'field'=> 'productNumber',
+                                                'value'=> 'QPC10001'
+                                            ]
+                                        ],                                        
+                                    ],
+                                ],                
                             ],
                         ],
                     ],
@@ -53,7 +57,7 @@ class ProductStreamProvider extends DemoDataProvider
             ],
             [
                 'id' => '40969639d0eb4aecba3321a8ba81ed1c',
-                'name' => 'TST110 - QPC10002',
+                'name' => 'Stream - QPC10002',
                 'filters' => [
                     [
                         'type' => 'multi',
@@ -62,14 +66,106 @@ class ProductStreamProvider extends DemoDataProvider
                             [
                                 'type'=> 'multi',
                                 'operator'=> 'AND',
-                                'position'=> 0,
                                 'queries'=> [
                                     [
-                                        'type'=> 'equals',
-                                        'field'=> 'id',
-                                        'value'=> '11dc680240b04f469ccba354cbf0b967'
-                                    ]
-                                ]
+                                        'type'=> 'multi',
+                                        'operator'=> 'OR',
+                                        'queries'=> [
+                                            [
+                                                'type'=> 'equals',
+                                                'field'=> 'productNumber',
+                                                'value'=> 'QPC10002'
+                                            ]
+                                        ],                                        
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'id' => '3e05412efab34da392ed8a541fd1a399',
+                'name' => 'Stream - QPC10005',
+                'filters' => [
+                    [
+                        'type' => 'multi',
+                        'operator' => 'OR',
+                        'queries' => [
+                            [
+                                'type'=> 'multi',
+                                'operator'=> 'AND',
+                                'queries'=> [
+                                    [
+                                        'type'=> 'multi',
+                                        'operator'=> 'OR',
+                                        'queries'=> [
+                                            [
+                                                'type'=> 'equals',
+                                                'field'=> 'id',
+                                                'value'=> '43a23e0c03bf4ceabc6055a2185faa87'
+                                            ]
+                                        ],                                        
+                                    ],
+                                ],                
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'id' => 'bd0630a8294b4477a28b3de9cd255927',
+                'name' => 'Stream - QPC10007',
+                'filters' => [
+                    [
+                        'type' => 'multi',
+                        'operator' => 'OR',
+                        'queries' => [
+                            [
+                                'type'=> 'multi',
+                                'operator'=> 'AND',
+                                'queries'=> [
+                                    [
+                                        'type'=> 'multi',
+                                        'operator'=> 'OR',
+                                        'queries'=> [
+                                            [
+                                                'type'=> 'equals',
+                                                'field'=> 'id',
+                                                'value'=> 'c7bca22753c84d08b6178a50052b4146'
+                                            ]
+                                        ],                                        
+                                    ],
+                                ],                
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'id' => 'baee1e435c8641ca820149b51bb2d68b',
+                'name' => 'Stream - QPC10008',
+                'filters' => [
+                    [
+                        'type' => 'multi',
+                        'operator' => 'OR',
+                        'queries' => [
+                            [
+                                'type'=> 'multi',
+                                'operator'=> 'AND',
+                                'queries'=> [
+                                    [
+                                        'type'=> 'multi',
+                                        'operator'=> 'OR',
+                                        'queries'=> [
+                                            [
+                                                'type'=> 'equals',
+                                                'field'=> 'id',
+                                                'value'=> '19dce90911c14b7892e25859ac7340bb'
+                                            ]
+                                        ],                                        
+                                    ],
+                                ],                
                             ],
                         ],
                     ],

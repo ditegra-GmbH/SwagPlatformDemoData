@@ -37,6 +37,25 @@ class ProductProvider extends DemoDataProvider
         $taxId = $this->getTaxId();
         $storefrontSalesChannel = $this->getStorefrontSalesChannel();
 
+        $TSTManufaturer120Id = '9d8c24bc552d455b8a3bf308d89721e2';
+        $TSTManufaturer130Id = '3ac2a3ad116c4576909ff1c9d2f5b233';
+        
+        $TSTManufaturer120 = [
+            'id' => $TSTManufaturer120Id,
+            'name' => $this->translationHelper->adjustTranslations([
+                'de-DE' => 'TST120 Hersteller',
+                'en-GB' => 'TST120 Manufaturer',
+            ]),
+        ];
+
+        $TSTManufaturer130 = [
+            'id' => $TSTManufaturer130Id,
+            'name' => $this->translationHelper->adjustTranslations([
+                'de-DE' => 'TST130 Hersteller',
+                'en-GB' => 'TST130 Manufaturer',
+            ]),
+        ];
+
         return [
             [
                 'id' => '11dc680240b04f469ccba354cbf0b967',
@@ -114,7 +133,7 @@ class ProductProvider extends DemoDataProvider
                 ],
                 'visibilities' => [
                     [
-                        'id' => '69cd1be4be004944b923ddbe571e96f5',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -168,7 +187,7 @@ class ProductProvider extends DemoDataProvider
                 ]],
                 'visibilities' => [
                     [
-                        'id' => '161494e90196481da9fd9a99e1462706',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -231,7 +250,7 @@ class ProductProvider extends DemoDataProvider
                 ]],
                 'visibilities' => [
                     [
-                        'id' => 'c835fb65b685416196fbae58a508b82a',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -249,6 +268,120 @@ class ProductProvider extends DemoDataProvider
                     [
                         'id' => 'dc6f98beeca44852beb078a9e8e21e7d',
                     ],
+                ],
+            ],
+            [
+                'id' => 'f46d0d4dde4c4f339f853ee3a256ecb6',
+                'productNumber' => 'QPC10003',
+                'active' => true,
+                'taxId' => $taxId,
+                'stock' => 10,
+                'purchaseUnit' => 1.0,
+                'referenceUnit' => 1.0,
+                'shippingFree' => false,
+                'purchasePrice' => 495.95,
+                'weight' => 0.17,
+                'releaseDate' => new \DateTimeImmutable(),
+                'displayInListing' => true,
+                'name' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => 'QPC Testprodukt einfach TST120',
+                    'en-GB' => 'QPC Testproduct simple TST120',
+                ]),
+                'description' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => self::LOREM_IPSUM,
+                    'en-GB' => self::LOREM_IPSUM,
+                ]),
+                'manufacturer' => $TSTManufaturer120,
+                'media' => [
+                    [
+                        'id' => 'f0e28db1195847dc9acb8eb016473e0c',
+                        'position' => 1,
+                        'mediaId' => '70e352200b5c45098dc65a5b47094a2a',
+                    ],
+                ],
+                'coverId' => 'f0e28db1195847dc9acb8eb016473e0c',
+                'categories' => [
+                    [
+                        'id' => '251448b91bc742de85643f5fccd89051',
+                    ],
+                ],
+                'price' => [[
+                    'net' => 84.03,
+                    'gross' => 100,
+                    'linked' => true,
+                    'currencyId' => Defaults::CURRENCY,
+                ]],
+                'visibilities' => [
+                    [
+                        'id' => Uuid::randomHex(),
+                        'salesChannelId' => $storefrontSalesChannel,
+                        'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
+                    ],
+                ],
+                'properties' => [
+                    [
+                        'id' => '6f9359239c994b48b7de282ee19a714d',
+                    ],
+                    [
+                        'id' => '78c53f3f6dd14eb4927978415bfb74db',
+                    ]
+                ],
+            ],
+            [
+                'id' => '0f6bc3b1566b4ad5b6df2642434f6a14',
+                'productNumber' => 'QPC10004',
+                'active' => true,
+                'taxId' => $taxId,
+                'stock' => 10,
+                'purchaseUnit' => 1.0,
+                'referenceUnit' => 1.0,
+                'shippingFree' => false,
+                'purchasePrice' => 495.95,
+                'weight' => 0.17,
+                'releaseDate' => new \DateTimeImmutable(),
+                'displayInListing' => true,
+                'name' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => 'QPC Testprodukt einfach TST130',
+                    'en-GB' => 'QPC Testproduct simple TST130',
+                ]),
+                'description' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => self::LOREM_IPSUM,
+                    'en-GB' => self::LOREM_IPSUM,
+                ]),
+                'manufacturer' => $TSTManufaturer130,
+                'media' => [
+                    [
+                        'id' => 'f0e28db1195847dc9acb8eb016473e0c',
+                        'position' => 1,
+                        'mediaId' => '70e352200b5c45098dc65a5b47094a2a',
+                    ],
+                ],
+                'coverId' => 'f0e28db1195847dc9acb8eb016473e0c',
+                'categories' => [
+                    [
+                        'id' => '251448b91bc742de85643f5fccd89051',
+                    ],
+                ],
+                'price' => [[
+                    'net' => 2065.3613445378,
+                    'gross' => 2457.78,
+                    'linked' => true,
+                    'currencyId' => Defaults::CURRENCY,
+                ]],
+                'visibilities' => [
+                    [
+                        'id' => Uuid::randomHex(),
+                        'salesChannelId' => $storefrontSalesChannel,
+                        'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
+                    ],
+                ],
+                'properties' => [
+                    [
+                        'id' => '6f9359239c994b48b7de282ee19a714d',
+                    ],
+                    [
+                        'id' => '78c53f3f6dd14eb4927978415bfb74db',
+                    ]
                 ],
             ],
             [
@@ -294,7 +427,7 @@ class ProductProvider extends DemoDataProvider
                 ]],
                 'visibilities' => [
                     [
-                        'id' => '055eac2f437c4e2c9a423c268f6b9ebb',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -354,7 +487,7 @@ class ProductProvider extends DemoDataProvider
                 ]],
                 'visibilities' => [
                     [
-                        'id' => '6c6041a1de0940378ab05ad4ca892745',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -510,7 +643,7 @@ class ProductProvider extends DemoDataProvider
                 ]],
                 'visibilities' => [
                     [
-                        'id' => '8aae932871634fe8a6f485da0d9df6cd',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -582,6 +715,175 @@ class ProductProvider extends DemoDataProvider
                     ],
                     [
                         'productNumber' => 'QPC10007.4',
+                        'stock' => 50,
+                        'options' => [
+                            [
+                                'id' => 'acfd7586d02848f1ac801f4776efa414',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'id' => '19dce90911c14b7892e25859ac7340bb',
+                'productNumber' => 'QPC10008',
+                'active' => true,
+                'taxId' => $taxId,
+                'stock' => 50,
+                'purchaseUnit' => 1.0,
+                'referenceUnit' => 1.0,
+                'shippingFree' => true,
+                'purchasePrice' => 19.99,
+                'releaseDate' => new \DateTimeImmutable(),
+                'displayInListing' => true,
+                'name' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => 'Hauptprodukt mit Eigenschaften und erweiterten preisen',
+                    'en-GB' => 'Main product with properties and advanced prices',
+                ]),
+                'description' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => self::LOREM_IPSUM,
+                    'en-GB' => self::LOREM_IPSUM,
+                ]),
+                'manufacturerId' => '7f24e96676e944b0a0addc20d56728cb',
+                'media' => [
+                    [
+                        'id' => '683c3a0a0c26464fb65332d1a9adf7e2',
+                        'position' => 1,
+                        'mediaId' => '5808d194947f415495d9782d8fdc92ae',
+                    ],
+                ],
+                'coverId' => '683c3a0a0c26464fb65332d1a9adf7e2',
+                'categories' => [
+                    [
+                        'id' => '2185182cbbd4462ea844abeb2a438b33',
+                    ],
+                ],
+                'price' => [[
+                    'net' => 16.799999999999997,
+                    'gross' => 19.99,
+                    'linked' => true,
+                    'currencyId' => Defaults::CURRENCY,
+                ]],
+                'prices' => [
+                    [
+                        'ruleId' => '28caae75a5624f0d985abd0eb32aa160',
+                        'price' => [[
+                            'net' => 20.16806722,
+                            'gross' => 24,
+                            'linked' => true,
+                            'currencyId' => Defaults::CURRENCY,
+                        ]],
+                        'quantityStart' => 1,
+                        'quantityEnd' => null,
+                    ],
+                    [
+                        'ruleId' => '98c5a46a1cea41f8a8aa39b4eb67a4b7',
+                        'price' => [[
+                            'net' => 0.747899159,
+                            'gross' => 0.89,
+                            'linked' => true,
+                            'currencyId' => Defaults::CURRENCY,
+                        ]],
+                        'quantityStart' => 31,
+                        'quantityEnd' => null,
+                    ],
+                    [
+                        'ruleId' => '98c5a46a1cea41f8a8aa39b4eb67a4b7',
+                        'price' => [[
+                            'net' => 1.336134453,
+                            'gross' => 1.59,
+                            'linked' => true,
+                            'currencyId' => Defaults::CURRENCY,
+                        ]],
+                        'quantityStart' => 12,
+                        'quantityEnd' => 30,
+                    ],
+                    [
+                        'ruleId' => '98c5a46a1cea41f8a8aa39b4eb67a4b7',
+                        'price' => [[
+                            'net' => 1.663865546,
+                            'gross' => 1.98,
+                            'linked' => true,
+                            'currencyId' => Defaults::CURRENCY,
+                        ]],
+                        'quantityStart' => 1,
+                        'quantityEnd' => 11,
+                    ],
+                ],
+                'visibilities' => [
+                    [
+                        'id' => Uuid::randomHex(),
+                        'salesChannelId' => $storefrontSalesChannel,
+                        'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
+                    ],
+                ],
+                'properties' => [
+                    [
+                        'id' => '41e5013b67d64d3a92b7a275da8af441',
+                    ],
+                    [
+                        'id' => '5193ffa5de8648a1bcfba1fa8a26c02b',
+                    ],
+                    [
+                        'id' => '54147692cbfb43419a6d11e26cad44dc',
+                    ],
+                    [
+                        'id' => '5997d91dc0784997bdef68dfc5a08912',
+                    ],
+                    [
+                        'id' => '78c53f3f6dd14eb4927978415bfb74db',
+                    ],
+                    [
+                        'id' => '96638a1c7ab847bbb3ca64167ab30a3e',
+                    ],
+                    [
+                        'id' => 'acfd7586d02848f1ac801f4776efa414',
+                    ],
+                ],
+                'configuratorSettings' => [
+                    [
+                        'optionId' => 'acfd7586d02848f1ac801f4776efa414',
+                    ],
+                    [
+                        'optionId' => '41e5013b67d64d3a92b7a275da8af441',
+                    ],
+                    [
+                        'optionId' => '5997d91dc0784997bdef68dfc5a08912',
+                    ],
+                    [
+                        'optionId' => '54147692cbfb43419a6d11e26cad44dc',
+                    ],
+                ],
+                'children' => [
+                    [
+                        'productNumber' => 'QPC10008.1',
+                        'stock' => 50,
+                        'options' => [
+                            [
+                                'id' => '41e5013b67d64d3a92b7a275da8af441',
+                            ],
+                        ],
+                    ],
+                    [
+                        'productNumber' => 'QPC10008.2',
+                        'stock' => 50,
+                        'options' => [
+                            [
+                                'id' => '54147692cbfb43419a6d11e26cad44dc',
+                            ],
+                        ],
+                    ],
+                    [
+                        'productNumber' => 'QPC10008.3',
+                        'stock' => 50,
+                        'options' => [
+                            [
+                                'id' => '5997d91dc0784997bdef68dfc5a08912',
+                            ],
+                        ],
+                    ],
+                    [
+                        'productNumber' => 'QPC10008.4',
                         'stock' => 50,
                         'options' => [
                             [
