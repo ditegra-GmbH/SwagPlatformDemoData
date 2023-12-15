@@ -23,7 +23,6 @@ use Shopware\Core\Framework\Uuid\Uuid;
 
 use Swag\PlatformDemoData\DataProvider\CategoryProvider;
 use Swag\PlatformDemoData\Resources\helper\AiTranslationHelper;
-use Swag\PlatformDemoData\AiDemoDataService;
 use Swag\PlatformDemoData\OpenAi\GeneratorOpenAi;
 
 
@@ -42,8 +41,6 @@ class AiCategoryProvider extends AiDemoDataProvider
 
     private GeneratorOpenAi $openAi;
 
-    private AiDemoDataService $aiDemoDataService;
-
     private bool $deleteFlag = false;
 
     private CategoryProvider $categoryProvider;
@@ -51,13 +48,13 @@ class AiCategoryProvider extends AiDemoDataProvider
     /**
      * @param EntityRepository<CategoryCollection> $categoryRepository
      */
-    public function __construct(EntityRepository $categoryRepository, Connection $connection, AiDemoDataService $aiDemoDataService, CategoryProvider $categoryProvider)
+    public function __construct(EntityRepository $categoryRepository, Connection $connection, CategoryProvider $categoryProvider)
     {
         $this->categoryRepository = $categoryRepository;
         $this->connection = $connection;
         $this->AiTranslationHelper = new AiTranslationHelper($connection);
-        $this->aiDemoDataService = $aiDemoDataService;
-        $this->categoryProvider = $categoryProvider;
+        // $this->demoDataServiceAiDecorator = $demoDataServiceAiDecorator;
+        $this->categoryProvider = $categoryProvider;//user decorating pattern to extend it
     }
 
     public function getAction(): string
@@ -112,11 +109,12 @@ class AiCategoryProvider extends AiDemoDataProvider
         $criteria = new Criteria();
         $categoryIdList = [];
         $index = 0;
-        
+
         $criteria->addFilter(new ContainsFilter('parentId', ''));
         $categorieEntitiyList = $this->categoryRepository->search($criteria, new Context(new SystemSource()))->getEntities();
 
-        foreach($categorieEntitiyList as $categoryEntity){
+        //TODO: Check if this approach works without bugs. Testing with Categories inside the main one.
+        foreach ($categorieEntitiyList as $categoryEntity) {
             $categoryIdList[$index] = $categoryEntity->getId();
             $index++;
         }

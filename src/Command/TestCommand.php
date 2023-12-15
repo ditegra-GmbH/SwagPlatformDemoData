@@ -10,7 +10,7 @@ namespace Swag\PlatformDemoData\Command;
 
 
 use Shopware\Core\Framework\Context;
-use Swag\PlatformDemoData\AiDemoDataService;
+use Swag\PlatformDemoData\DemoDataServiceAiDecorator;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,11 +23,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class TestCommand extends Command
 {
     private string $apiSecret;
-    private AiDemoDataService $aiDemoDataService;
+    private DemoDataServiceAiDecorator $demoDataServiceAiDecorator;
 
-    public function __construct(AiDemoDataService $aiDemoDataService) {
+    public function __construct(DemoDataServiceAiDecorator $demoDataServiceAiDecorator) {
     
-        $this->aiDemoDataService = $aiDemoDataService;
+        $this->demoDataServiceAiDecorator = $demoDataServiceAiDecorator;
         parent::__construct();
     }
 
@@ -39,10 +39,10 @@ class TestCommand extends Command
         $apiKey = $input->getOption('api-key');
 
         if($rm){
-            $this->aiDemoDataService->delete(Context::createDefaultContext());//ask if that is right
+            $this->demoDataServiceAiDecorator->delete(Context::createDefaultContext());//ask if that is right
         }
         if($mk){
-            $this->aiDemoDataService->generate(Context::createDefaultContext());//ask if that is right
+            $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());//ask if that is right
         }
         //TODO: access Service here! Add the Commandlineinterface Input here!
 
