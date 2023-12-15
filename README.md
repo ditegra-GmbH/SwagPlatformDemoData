@@ -9,6 +9,9 @@ Options:
       --rm               Remove generated Data
       --mk               Creates Data
 ```
+![DigaAIDDClassDiagramm](dev/DigaADD%20Class%20Diagram%20Decorationg.drawio.svg)
+
+
 ---
 ---
 
