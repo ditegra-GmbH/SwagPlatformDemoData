@@ -12,9 +12,11 @@ Options:
       --mk               Creates Data
 ```
 
+<div style="background-color: rgb(13, 17, 23)">
 
 ![DigaAIDDClassDiagramm](dev/DigaADD%20Class%20Diagram%20Decorationg.drawio.svg)
 
+</div>
 
 ---
 ---
