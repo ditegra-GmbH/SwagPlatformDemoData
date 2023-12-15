@@ -1,7 +1,9 @@
 # DigaAIDemoData
-Demo Data generation based ont Shopbranch
+Demo Data generation based on the SwagPlatformDemoData Plugin
 
-to try out the generation:<br>
+Right now, the Plugin uses a demo Data set from OpenAI to generate the Categories.
+
+To try out the generation:<br>
 `dataai:test`
 ```Ruby
 Options:
@@ -9,6 +11,8 @@ Options:
       --rm               Remove generated Data
       --mk               Creates Data
 ```
+
+
 ![DigaAIDDClassDiagramm](dev/DigaADD%20Class%20Diagram%20Decorationg.drawio.svg)
 
 
