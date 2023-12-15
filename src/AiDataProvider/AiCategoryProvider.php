@@ -77,7 +77,8 @@ class AiCategoryProvider extends AiDemoDataProvider
     {
         $cmsPageId = $this->categoryProvider->getDefaultCmsListingPageId();
 
-        $RootCategory = $this->createRootCategoryPayload(10, "Autohandel"); //CLI will set the values here.
+        $rootCategory = $this->createRootCategoryPayload(4, "Autohandel"); //CLI will set the values here.
+        //subCategory = $this->createSubCategoryPayload(4, $)
 
         return [
             [
@@ -92,14 +93,14 @@ class AiCategoryProvider extends AiDemoDataProvider
                     'en-GB' => 'Catalogue #1',
                     'pl-PL' => 'Katalog #1',
                 ]),
-                'children' => $RootCategory
+                'children' => $rootCategory
             ]
         ];
     }
 
     private function getCategoryIdOnIndex(int $index): string
     {
-        //TODO: When there is no ID, just skipp the deleton stepp
+        //TODO: When there is no ID, just skip the deletion step
         $categoryIdList = $this->getCategoryIdList();
         return $categoryIdList[$index];
     }
@@ -111,10 +112,10 @@ class AiCategoryProvider extends AiDemoDataProvider
         $index = 0;
 
         $criteria->addFilter(new ContainsFilter('parentId', ''));
-        $categorieEntitiyList = $this->categoryRepository->search($criteria, new Context(new SystemSource()))->getEntities();
+        $categoryEntityList = $this->categoryRepository->search($criteria, new Context(new SystemSource()))->getEntities();
 
         //TODO: Check if this approach works without bugs. Testing with Categories inside the main one.
-        foreach ($categorieEntitiyList as $categoryEntity) {
+        foreach ($categoryEntityList as $categoryEntity) {
             $categoryIdList[$index] = $categoryEntity->getId();
             $index++;
         }
@@ -125,8 +126,8 @@ class AiCategoryProvider extends AiDemoDataProvider
 
     private function createRootCategoryPayload(int $amount, string $ShopBranche): array
     {
-        $categoriesList = [];
-        $rootCategoriePayload = [];
+        $categoriesList = [];//TODO: make Attribute. Data needed for sub categories
+        $rootCategoryPayload = [];
         $this->openAi = new GeneratorOpenAi();
 
 
@@ -147,8 +148,8 @@ class AiCategoryProvider extends AiDemoDataProvider
             }
 
 
-            $rootCategoriePayload[$i] = [
-                'id' => $uuid, //TODO: Instand of just creating IDs, we have to keep track of them, we need them to reomve the demo data.
+            $rootCategoryPayload[$i] = [
+                'id' => $uuid, //TODO: Instand of just creating IDs, we have to keep track of them, we need them to remove the demo data.
                 'cmsPageId' => '695477e02ef643e5a016b83ed4cdf63a',
                 'active' => true,
                 'displayNestedProducts' => true,
@@ -159,6 +160,6 @@ class AiCategoryProvider extends AiDemoDataProvider
                 ])
             ];
         }
-        return $rootCategoriePayload;
+        return $rootCategoryPayload;
     }
 }

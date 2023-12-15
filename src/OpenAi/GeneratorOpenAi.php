@@ -61,7 +61,7 @@ class GeneratorOpenAi
 
   private function createDataAi(string $msg): array
   {
-    //TODO: $response needs typecheck
+    //TODO: $response needs type check
     $response = $this->openAi->completion([
       'model' => "text-davinci-003", //Deprecated. Will shutdown on January 2024
       'prompt' => $msg, //the question for the AI like hello or so
