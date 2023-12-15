@@ -84,22 +84,23 @@
 
         <service id="Swag\PlatformDemoData\AiDemoDataService" public="true">
             <argument type="service" id="Shopware\Core\Framework\Api\Controller\SyncController" />
-            <argument type="tagged" tag="swag.ai.demo_data.data_provider" />
+            <argument type="tagged" tag="swag.ai.demo_data.data_provider"/>
             <argument type="service" id="request_stack" />
         </service>
 
         <service id="Swag\PlatformDemoData\AiDataProvider\AiCmsPageProvider">
             <argument type="service" id="Doctrine\DBAL\Connection" />
 
-            <tag name="swag.ai.demo_data.data_provider" priority="1000" />
+            <tag name="swag.ai.demo_data.data_provider" priority="2000" />
         </service>
 
         <service id="Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider">
             <argument type="service" id="category.repository" />
             <argument type="service" id="Doctrine\DBAL\Connection" />
             <argument type="service" id="Swag\PlatformDemoData\AiDemoDataService"/>
+            <argument type="service" id="Swag\PlatformDemoData\DataProvider\CategoryProvider"/>
 
-            <tag name="swag.ai.demo_data.data_provider" priority="900" />
+            <tag name="swag.ai.demo_data.data_provider" priority="1900" />
         </service>
 
     </services>
