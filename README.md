@@ -7,14 +7,14 @@ To try out the generation:<br>
 `dataai:test`
 ```Ruby
 Options:
-      --api-key=API-KEY  Your seecret Open API key [default: "0"]
+      --api-key=API-KEY  Your secret Open API key [default: "0"]
       --rm               Remove generated Data
       --mk               Creates Data
 ```
 
 <div style="background-color: rgb(13, 17, 23)">
 
-![DigaAIDDClassDiagramm](dev/DigaADD%20Class%20Diagram%20Decorationg.drawio.svg)
+![DigaAIDDClassDiagram](dev/DigaADD%20Class%20Diagram%20Decorationg.drawio.svg)
 
 </div>
 
