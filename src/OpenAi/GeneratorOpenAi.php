@@ -13,7 +13,7 @@ class GeneratorOpenAi
 {
 
   private OpenAI $openAi;
-  private int $maxCategories = 10; //shuld use the Config later
+  private int $maxCategories = 10; //should use the Config later
 
   //TODO: REMOVE DEMO DATA
   private string $exampleResponse = '{
@@ -41,7 +41,7 @@ class GeneratorOpenAi
 
   public function __construct()
   {
-    $this->openAi = new OpenAi("seecret"); //Test API-Key from Configs
+    $this->openAi = new OpenAi("secret"); //Test API-Key from Configs
   }
 
   public function generateCategories(int $amount, string $branche): array
@@ -63,19 +63,19 @@ class GeneratorOpenAi
   {
     //TODO: $response needs typecheck
     $response = $this->openAi->completion([
-      'model' => "text-davinci-003", //Deprecatedt. Will shutdown on Junaray 2024
-      'prompt' => $msg, //the quastion for the AI like hello or so
-      'temperature' => 0.2, //0 means 100% predictablilty same answare every time on the same question.
-      'max_tokens' => 200, //how many "Words" the answare and quastinen has. I limit the tokens to about 200, the Question takes about 70 Tokens to prozess.
-      'top_p' => 0.1, //diversity of answars
+      'model' => "text-davinci-003", //Deprecated. Will shutdown on January 2024
+      'prompt' => $msg, //the question for the AI like hello or so
+      'temperature' => 0.2, //0 means 100% predictability same answer every time on the same question.
+      'max_tokens' => 200, //how many "Words" the answer and question has. I limit the tokens to about 200, the Question takes about 70 Tokens to process.
+      'top_p' => 0.1, //diversity of answers
       'frequency_penalty' => 0.0,
       'presence_penalty' => 0.0,
     ]);
 
-    //TODO: the AI somtetimes crates a list. I have to finde a way to check if this is a list. "Thrgh line checks?"
+    //TODO: the AI sometimes crates a list. I have to find a way to check if this is a list. "Thru line checks?"
     // $responseObj = json_decode($response, true);
      $responseObj = json_decode($this->exampleResponse, true);
-    // $responseObj = '{}'; //when te respons is an empty json
+    // $responseObj = '{}'; //when te respond is an empty json
 
 
     //when the response body dose not have any of the keyword go to the end and say that there is something wrong
@@ -86,11 +86,11 @@ class GeneratorOpenAi
     }
     if (isset($responseObj['choices'][0]['message']['content'])) {
 
-      $ai_dataClumb = (string) $responseObj['choices'][0]['message']['content'];
+      $ai_dataLump = (string) $responseObj['choices'][0]['message']['content'];
 
-      //TODO: Implement array conversion and error handeling
-      $ai_dataClumb =  preg_replace('/\s+/', '', $ai_dataClumb); //removes whitespace
-      $ai_data = explode(';', $ai_dataClumb);
+      //TODO: Implement array conversion and error handling
+      $ai_dataLump =  preg_replace('/\s+/', '', $ai_dataLump); //removes whitespace
+      $ai_data = explode(';', $ai_dataLump);
       return $ai_data;
     }
     throw new Exception("Unexpected response body of AI request. Please check the response JSON for \"choices\",\"error\": \n" . $responseObj);

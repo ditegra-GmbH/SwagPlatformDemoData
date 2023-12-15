@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-//How to creat a command
+//How to create a command
 //https://symfony.com/doc/current/console.html#creating-a-command
 //https://developer.shopware.com/docs/guides/plugins/plugins/plugin-fundamentals/add-custom-commands.html
 
@@ -22,7 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'dataai:test')]
 class TestCommand extends Command
 {
-    private string $apiSeecret;
+    private string $apiSecret;
     private AiDemoDataService $aiDemoDataService;
 
     public function __construct(AiDemoDataService $aiDemoDataService) {
@@ -44,7 +44,7 @@ class TestCommand extends Command
         if($mk){
             $this->aiDemoDataService->generate(Context::createDefaultContext());//ask if that is right
         }
-        //TODO: acces Service here! Add the Commandline Input here!
+        //TODO: access Service here! Add the Commandlineinterface Input here!
 
         // $this->openAi = new GeneratorOpenAi();
         // $categories = $this->openAi->generateCategories((int)"100" , "Autos");//Uses local test data for now
@@ -68,7 +68,7 @@ class TestCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption('api-key',null,InputOption::VALUE_REQUIRED, 'Your seecret Open API key','0')
+            ->addOption('api-key',null,InputOption::VALUE_REQUIRED, 'Your secrete Open API key','0')
             ->addOption('rm',null,InputOption::VALUE_NONE, 'Remove generated Data')
             ->addOption('mk',null,InputOption::VALUE_NONE, 'Creates Data');
 
