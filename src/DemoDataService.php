@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 /*
  * (c) shopware AG <info@shopware.com>
  * For the full copyright and license information, please view the LICENSE
@@ -9,7 +7,6 @@ declare(strict_types=1);
 
 namespace Swag\PlatformDemoData;
 
-use Bezhanov\Faker\Provider\Demographic;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Shopware\Core\Framework\Api\Controller\SyncController;
 use Shopware\Core\Framework\Context;
@@ -21,9 +18,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 #[Package('services-settings')]
-class DemoDataService 
+class DemoDataService
 {
-
     private SyncController $sync;
 
     /**
@@ -55,6 +51,7 @@ class DemoDataService
             ];
 
             $request = new Request([], [], [], [], [], [], \json_encode($payload, JSON_THROW_ON_ERROR));
+
             $this->requestStack->push($request);
             $response = $this->sync->sync($request, $context);
             $this->requestStack->pop();
@@ -90,6 +87,7 @@ class DemoDataService
                     'payload' => $payloadsIds,
                 ],
             ];
+
             $request = new Request([], [], [], [], [], [], \json_encode($payload, JSON_THROW_ON_ERROR));
 
             try {
@@ -102,7 +100,7 @@ class DemoDataService
                 if ($response->getStatusCode() >= 400) {
                     throw new \RuntimeException(\sprintf('Error deleting "%s": %s', $dataProvider->getEntity(), \print_r($result, true)));
                 }
-            } catch (RestrictDeleteViolationException | ForeignKeyConstraintViolationException) {
+            } catch (RestrictDeleteViolationException|ForeignKeyConstraintViolationException) {
                 // ignore
             }
         }

@@ -30,7 +30,7 @@ class SwagPlatformDemoData extends Plugin
             $this->container->get(DemoDataService::class)->generate($activateContext->getContext());
             
         }else{
-            echo "\n\n ___generating demo data with AI___ \n\n"; //TODO: can be removed
+            echo "\n\n ___generating demo data with AI___ \n\n";
         }
     }
 
