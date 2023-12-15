@@ -17,8 +17,6 @@ class AiCmsPageProvider extends AiDemoDataProvider
 {
     private AiTranslationHelper $AiTranslationHelper;
 
-    private bool $deletFlag = false;
-
     public function __construct(Connection $connection)
     {
         $this->AiTranslationHelper = new AiTranslationHelper($connection);
@@ -34,11 +32,9 @@ class AiCmsPageProvider extends AiDemoDataProvider
         return 'cms_page';
     }
 
-    public function setDeleteFlag(bool $isMarked): void
-    {
-        $this->deletFlag = $isMarked;   
-    }
+    public function setDeleteFlag(bool $isMarked): void{}
 
+    
     public function getPayload(): array
     {
         return [
