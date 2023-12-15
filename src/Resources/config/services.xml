@@ -66,7 +66,7 @@
 
         <!--CLI_Commands-->
         <service id="Swag\PlatformDemoData\Command\TestCommand">
-            <argument type="service" id="Swag\PlatformDemoData\AiDemoDataService"/>
+            <argument type="service" id="Swag\PlatformDemoData\DemoDataServiceAiDecorator"/>
             <tag name="console.command" />
         </service>
 
@@ -82,11 +82,12 @@
         </service>
         -->
 
-        <service id="Swag\PlatformDemoData\AiDemoDataService" public="true">
+        <service id="Swag\PlatformDemoData\DemoDataServiceAiDecorator" decorates="Swag\PlatformDemoData\DemoDataService" public="true">
             <argument type="service" id="Shopware\Core\Framework\Api\Controller\SyncController" />
             <argument type="tagged" tag="swag.ai.demo_data.data_provider"/>
             <argument type="service" id="request_stack" />
         </service>
+
 
         <service id="Swag\PlatformDemoData\AiDataProvider\AiCmsPageProvider">
             <argument type="service" id="Doctrine\DBAL\Connection" />
@@ -94,11 +95,10 @@
             <tag name="swag.ai.demo_data.data_provider" priority="2000" />
         </service>
 
-        <service id="Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider">
+        <service id="Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider" decorates="Swag\PlatformDemoData\DataProvider\CategoryProvider">
             <argument type="service" id="category.repository" />
             <argument type="service" id="Doctrine\DBAL\Connection" />
-            <argument type="service" id="Swag\PlatformDemoData\AiDemoDataService"/>
-            <argument type="service" id="Swag\PlatformDemoData\DataProvider\CategoryProvider"/>
+            <argument type="service" id="Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider.inner"/>
 
             <tag name="swag.ai.demo_data.data_provider" priority="1900" />
         </service>

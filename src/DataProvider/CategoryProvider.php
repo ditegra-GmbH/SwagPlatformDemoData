@@ -186,7 +186,7 @@ class CategoryProvider extends DemoDataProvider
         ];
     }
 
-    private function getRootCategoryId(): string
+    public function getRootCategoryId(): string
     {
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('parentId', null));
@@ -200,7 +200,7 @@ class CategoryProvider extends DemoDataProvider
         return $rootCategory->getId();
     }
 
-    private function getDefaultCmsListingPageId(): string
+    public function getDefaultCmsListingPageId(): string
     {
         $id = $this->getCmsPageIdByName('Default listing layout');
 
@@ -218,7 +218,7 @@ class CategoryProvider extends DemoDataProvider
         throw new \RuntimeException('Default Cms Listing page not found');
     }
 
-    private function getCmsPageIdByName(string $name): ?string
+    public function getCmsPageIdByName(string $name): ?string
     {
         $id = $this->connection->fetchOne(
             '
