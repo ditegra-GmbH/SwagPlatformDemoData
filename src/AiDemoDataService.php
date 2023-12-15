@@ -17,8 +17,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\Write\Validation\RestrictDelete
 use Shopware\Core\Framework\Log\Package;
 use Shopware\Core\PlatformRequest;
 use Swag\PlatformDemoData\AiDataProvider\AiDemoDataProvider;
+use Swag\PlatformDemoData\DemoDataService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+
 
 #[Package('services-settings')]
 class AiDemoDataService extends DemoDataService
@@ -33,87 +35,30 @@ class AiDemoDataService extends DemoDataService
 
     private RequestStack $requestStack;
 
+    private DemoDataService $demoDataService;
+
     /**
      * @param iterable<AiDemoDataProvider> $demoDataProvider
      */
-
-  
 
     public function __construct(SyncController $sync, iterable $demoDataProvider, RequestStack $requestStack)
     {
         $this->sync = $sync;
         $this->demoDataProvider = $demoDataProvider;
         $this->requestStack = $requestStack;
+        $this->demoDataService = new DemoDataService($sync,$demoDataProvider,$requestStack);
     }
 
-    //TODO: Overide or not?
-    //TODO: startpoint of the AI generated data. Values like How many and Branche shuld be set by the CLI
-    public function generate(Context $context): void
-    {
-        foreach ($this->demoDataProvider as $dataProvider) {
-            $payload = [
-                [
-                    'action' => $dataProvider->getAction(),
-                    'entity' => $dataProvider->getEntity(),
-                    'payload' => $dataProvider->getPayload(),
-                ],
-            ];
 
-            $request = new Request([], [], [], [], [], [], \json_encode($payload, JSON_THROW_ON_ERROR));
-
-            $this->requestStack->push($request);
-            $response = $this->sync->sync($request, $context);
-            $this->requestStack->pop();
-
-            $result = \json_decode((string) $response->getContent(), true);
-
-            if ($response->getStatusCode() >= 400) {
-                throw new \RuntimeException(\sprintf('Error importing "%s": %s', $dataProvider->getEntity(), \print_r($result, true)));
-            }
-            //print_r($payload); //DEBUG
-            $dataProvider->finalize($context);
-        }
+    // Overrides the original function and uses the AIDemoDataProvider instead.
+    public function generate(Context $context):void{
+        $this->demoDataService->generate($context);
     }
 
-    public function delete(Context $context): void
-    {
+    public function delete(Context $context):void{
         foreach ($this->demoDataProvider as $dataProvider) {
             $dataProvider->setDeleteFlag(true);
-            $payloadsIds = [];
-            foreach ($dataProvider->getPayload() as $entry) {
-                if ($dataProvider->getEntity() === 'category' && isset($entry['children'])) {
-                    foreach ($entry['children'] as $child) {
-                        $payloadsIds[] = ['id' => $child['id']];
-                    }
-                } else {
-                    $payloadsIds[] = ['id' => $entry['id']];
-                }
-            }
-
-            
-            $payload = [
-                [
-                    'action' => 'delete',
-                    'entity' => $dataProvider->getEntity(),
-                    'payload' => $payloadsIds,
-                ],
-            ];
-
-            $request = new Request([], [], [], [], [], [], \json_encode($payload, JSON_THROW_ON_ERROR));
-
-            try {
-                $this->requestStack->push($request);
-                $response = $this->sync->sync($request, $context);
-                $this->requestStack->pop();
-
-                $result = \json_decode((string)$response->getContent(), true);
-
-                if ($response->getStatusCode() >= 400) {
-                    throw new \RuntimeException(\sprintf('Error deleting "%s": %s', $dataProvider->getEntity(), \print_r($result, true)));
-                }
-            } catch (RestrictDeleteViolationException | ForeignKeyConstraintViolationException) {
-                // ignore
-            }
         }
+        $this->demoDataService->delete($context);
     }
 }
