@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 
 #[Package('services-settings')]
-class AiDemoDataService extends DemoDataService
+class DemoDataServiceAiDecorator extends DemoDataService
 {
 
     private SyncController $sync;
@@ -35,7 +35,8 @@ class AiDemoDataService extends DemoDataService
 
     private RequestStack $requestStack;
 
-    private DemoDataService $demoDataService;
+    // private DemoDataService $demoDataService;
+    private DemoDataService $innerDemoDataService;
 
     /**
      * @param iterable<AiDemoDataProvider> $demoDataProvider
@@ -46,19 +47,19 @@ class AiDemoDataService extends DemoDataService
         $this->sync = $sync;
         $this->demoDataProvider = $demoDataProvider;
         $this->requestStack = $requestStack;
-        $this->demoDataService = new DemoDataService($sync,$demoDataProvider,$requestStack);
+        //$this->demoDataService = new DemoDataService($sync,$demoDataProvider,$requestStack);
+        $this->innerDemoDataService = new DemoDataService($sync, $demoDataProvider, $requestStack);
     }
-
 
     // Overrides the original function and uses the AIDemoDataProvider instead.
     public function generate(Context $context):void{
-        $this->demoDataService->generate($context);
+        $this->innerDemoDataService->generate($context);
     }
 
     public function delete(Context $context):void{
         foreach ($this->demoDataProvider as $dataProvider) {
             $dataProvider->setDeleteFlag(true);
         }
-        $this->demoDataService->delete($context);
+        $this->innerDemoDataService->delete($context);
     }
 }
