@@ -44,10 +44,29 @@ class ProductProvider extends DemoDataProvider
         $taxId = $this->getTaxId();
         $storefrontSalesChannel = $this->getStorefrontSalesChannel();
 
+        $TSTManufaturer120Id = '9d8c24bc552d455b8a3bf308d89721e2';
+        $TSTManufaturer130Id = '3ac2a3ad116c4576909ff1c9d2f5b233';
+        
+        $TSTManufaturer120 = [
+            'id' => $TSTManufaturer120Id,
+            'name' => $this->translationHelper->adjustTranslations([
+                'de-DE' => 'TST120 Hersteller',
+                'en-GB' => 'TST120 Manufaturer',
+            ]),
+        ];
+
+        $TSTManufaturer130 = [
+            'id' => $TSTManufaturer130Id,
+            'name' => $this->translationHelper->adjustTranslations([
+                'de-DE' => 'TST130 Hersteller',
+                'en-GB' => 'TST130 Manufaturer',
+            ]),
+        ];
+
         return [
             [
                 'id' => '11dc680240b04f469ccba354cbf0b967',
-                'productNumber' => 'SWDEMO10002',
+                'productNumber' => 'QPC10002',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 10,
@@ -64,19 +83,16 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Hauptprodukt mit erweiterten Preisen',
                     'en-GB' => 'Main product with advanced prices',
-                    'pl-PL' => 'Produkt główny z zaawansowanymi cenami',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturer' => [
                     'id' => 'cc1c20c365d34cfb88bfab3c3e81d350',
                     'name' => $this->translationHelper->adjustTranslations([
                         'de-DE' => 'Shopware Freizeit',
                         'en-GB' => 'Shopware Freetime',
-                        'pl-PL' => 'Shopware Wypoczynek',
                     ]),
                 ],
                 'media' => [
@@ -124,7 +140,7 @@ class ProductProvider extends DemoDataProvider
                 ],
                 'visibilities' => [
                     [
-                        'id' => '69cd1be4be004944b923ddbe571e96f5',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -132,7 +148,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '1901dc5e888f4b1ea4168c2c5f005540',
-                'productNumber' => 'SWDEMO100013',
+                'productNumber' => 'QPC100013',
                 'active' => false,
                 'taxId' => $taxId,
                 'stock' => 40,
@@ -145,19 +161,16 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Hauptprodukt mit Bewertungen',
                     'en-GB' => 'Main product with reviews',
-                    'pl-PL' => 'Produkt główny z opiniami',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturer' => [
                     'id' => '2326d67406134c88bcf80e52d9d2ecb7',
                     'name' => $this->translationHelper->adjustTranslations([
                         'de-DE' => 'Shopware Lebensmittel',
                         'en-GB' => 'Shopware Food',
-                        'pl-PL' => 'Shopware Jedzenie',
                     ]),
                 ],
                 'media' => [
@@ -181,7 +194,7 @@ class ProductProvider extends DemoDataProvider
                 ]],
                 'visibilities' => [
                     [
-                        'id' => '161494e90196481da9fd9a99e1462706',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -197,7 +210,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '2a88d9b59d474c7e869d8071649be43c',
-                'productNumber' => 'SWDEMO10001',
+                'productNumber' => 'QPC10001',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 10,
@@ -211,19 +224,16 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Hauptartikel',
                     'en-GB' => 'Main product',
-                    'pl-PL' => 'Produkt główny',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturer' => [
                     'id' => '7f24e96676e944b0a0addc20d56728cb',
                     'name' => $this->translationHelper->adjustTranslations([
                         'de-DE' => 'Shopware Kleidung',
                         'en-GB' => 'Shopware Fashion',
-                        'pl-PL' => 'Shopware Moda',
                     ]),
                 ],
                 'media' => [
@@ -240,14 +250,14 @@ class ProductProvider extends DemoDataProvider
                     ],
                 ],
                 'price' => [[
-                    'net' => 416.76,
-                    'gross' => 495.95,
+                    'net' => 168.06722,
+                    'gross' => 200,
                     'linked' => true,
                     'currencyId' => Defaults::CURRENCY,
                 ]],
                 'visibilities' => [
                     [
-                        'id' => 'c835fb65b685416196fbae58a508b82a',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -268,8 +278,122 @@ class ProductProvider extends DemoDataProvider
                 ],
             ],
             [
+                'id' => 'f46d0d4dde4c4f339f853ee3a256ecb6',
+                'productNumber' => 'QPC10003',
+                'active' => true,
+                'taxId' => $taxId,
+                'stock' => 10,
+                'purchaseUnit' => 1.0,
+                'referenceUnit' => 1.0,
+                'shippingFree' => false,
+                'purchasePrice' => 495.95,
+                'weight' => 0.17,
+                'releaseDate' => new \DateTimeImmutable(),
+                'displayInListing' => true,
+                'name' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => 'QPC Testprodukt einfach TST120',
+                    'en-GB' => 'QPC Testproduct simple TST120',
+                ]),
+                'description' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => self::LOREM_IPSUM,
+                    'en-GB' => self::LOREM_IPSUM,
+                ]),
+                'manufacturer' => $TSTManufaturer120,
+                'media' => [
+                    [
+                        'id' => 'f0e28db1195847dc9acb8eb016473e0c',
+                        'position' => 1,
+                        'mediaId' => '70e352200b5c45098dc65a5b47094a2a',
+                    ],
+                ],
+                'coverId' => 'f0e28db1195847dc9acb8eb016473e0c',
+                'categories' => [
+                    [
+                        'id' => '251448b91bc742de85643f5fccd89051',
+                    ],
+                ],
+                'price' => [[
+                    'net' => 84.03,
+                    'gross' => 100,
+                    'linked' => true,
+                    'currencyId' => Defaults::CURRENCY,
+                ]],
+                'visibilities' => [
+                    [
+                        'id' => Uuid::randomHex(),
+                        'salesChannelId' => $storefrontSalesChannel,
+                        'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
+                    ],
+                ],
+                'properties' => [
+                    [
+                        'id' => '6f9359239c994b48b7de282ee19a714d',
+                    ],
+                    [
+                        'id' => '78c53f3f6dd14eb4927978415bfb74db',
+                    ]
+                ],
+            ],
+            [
+                'id' => '0f6bc3b1566b4ad5b6df2642434f6a14',
+                'productNumber' => 'QPC10004',
+                'active' => true,
+                'taxId' => $taxId,
+                'stock' => 10,
+                'purchaseUnit' => 1.0,
+                'referenceUnit' => 1.0,
+                'shippingFree' => false,
+                'purchasePrice' => 495.95,
+                'weight' => 0.17,
+                'releaseDate' => new \DateTimeImmutable(),
+                'displayInListing' => true,
+                'name' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => 'QPC Testprodukt einfach TST130',
+                    'en-GB' => 'QPC Testproduct simple TST130',
+                ]),
+                'description' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => self::LOREM_IPSUM,
+                    'en-GB' => self::LOREM_IPSUM,
+                ]),
+                'manufacturer' => $TSTManufaturer130,
+                'media' => [
+                    [
+                        'id' => 'f0e28db1195847dc9acb8eb016473e0c',
+                        'position' => 1,
+                        'mediaId' => '70e352200b5c45098dc65a5b47094a2a',
+                    ],
+                ],
+                'coverId' => 'f0e28db1195847dc9acb8eb016473e0c',
+                'categories' => [
+                    [
+                        'id' => '251448b91bc742de85643f5fccd89051',
+                    ],
+                ],
+                'price' => [[
+                    'net' => 2065.3613445378,
+                    'gross' => 2457.78,
+                    'linked' => true,
+                    'currencyId' => Defaults::CURRENCY,
+                ]],
+                'visibilities' => [
+                    [
+                        'id' => Uuid::randomHex(),
+                        'salesChannelId' => $storefrontSalesChannel,
+                        'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
+                    ],
+                ],
+                'properties' => [
+                    [
+                        'id' => '6f9359239c994b48b7de282ee19a714d',
+                    ],
+                    [
+                        'id' => '78c53f3f6dd14eb4927978415bfb74db',
+                    ]
+                ],
+            ],
+            [
                 'id' => '3ac014f329884b57a2cce5a29f34779c',
-                'productNumber' => 'SWDEMO10006',
+                'productNumber' => 'QPC10006',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 50,
@@ -283,12 +407,10 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Hauptprodukt, versandkostenfrei mit Hervorhebung',
                     'en-GB' => 'Main product, free shipping with highlighting',
-                    'pl-PL' => 'Produkt główny, darmowa wysyłka z wyróżnieniem',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturerId' => 'cc1c20c365d34cfb88bfab3c3e81d350',
                 'media' => [
@@ -312,7 +434,7 @@ class ProductProvider extends DemoDataProvider
                 ]],
                 'visibilities' => [
                     [
-                        'id' => '055eac2f437c4e2c9a423c268f6b9ebb',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -331,7 +453,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => '43a23e0c03bf4ceabc6055a2185faa87',
-                'productNumber' => 'SWDEMO10005',
+                'productNumber' => 'QPC10005',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 50,
@@ -345,12 +467,10 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Variantenprodukt',
                     'en-GB' => 'Variant product',
-                    'pl-PL' => 'Warianty produktu',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturerId' => '7f24e96676e944b0a0addc20d56728cb',
                 'media' => [
@@ -374,7 +494,7 @@ class ProductProvider extends DemoDataProvider
                 ]],
                 'visibilities' => [
                     [
-                        'id' => '6c6041a1de0940378ab05ad4ca892745',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -415,7 +535,7 @@ class ProductProvider extends DemoDataProvider
                 ],
                 'children' => [
                     [
-                        'productNumber' => 'SWDEMO10005.1',
+                        'productNumber' => 'QPC10005.1',
                         'stock' => 50,
                         'options' => [
                             [
@@ -427,7 +547,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10005.2',
+                        'productNumber' => 'QPC10005.2',
                         'stock' => 50,
                         'options' => [
                             [
@@ -439,7 +559,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10005.3',
+                        'productNumber' => 'QPC10005.3',
                         'stock' => 50,
                         'options' => [
                             [
@@ -451,7 +571,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10005.4',
+                        'productNumber' => 'QPC10005.4',
                         'stock' => 50,
                         'options' => [
                             [
@@ -463,7 +583,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10005.5',
+                        'productNumber' => 'QPC10005.5',
                         'stock' => 50,
                         'options' => [
                             [
@@ -475,7 +595,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10005.6',
+                        'productNumber' => 'QPC10005.6',
                         'stock' => 50,
                         'options' => [
                             [
@@ -490,7 +610,7 @@ class ProductProvider extends DemoDataProvider
             ],
             [
                 'id' => 'c7bca22753c84d08b6178a50052b4146',
-                'productNumber' => 'SWDEMO10007',
+                'productNumber' => 'QPC10007',
                 'active' => true,
                 'taxId' => $taxId,
                 'stock' => 50,
@@ -503,12 +623,10 @@ class ProductProvider extends DemoDataProvider
                 'name' => $this->translationHelper->adjustTranslations([
                     'de-DE' => 'Hauptprodukt mit Eigenschaften',
                     'en-GB' => 'Main product with properties',
-                    'pl-PL' => 'Produkt główny z właściwościami',
                 ]),
                 'description' => $this->translationHelper->adjustTranslations([
                     'de-DE' => self::LOREM_IPSUM,
                     'en-GB' => self::LOREM_IPSUM,
-                    'pl-PL' => self::LOREM_IPSUM,
                 ]),
                 'manufacturerId' => '7f24e96676e944b0a0addc20d56728cb',
                 'media' => [
@@ -532,7 +650,7 @@ class ProductProvider extends DemoDataProvider
                 ]],
                 'visibilities' => [
                     [
-                        'id' => '8aae932871634fe8a6f485da0d9df6cd',
+                        'id' => Uuid::randomHex(),
                         'salesChannelId' => $storefrontSalesChannel,
                         'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
                     ],
@@ -576,7 +694,7 @@ class ProductProvider extends DemoDataProvider
                 ],
                 'children' => [
                     [
-                        'productNumber' => 'SWDEMO10007.1',
+                        'productNumber' => 'QPC10007.1',
                         'stock' => 50,
                         'options' => [
                             [
@@ -585,7 +703,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10007.2',
+                        'productNumber' => 'QPC10007.2',
                         'stock' => 50,
                         'options' => [
                             [
@@ -594,7 +712,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10007.3',
+                        'productNumber' => 'QPC10007.3',
                         'stock' => 50,
                         'options' => [
                             [
@@ -603,7 +721,7 @@ class ProductProvider extends DemoDataProvider
                         ],
                     ],
                     [
-                        'productNumber' => 'SWDEMO10007.4',
+                        'productNumber' => 'QPC10007.4',
                         'stock' => 50,
                         'options' => [
                             [
@@ -611,6 +729,238 @@ class ProductProvider extends DemoDataProvider
                             ],
                         ],
                     ],
+                ],
+            ],
+            [
+                'id' => '19dce90911c14b7892e25859ac7340bb',
+                'productNumber' => 'QPC10008',
+                'active' => true,
+                'taxId' => $taxId,
+                'stock' => 50,
+                'purchaseUnit' => 1.0,
+                'referenceUnit' => 1.0,
+                'shippingFree' => true,
+                'purchasePrice' => 19.99,
+                'releaseDate' => new \DateTimeImmutable(),
+                'displayInListing' => true,
+                'name' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => 'Hauptprodukt mit Eigenschaften und erweiterten preisen',
+                    'en-GB' => 'Main product with properties and advanced prices',
+                ]),
+                'description' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => self::LOREM_IPSUM,
+                    'en-GB' => self::LOREM_IPSUM,
+                ]),
+                'manufacturerId' => '7f24e96676e944b0a0addc20d56728cb',
+                'media' => [
+                    [
+                        'id' => '683c3a0a0c26464fb65332d1a9adf7e2',
+                        'position' => 1,
+                        'mediaId' => '5808d194947f415495d9782d8fdc92ae',
+                    ],
+                ],
+                'coverId' => '683c3a0a0c26464fb65332d1a9adf7e2',
+                'categories' => [
+                    [
+                        'id' => '2185182cbbd4462ea844abeb2a438b33',
+                    ],
+                ],
+                'price' => [[
+                    'net' => 16.799999999999997,
+                    'gross' => 19.99,
+                    'linked' => true,
+                    'currencyId' => Defaults::CURRENCY,
+                ]],
+                'prices' => [
+                    [
+                        'ruleId' => '28caae75a5624f0d985abd0eb32aa160',
+                        'price' => [[
+                            'net' => 20.16806722,
+                            'gross' => 24,
+                            'linked' => true,
+                            'currencyId' => Defaults::CURRENCY,
+                        ]],
+                        'quantityStart' => 1,
+                        'quantityEnd' => null,
+                    ],
+                    [
+                        'ruleId' => '018c2470bfca719c978c7ee92fa0de7d',
+                        'price' => [[
+                            'net' => 0.747899159,
+                            'gross' => 0.89,
+                            'linked' => true,
+                            'currencyId' => Defaults::CURRENCY,
+                        ]],
+                        'quantityStart' => 31,
+                        'quantityEnd' => null,
+                    ],
+                    [
+                        'ruleId' => '018c2470bfca719c978c7ee92fa0de7d',
+                        'price' => [[
+                            'net' => 1.336134453,
+                            'gross' => 1.59,
+                            'linked' => true,
+                            'currencyId' => Defaults::CURRENCY,
+                        ]],
+                        'quantityStart' => 12,
+                        'quantityEnd' => 30,
+                    ],
+                    [
+                        'ruleId' => '018c2470bfca719c978c7ee92fa0de7d',
+                        'price' => [[
+                            'net' => 1.663865546,
+                            'gross' => 1.98,
+                            'linked' => true,
+                            'currencyId' => Defaults::CURRENCY,
+                        ]],
+                        'quantityStart' => 1,
+                        'quantityEnd' => 11,
+                    ],
+                ],
+                'visibilities' => [
+                    [
+                        'id' => Uuid::randomHex(),
+                        'salesChannelId' => $storefrontSalesChannel,
+                        'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
+                    ],
+                ],
+                'properties' => [
+                    [
+                        'id' => '41e5013b67d64d3a92b7a275da8af441',
+                    ],
+                    [
+                        'id' => '5193ffa5de8648a1bcfba1fa8a26c02b',
+                    ],
+                    [
+                        'id' => '54147692cbfb43419a6d11e26cad44dc',
+                    ],
+                    [
+                        'id' => '5997d91dc0784997bdef68dfc5a08912',
+                    ],
+                    [
+                        'id' => '78c53f3f6dd14eb4927978415bfb74db',
+                    ],
+                    [
+                        'id' => '96638a1c7ab847bbb3ca64167ab30a3e',
+                    ],
+                    [
+                        'id' => 'acfd7586d02848f1ac801f4776efa414',
+                    ],
+                ],
+                'configuratorSettings' => [
+                    [
+                        'optionId' => 'acfd7586d02848f1ac801f4776efa414',
+                    ],
+                    [
+                        'optionId' => '41e5013b67d64d3a92b7a275da8af441',
+                    ],
+                    [
+                        'optionId' => '5997d91dc0784997bdef68dfc5a08912',
+                    ],
+                    [
+                        'optionId' => '54147692cbfb43419a6d11e26cad44dc',
+                    ],
+                ],
+                'children' => [
+                    [
+                        'productNumber' => 'QPC10008.1',
+                        'stock' => 50,
+                        'options' => [
+                            [
+                                'id' => '41e5013b67d64d3a92b7a275da8af441',
+                            ],
+                        ],
+                    ],
+                    [
+                        'productNumber' => 'QPC10008.2',
+                        'stock' => 50,
+                        'options' => [
+                            [
+                                'id' => '54147692cbfb43419a6d11e26cad44dc',
+                            ],
+                        ],
+                    ],
+                    [
+                        'productNumber' => 'QPC10008.3',
+                        'stock' => 50,
+                        'options' => [
+                            [
+                                'id' => '5997d91dc0784997bdef68dfc5a08912',
+                            ],
+                        ],
+                    ],
+                    [
+                        'productNumber' => 'QPC10008.4',
+                        'stock' => 50,
+                        'options' => [
+                            [
+                                'id' => 'acfd7586d02848f1ac801f4776efa414',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'id' => '61d7769368424fe78c45c674cb8a609d',
+                'productNumber' => 'QPC10009',
+                'active' => true,
+                'taxId' => $taxId,
+                'stock' => 10,
+                'purchaseUnit' => 1.0,
+                'referenceUnit' => 1.0,
+                'shippingFree' => false,
+                'purchasePrice' => 95.95,
+                'weight' => 0.10,
+                'releaseDate' => new \DateTimeImmutable(),
+                'displayInListing' => true,
+                'name' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => 'Hauptartikel TST110',
+                    'en-GB' => 'Main product TST110',
+                ]),
+                'description' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => self::LOREM_IPSUM,
+                    'en-GB' => self::LOREM_IPSUM,
+                ]),
+                'manufacturer' => [
+                    'id' => '7f24e96676e944b0a0addc20d56728cb',
+                    'name' => $this->translationHelper->adjustTranslations([
+                        'de-DE' => 'Shopware Kleidung',
+                        'en-GB' => 'Shopware Fashion',
+                    ]),
+                ],
+                'media' => [
+                    [
+                        'id' => 'f0e28db1195847dc9acb8eb016473e0c',
+                        'position' => 1,
+                        'mediaId' => '70e352200b5c45098dc65a5b47094a2a',
+                    ],
+                ],
+                'coverId' => 'f0e28db1195847dc9acb8eb016473e0c',
+                'categories' => [
+                    [
+                        'id' => '251448b91bc742de85643f5fccd89051',
+                    ],
+                ],
+                'price' => [[
+                    'net' => 1225.2100840336,
+                    'gross' => 1458,
+                    'linked' => true,
+                    'currencyId' => Defaults::CURRENCY,
+                ]],
+                'visibilities' => [
+                    [
+                        'id' => Uuid::randomHex(),
+                        'salesChannelId' => $storefrontSalesChannel,
+                        'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
+                    ],
+                ],
+                'properties' => [
+                    [
+                        'id' => '6f9359239c994b48b7de282ee19a714d',
+                    ],
+                    [
+                        'id' => '78c53f3f6dd14eb4927978415bfb74db',
+                    ]
                 ],
             ],
         ];
