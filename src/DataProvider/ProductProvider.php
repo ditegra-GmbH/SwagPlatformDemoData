@@ -893,6 +893,69 @@ class ProductProvider extends DemoDataProvider
                     ],
                 ],
             ],
+            [
+                'id' => '61d7769368424fe78c45c674cb8a609d',
+                'productNumber' => 'QPC10009',
+                'active' => true,
+                'taxId' => $taxId,
+                'stock' => 10,
+                'purchaseUnit' => 1.0,
+                'referenceUnit' => 1.0,
+                'shippingFree' => false,
+                'purchasePrice' => 95.95,
+                'weight' => 0.10,
+                'releaseDate' => new \DateTimeImmutable(),
+                'displayInListing' => true,
+                'name' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => 'Hauptartikel TST110',
+                    'en-GB' => 'Main product TST110',
+                ]),
+                'description' => $this->translationHelper->adjustTranslations([
+                    'de-DE' => self::LOREM_IPSUM,
+                    'en-GB' => self::LOREM_IPSUM,
+                ]),
+                'manufacturer' => [
+                    'id' => '7f24e96676e944b0a0addc20d56728cb',
+                    'name' => $this->translationHelper->adjustTranslations([
+                        'de-DE' => 'Shopware Kleidung',
+                        'en-GB' => 'Shopware Fashion',
+                    ]),
+                ],
+                'media' => [
+                    [
+                        'id' => 'f0e28db1195847dc9acb8eb016473e0c',
+                        'position' => 1,
+                        'mediaId' => '70e352200b5c45098dc65a5b47094a2a',
+                    ],
+                ],
+                'coverId' => 'f0e28db1195847dc9acb8eb016473e0c',
+                'categories' => [
+                    [
+                        'id' => '251448b91bc742de85643f5fccd89051',
+                    ],
+                ],
+                'price' => [[
+                    'net' => 1225.2100840336,
+                    'gross' => 1458,
+                    'linked' => true,
+                    'currencyId' => Defaults::CURRENCY,
+                ]],
+                'visibilities' => [
+                    [
+                        'id' => Uuid::randomHex(),
+                        'salesChannelId' => $storefrontSalesChannel,
+                        'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL,
+                    ],
+                ],
+                'properties' => [
+                    [
+                        'id' => '6f9359239c994b48b7de282ee19a714d',
+                    ],
+                    [
+                        'id' => '78c53f3f6dd14eb4927978415bfb74db',
+                    ]
+                ],
+            ],
         ];
     }
 

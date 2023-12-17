@@ -171,6 +171,35 @@ class ProductStreamProvider extends DemoDataProvider
                     ],
                 ],
             ],
+            [
+                'id' => '884507b2d8aa48eaa0c4c369acb21943',
+                'name' => 'Stream - QPC10009',
+                'filters' => [
+                    [
+                        'type' => 'multi',
+                        'operator' => 'OR',
+                        'queries' => [
+                            [
+                                'type'=> 'multi',
+                                'operator'=> 'AND',
+                                'queries'=> [
+                                    [
+                                        'type'=> 'multi',
+                                        'operator'=> 'OR',
+                                        'queries'=> [
+                                            [
+                                                'type'=> 'equals',
+                                                'field'=> 'id',
+                                                'value'=> '61d7769368424fe78c45c674cb8a609d'
+                                            ]
+                                        ],                                        
+                                    ],
+                                ],                
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 }
