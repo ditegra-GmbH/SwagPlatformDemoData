@@ -89,19 +89,21 @@
         </service>
 
 
-        <service id="Swag\PlatformDemoData\AiDataProvider\AiCmsPageProvider">
+        <service id="Swag\PlatformDemoData\AiDataProvider\AiCmsPageProvider" decorates="Swag\PlatformDemoData\DataProvider\CmsPageProvider">
             <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="Swag\PlatformDemoData\AiDataProvider\AiCmsPageProvider.inner"/>
 
-            <tag name="swag.ai.demo_data.data_provider" priority="2000" />
+            <tag name="swag.ai.demo_data.data_provider" priority="2100" />
         </service>
 
         <service id="Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider" decorates="Swag\PlatformDemoData\DataProvider\CategoryProvider">
             <argument type="service" id="category.repository" />
             <argument type="service" id="Doctrine\DBAL\Connection" />
             <argument type="service" id="Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider.inner"/>
-
             <tag name="swag.ai.demo_data.data_provider" priority="1900" />
         </service>
+
+
 
     </services>
 </container>
