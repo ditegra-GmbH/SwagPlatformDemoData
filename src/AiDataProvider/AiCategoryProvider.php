@@ -37,7 +37,7 @@ class AiCategoryProvider extends AiDemoDataProvider
 
     private Connection $connection;
 
-    private AiTranslationHelper $AiTranslationHelper;
+    private AiTranslationHelper $aiTranslationHelper;
 
     private GeneratorOpenAi $openAi;
 
@@ -52,19 +52,19 @@ class AiCategoryProvider extends AiDemoDataProvider
     {
         $this->categoryRepository = $categoryRepository;
         $this->connection = $connection;
-        $this->AiTranslationHelper = new AiTranslationHelper($connection);
+        $this->aiTranslationHelper = new AiTranslationHelper($connection);
         // $this->demoDataServiceAiDecorator = $demoDataServiceAiDecorator;
         $this->categoryProvider = $categoryProvider;//user decorating pattern to extend it
     }
 
     public function getAction(): string
     {
-        return 'upsert';
+        return $this->categoryProvider->getAction();
     }
 
     public function getEntity(): string
     {
-        return 'category';
+        return  $this->categoryProvider->getEntity();
     }
 
     public function setDeleteFlag(bool $isMarked): void
@@ -88,7 +88,7 @@ class AiCategoryProvider extends AiDemoDataProvider
                 'displayNestedProducts' => true,
                 'visible' => true,
                 'type' => 'page',
-                'name' => $this->AiTranslationHelper->adjustTranslations([
+                'name' => $this->aiTranslationHelper->adjustTranslations([
                     'de-DE' => 'Katalog #1',
                     'en-GB' => 'Catalogue #1',
                     'pl-PL' => 'Katalog #1',
@@ -155,7 +155,7 @@ class AiCategoryProvider extends AiDemoDataProvider
                 'displayNestedProducts' => true,
                 'visible' => true,
                 'type' => 'page',
-                'name' => $this->AiTranslationHelper->adjustTranslations([
+                'name' => $this->aiTranslationHelper->adjustTranslations([
                     'de-DE' => $categoriesList[$i]
                 ])
             ];
