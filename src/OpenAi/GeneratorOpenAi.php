@@ -36,7 +36,29 @@ class GeneratorOpenAi
             "index": 0
           }
         ]
-      }'; //TODO: REMOVE DEMO DATA
+      }';
+      private string $exampleResponseWrong = '{
+        "id": "chatcmpl-abc123xyz456",
+        "object": "chat.completion",
+        "created": 1677649421,
+        "model": "text-davinci-003",
+        "usage": {
+          "prompt_tokens": 56,
+          "completion_tokens": 31,
+          "total_tokens": 87
+        },
+        "choices": [
+          {
+            "message": {
+              "role": "assistant",
+              "content": "Natürlich, hier ist eine Demo-Kategorien-Liste für Autohersteller\n\n:Limousinen; Geländewagen; Elektrofahrzeuge; Sportwagen; Kompaktwagen; Hybridfahrzeuge; Luxusautos; Nutzfahrzeuge; Cabrios; Kombis"
+            },
+            "finish_reason": "stop",
+            "index": 0
+          }
+        ]
+      }';
+      //TODO: REMOVE DEMO DATA
 
 
   public function __construct()
@@ -73,11 +95,11 @@ class GeneratorOpenAi
     ]);
 
     //TODO: the AI sometimes crates a list. I have to find a way to check if this is a list. "Thru line checks?"
+
     // $responseObj = json_decode($response, true);
-     $responseObj = json_decode($this->exampleResponse, true);
+     //$responseObj = json_decode($this->exampleResponse, true);
+     $responseObj = json_decode($this->exampleResponseWrong, true);
     // $responseObj = '{}'; //when te respond is an empty json
-
-
     //when the response body dose not have any of the keyword go to the end and say that there is something wrong
     if (isset($responseObj['error'])) {
       //TODO: Implement Error msg
@@ -86,7 +108,11 @@ class GeneratorOpenAi
     }
     if (isset($responseObj['choices'][0]['message']['content'])) {
 
+      //Checks if the AI message content has a line brake. This can help when the AI output formatted data with
       $ai_dataLump = (string) $responseObj['choices'][0]['message']['content'];
+      if(preg_match("/r|n/",$ai_dataLump)){
+        return ["AI_OUTPUT_WRONG"];
+      }
 
       //TODO: Implement array conversion and error handling
       $ai_dataLump =  preg_replace('/\s+/', '', $ai_dataLump); //removes whitespace

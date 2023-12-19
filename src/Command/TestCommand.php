@@ -11,6 +11,7 @@ namespace Swag\PlatformDemoData\Command;
 
 use Shopware\Core\Framework\Context;
 use Swag\PlatformDemoData\DemoDataServiceAiDecorator;
+use Swag\PlatformDemoData\OpenAi\GeneratorOpenAi;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -36,6 +37,7 @@ class TestCommand extends Command
 
         $rm = $input->getOption('rm');
         $mk = $input->getOption('mk');
+        $test = $input->getOption('test');
         $apiKey = $input->getOption('api-key');
 
         if($rm){
@@ -43,6 +45,11 @@ class TestCommand extends Command
         }
         if($mk){
             $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());//ask if that is right
+        }
+
+        if($test){
+           $ai = new GeneratorOpenAi();
+           $ai->generateCategories(10,"test");
         }
         //TODO: access Service here! Add the Commandlineinterface Input here!
 
@@ -70,6 +77,7 @@ class TestCommand extends Command
         $this
             ->addOption('api-key',null,InputOption::VALUE_REQUIRED, 'Your secrete Open API key','0')
             ->addOption('rm',null,InputOption::VALUE_NONE, 'Remove generated Data')
+            ->addOption('test',null,InputOption::VALUE_NONE,'test ai Outputs')
             ->addOption('mk',null,InputOption::VALUE_NONE, 'Creates Data');
 
     }
