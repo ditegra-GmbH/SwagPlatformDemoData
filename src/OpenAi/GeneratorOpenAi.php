@@ -6,14 +6,17 @@ namespace Swag\PlatformDemoData\OpenAi;
 
 use Orhanerday\OpenAi\OpenAi;
 use Exception;
-use Swag\PlatformDemoData\AiDemoDataService;
 
 
 class GeneratorOpenAi
 {
 
   private OpenAI $openAi;
-  private int $maxCategories = 10; //should use the Config later
+  private int $maxRootCategories = 4; //should use the Config later
+  private int $maxUnderCategories = 6; //should use the Config later
+
+  public static string $apiKey;
+
 
   //TODO: REMOVE DEMO DATA
   private string $exampleResponse = '{
@@ -63,22 +66,35 @@ class GeneratorOpenAi
 
   public function __construct()
   {
-    $this->openAi = new OpenAi("secret"); //Test API-Key from Configs
+    $this->openAi = new OpenAi(self::$apiKey); //Test API-Key from Configs
   }
 
-  public function generateCategories(int $amount, string $branche): array
+  public function generateRootCategories(int $amount, string $branche): array
   {
-
-    if($amount > $this->maxCategories){
-      echo 'Too many Categories are selected! ('. $amount .') Reducing to '. $this->maxCategories.".\n";
-      $amount = $this->maxCategories;
+    
+    if($amount > $this->maxRootCategories){
+      echo 'Too many Categories are selected! ('. $amount .') Reducing to '. $this->maxRootCategories.".\n";
+      $amount = $this->maxRootCategories;
     }
-
+    
     $msg = 'Erstelle Demo-Kategorien, trennen die Kategorien mit ";". Schreiben nur die Kategorien und keine Unter-Kategorien auf. Die Kategorien sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Die Branche der Produkte sollte sein: ' . $branche . ' Erstelle nur ' . $amount . ' Kategorien!';
     $categoriesList = $this->createDataAi($msg);
-
-    print_r($categoriesList); 
+    
     return $categoriesList;
+  }
+
+  public function generateUnderCategories(int $amount, string $rootCategory): array
+  {
+
+    if($amount > $this->maxUnderCategories){
+      echo 'Too many Categories are selected! ('. $amount .') Reducing to '. $this->maxUnderCategories.".\n";
+      $amount = $this->maxUnderCategories;
+    }
+
+    $msg = 'Nenne für '. $rootCategory .' Unterkategorien, trennen die Kategorien mit ";". Schreibe nur die Unterkategorien auf. Die Unterkategorien sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Erstelle nur '.$amount.' Kategorien!';
+    $categoriesList = $this->createDataAi($msg);
+
+    return ["UNDER1","UNDER2","UNDER3","UNDER4","UNDER5","UNDER6","UNDER7","UNDER8","UNDER9"];//$categoriesList;
   }
 
   private function createDataAi(string $msg): array
@@ -96,10 +112,10 @@ class GeneratorOpenAi
 
     //TODO: the AI sometimes crates a list. I have to find a way to check if this is a list. "Thru line checks?"
 
-    // $responseObj = json_decode($response, true);
-     //$responseObj = json_decode($this->exampleResponse, true);
-     $responseObj = json_decode($this->exampleResponseWrong, true);
-    // $responseObj = '{}'; //when te respond is an empty json
+    //  $responseObj = json_decode($response, true);
+     $responseObj = json_decode($this->exampleResponse, true);
+    //  $responseObj = json_decode($this->exampleResponseWrong, true);
+    //  $responseObj = '{}'; //when te respond is an empty json
     //when the response body dose not have any of the keyword go to the end and say that there is something wrong
     if (isset($responseObj['error'])) {
       //TODO: Implement Error msg
@@ -108,11 +124,12 @@ class GeneratorOpenAi
     }
     if (isset($responseObj['choices'][0]['message']['content'])) {
 
-      //Checks if the AI message content has a line brake. This can help when the AI output formatted data with
       $ai_dataLump = (string) $responseObj['choices'][0]['message']['content'];
-      if(preg_match("/r|n/",$ai_dataLump)){
-        return ["AI_OUTPUT_WRONG"];
-      }
+      
+      //Checks if the AI message content has a line brake. This can help when the AI output formatted data with
+      // if(preg_match("/r|n/",$ai_dataLump)){
+      //   return ["AI_OUTPUT_WRONG"];
+      // }
 
       //TODO: Implement array conversion and error handling
       $ai_dataLump =  preg_replace('/\s+/', '', $ai_dataLump); //removes whitespace
