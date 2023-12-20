@@ -7,21 +7,95 @@ declare(strict_types=1);
 //https://developer.shopware.com/docs/guides/plugins/plugins/plugin-fundamentals/add-custom-commands.html
 
 namespace Swag\PlatformDemoData\Command;
+use Shopware\Core\Framework\Context;
 
 use Symfony\Component\Console\Attribute\AsCommand;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
+use Swag\PlatformDemoData\DemoDataServiceAiDecorator;
+use Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider;
+use Swag\PlatformDemoData\OpenAi\GeneratorOpenAi;
+
 
 #[AsCommand(name: 'dataai:create')]
 class CreateDataCommand extends Command
 {
+    private DemoDataServiceAiDecorator $demoDataServiceAiDecorator;
+
+    public function __construct(DemoDataServiceAiDecorator $demoDataServiceAiDecorator) {
+        $this->demoDataServiceAiDecorator = $demoDataServiceAiDecorator;
+        parent::__construct();
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // input shop branche and how many categories, sub-categories and products should be created.
-        // default values: 3 categories, 4 sub-categories, 5 products -> Maximum of 100 prompts!
-        // creating data will start $this->container->get(DemoDataService::class)->generate($activateContext->getContext());
-        // The generate function needs to be modified
+
+        $io = new SymfonyStyle($input, $output);
+        $apiKey = $input->getOption('api-key');
+        $root = $input->getOption('root');
+        $sub = $input->getOption('sub');
+        $branche = $input->getArgument('branche');
+
+        $io->title('Generation Demo Shop Data with AI!');
+
+        //User inputs
+        if (!$apiKey) {
+            $apiKey = $io->askHidden('Please enter OpenAI api key:');
+        }
+        if (!$branche) {
+            $branche = $io->ask('Please enter the Shop-branche:');
+        }
+        if (!$root) {
+            $root = $io->ask('Please enter the Amount of root-categories to generate:', null, function (string|null $number): int {
+                if (!is_numeric($number)) {
+                    throw new \RuntimeException('You must type a number.');
+                }
+                return (int) $number;
+            });
+            if ($root == "") {
+                $root = 0;
+            }
+        }
+        if (!$sub) {
+            $sub = $io->ask('Please enter the Amount of sub-categories to generate:', null, function (string|null $number): int {
+                if (!is_numeric($number)) {
+                    throw new \RuntimeException('You must type a number.');
+                }
+                return (int) $number;
+            });
+            if ($sub == "") {
+                $sub = 0;
+            }
+        }
+        //Confirmations on input
+        $io->info('ApiKey: ' . $apiKey . "\n" .
+            'Shop-Branche: ' . $branche . "\n" .
+            'Amount of Root-Categories: ' . $root . "\n" .
+            'Amount of Sub-Categories: ' . $sub);
+
+        //start processing
+        GeneratorOpenAi::$apiKey = "customAPIkey";
+        AiCategoryProvider::$rootAmount =  (int) $root;
+        AiCategoryProvider::$subAmount = (int) $sub;
+        AiCategoryProvider::$shopBranche = $branche;
+
+        //execute generation
+        $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());
+
         return Command::SUCCESS;
     }
+    protected function configure(): void
+    {
+        $this
+            ->addOption('api-key', null, InputOption::VALUE_REQUIRED, 'Your secrete Open API key')
+            ->addOption('root', null, InputOption::VALUE_REQUIRED, 'The amount of root categories to generate')
+            ->addOption('sub', null, InputOption::VALUE_REQUIRED, 'The amount of sub categories to generate')
+            ->addArgument('branche', InputArgument::OPTIONAL, 'Shop branche of the Demoshop');
+    }
+
 }
