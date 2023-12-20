@@ -64,24 +64,20 @@
             <tag name="swag.demo_data.data_provider" priority="200" />
         </service>
 
+
         <!--CLI_Commands-->
         <service id="Swag\PlatformDemoData\Command\TestCommand">
             <argument type="service" id="Swag\PlatformDemoData\DemoDataServiceAiDecorator"/>
+            <argument type="service" id="Doctrine\DBAL\Connection" />
             <tag name="console.command" />
         </service>
 
         <service id="Swag\PlatformDemoData\Command\CreateDataCommand">
+            <argument type="service" id="Swag\PlatformDemoData\DemoDataServiceAiDecorator"/>
             <tag name="console.command" />
         </service>
 
         <!--AiDemoData-->
-
-        <!--
-        <service id="Swag\PlatformDemoData\Config\ConfigService" >
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-        </service>
-        -->
-
         <service id="Swag\PlatformDemoData\DemoDataServiceAiDecorator" decorates="Swag\PlatformDemoData\DemoDataService" public="true">
             <argument type="service" id="Shopware\Core\Framework\Api\Controller\SyncController" />
             <argument type="tagged" tag="swag.ai.demo_data.data_provider"/>
@@ -92,15 +88,14 @@
         <service id="Swag\PlatformDemoData\AiDataProvider\AiCmsPageProvider" decorates="Swag\PlatformDemoData\DataProvider\CmsPageProvider">
             <argument type="service" id="Doctrine\DBAL\Connection" />
             <argument type="service" id="Swag\PlatformDemoData\AiDataProvider\AiCmsPageProvider.inner"/>
-
-            <tag name="swag.ai.demo_data.data_provider" priority="2100" />
+            <tag name="swag.ai.demo_data.data_provider" priority="900" />
         </service>
 
         <service id="Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider" decorates="Swag\PlatformDemoData\DataProvider\CategoryProvider">
             <argument type="service" id="category.repository" />
             <argument type="service" id="Doctrine\DBAL\Connection" />
             <argument type="service" id="Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider.inner"/>
-            <tag name="swag.ai.demo_data.data_provider" priority="1900" />
+            <tag name="swag.ai.demo_data.data_provider" priority="800" />
         </service>
 
 
