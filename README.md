@@ -4,13 +4,20 @@ Demo Data generation based on the SwagPlatformDemoData Plugin
 Right now, the Plugin uses a demo Data set from OpenAI to generate the Categories.
 
 To try out the generation:<br>
-`dataai:test`
 ```Ruby
+Usage:
+  dataai:create [options] [--] [<branche>]
+
+Arguments:
+  branche                Shop branche of the Demoshop
+
 Options:
-      --api-key=API-KEY  Your secret Open API key [default: "0"]
-      --rm               Remove generated Data
-      --mk               Creates Data
+      --api-key=API-KEY  Your secrete Open API key
+      --root=ROOT        The amount of root categories to generate
+      --sub=SUB          The amount of sub categories to generate
 ```
+
+
 
 <div style="background-color: rgb(13, 17, 23)">
 
