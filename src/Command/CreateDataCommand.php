@@ -41,17 +41,17 @@ class CreateDataCommand extends Command
         $sub = $input->getOption('sub');
         $branche = $input->getArgument('branche');
 
-        $io->title('Generation Demo Shop Data with AI!');
+        $io->title('Generate Demo-Shop-Data with AI!');
 
         //User inputs
         if (!$apiKey) {
-            $apiKey = $io->askHidden('Please enter OpenAI api key:');
+            $apiKey = $io->askHidden('Please enter OpenAI api key');
         }
         if (!$branche) {
-            $branche = $io->ask('Please enter the Shop-branche:');
+            $branche = $io->ask('Please enter the Shop-branche');
         }
         if (!$root) {
-            $root = $io->ask('Please enter the Amount of root-categories to generate:', null, function (string|null $number): int {
+            $root = $io->ask('Please enter the Amount of root-categories to generate', null, function (string|null $number): int {
                 if (!is_numeric($number)) {
                     throw new \RuntimeException('You must type a number.');
                 }
@@ -62,7 +62,7 @@ class CreateDataCommand extends Command
             }
         }
         if (!$sub) {
-            $sub = $io->ask('Please enter the Amount of sub-categories to generate:', null, function (string|null $number): int {
+            $sub = $io->ask('Please enter the Amount of sub-categories to generate', null, function (string|null $number): int {
                 if (!is_numeric($number)) {
                     throw new \RuntimeException('You must type a number.');
                 }
@@ -76,17 +76,23 @@ class CreateDataCommand extends Command
         $io->info('ApiKey: ' . $apiKey . "\n" .
             'Shop-Branche: ' . $branche . "\n" .
             'Amount of Root-Categories: ' . $root . "\n" .
-            'Amount of Sub-Categories: ' . $sub);
+            'Amount of Sub-Categories: ' . $sub . "\n"
+        );
+
+        //check max amount of root- and subcategories
+        //$io->info('Api Calls needed: '. ($root * $sub). "\n");
 
         //start processing
-        GeneratorOpenAi::$apiKey = "customAPIkey";
+        GeneratorOpenAi::$apiKey = "customAPIkey"; //TODO: replace with getter/setter
         AiCategoryProvider::$rootAmount =  (int) $root;
         AiCategoryProvider::$subAmount = (int) $sub;
         AiCategoryProvider::$shopBranche = $branche;
+        
 
         //execute generation
         $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());
 
+        $io->info("Data successful created!");
         return Command::SUCCESS;
     }
     protected function configure(): void
