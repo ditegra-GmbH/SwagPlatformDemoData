@@ -5,7 +5,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Swag\PlatformDemoData\DataProvider;
+namespace Swag\PlatformDemoData\AiDataProvider;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;

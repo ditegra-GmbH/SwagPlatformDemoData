@@ -5,9 +5,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Swag\PlatformDemoData\DataProvider;
+namespace Swag\PlatformDemoData\AiDataProvider;
 
 use Shopware\Core\Framework\Log\Package;
+use Swag\PlatformDemoData\DataProvider\MediaProvider;
 
 #[Package('services-settings')]
 class AiMediaProvider extends MediaProvider{

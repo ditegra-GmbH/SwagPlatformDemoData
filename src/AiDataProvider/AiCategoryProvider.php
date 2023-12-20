@@ -34,6 +34,7 @@ class AiCategoryProvider extends CategoryProvider
     private GeneratorOpenAi $openAi;
     private CategoryProvider $categoryProvider;
 
+    //TODO:create Getter/Setter
     public static int $rootAmount;
     public static int $subAmount;
     public static string $shopBranche;
@@ -146,9 +147,8 @@ class AiCategoryProvider extends CategoryProvider
 
             $uuid = Uuid::randomHex();
             //AIProductProvider needs some values set
-            //SubCategory UUI
-            //SubCategory name
-            //Amount of products to create
+            //->SubCategory UUI
+            //->SubCategory name
 
             $subCategoryPayload[$i] = [
                 'id' => $uuid,
