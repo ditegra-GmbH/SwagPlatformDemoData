@@ -36,7 +36,7 @@ class CreateDataCommand extends Command
     {
 
         $io = new SymfonyStyle($input, $output);
-        $apiKey = $input->getOption('api-key');
+        $apiKey = $input->getOption('apikey');
         $root = $input->getOption('root');
         $sub = $input->getOption('sub');
         $branche = $input->getArgument('branche');
@@ -73,7 +73,7 @@ class CreateDataCommand extends Command
             }
         }
         //Confirmations on input
-        $io->info('ApiKey: ' . $apiKey . "\n" .
+        $io->info('Api-Key: ' . $apiKey . "\n" .
             'Shop-Branche: ' . $branche . "\n" .
             'Amount of Root-Categories: ' . $root . "\n" .
             'Amount of Sub-Categories: ' . $sub . "\n"
@@ -98,7 +98,7 @@ class CreateDataCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption('api-key', null, InputOption::VALUE_REQUIRED, 'Your secrete Open API key')
+            ->addOption('apikey', null, InputOption::VALUE_REQUIRED, 'Your secrete Open API key')
             ->addOption('root', null, InputOption::VALUE_REQUIRED, 'The amount of root categories to generate')
             ->addOption('sub', null, InputOption::VALUE_REQUIRED, 'The amount of sub categories to generate')
             ->addArgument('branche', InputArgument::OPTIONAL, 'Shop branche of the Demoshop');
