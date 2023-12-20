@@ -28,22 +28,21 @@ use Swag\PlatformDemoData\OpenAi\GeneratorOpenAi;
 
 
 #[Package('services-settings')]
-class AiCategoryProvider extends AiDemoDataProvider
+class AiCategoryProvider extends CategoryProvider
 {
     /**
      * @var EntityRepository<CategoryCollection> $categoryRepository
      */
     private EntityRepository $categoryRepository;
-
     private Connection $connection;
-
     private AiTranslationHelper $aiTranslationHelper;
-
     private GeneratorOpenAi $openAi;
-
-    private bool $deleteFlag = false;
-
     private CategoryProvider $categoryProvider;
+
+    public static int $rootAmount;
+    public static int $subAmount;
+    public static string $shopBranche;
+
 
     /**
      * @param EntityRepository<CategoryCollection> $categoryRepository
@@ -51,10 +50,11 @@ class AiCategoryProvider extends AiDemoDataProvider
     public function __construct(EntityRepository $categoryRepository, Connection $connection, CategoryProvider $categoryProvider)
     {
         $this->categoryRepository = $categoryRepository;
-        $this->connection = $connection;
+        // $this->connection = $connection;
         $this->aiTranslationHelper = new AiTranslationHelper($connection);
         // $this->demoDataServiceAiDecorator = $demoDataServiceAiDecorator;
-        $this->categoryProvider = $categoryProvider;//user decorating pattern to extend it
+        $this->categoryProvider = $categoryProvider; //uses decorating pattern to extend it
+        parent::__construct($categoryRepository, $connection);//needs to call the parent constructor to initialize the connection bevor using it. 
     }
 
     public function getAction(): string
@@ -67,22 +67,14 @@ class AiCategoryProvider extends AiDemoDataProvider
         return  $this->categoryProvider->getEntity();
     }
 
-    public function setDeleteFlag(bool $isMarked): void
-    {
-        $this->deleteFlag = $isMarked;
-    }
-
 
     public function getPayload(): array
     {
-        $cmsPageId = $this->categoryProvider->getDefaultCmsListingPageId();
-
-        $rootCategory = $this->createRootCategoryPayload(4, "Autohandel"); //CLI will set the values here.
-        //subCategory = $this->createSubCategoryPayload(4, $)
+        $rootCategory = $this->createRootCategoryPayload(self::$rootAmount, self::$subAmount, self::$shopBranche); //CLI will set the values here.
 
         return [
             [
-                'id' => $this->categoryProvider->getRootCategoryId(),
+                'id' => $this->getRootCategoryId(),
                 'cmsPageId' => '695477e02ef643e5a016b83ed4cdf63a',
                 'active' => true,
                 'displayNestedProducts' => true,
@@ -98,59 +90,76 @@ class AiCategoryProvider extends AiDemoDataProvider
         ];
     }
 
-    private function getCategoryIdOnIndex(int $index): string
+    // private function getCategoryIdOnIndex(int $index): string
+    // {
+    //     //TODo: When there is no ID, just skip the deletion step
+    //     $categoryIdList = $this->getCategoryIdList();
+    //     return $categoryIdList[$index];
+    // }
+
+    // private function getCategoryIdList(): array
+    // {
+    //     $criteria = new Criteria();
+    //     $categoryIdList = [];
+    //     $index = 0;
+
+    //     $criteria->addFilter(new ContainsFilter('parentId', ''));
+    //     $categoryEntityList = $this->categoryRepository->search($criteria, new Context(new SystemSource()))->getEntities();
+
+    //     //TODo: Check if this approach works without bugs. Testing with Categories inside the main one.
+    //     foreach ($categoryEntityList as $categoryEntity) {
+    //         $categoryIdList[$index] = $categoryEntity->getId();
+    //         $index++;
+    //     }
+
+    //     //print_r();
+    //     return $categoryIdList;
+    // }
+
+    private function createRootCategoryPayload(int $rootAmount, int $subAmount, string $shopBranche): array
     {
-        //TODO: When there is no ID, just skip the deletion step
-        $categoryIdList = $this->getCategoryIdList();
-        return $categoryIdList[$index];
-    }
-
-    private function getCategoryIdList(): array
-    {
-        $criteria = new Criteria();
-        $categoryIdList = [];
-        $index = 0;
-
-        $criteria->addFilter(new ContainsFilter('parentId', ''));
-        $categoryEntityList = $this->categoryRepository->search($criteria, new Context(new SystemSource()))->getEntities();
-
-        //TODO: Check if this approach works without bugs. Testing with Categories inside the main one.
-        foreach ($categoryEntityList as $categoryEntity) {
-            $categoryIdList[$index] = $categoryEntity->getId();
-            $index++;
-        }
-
-        //print_r();
-        return $categoryIdList;
-    }
-
-    private function createRootCategoryPayload(int $amount, string $ShopBranche): array
-    {
+        $cmsPageId = $this->getDefaultCmsListingPageId();
         $categoriesList = [];//TODO: make Attribute. Data needed for sub categories
         $rootCategoryPayload = [];
         $this->openAi = new GeneratorOpenAi();
-
-
-        if ($this->deleteFlag) {
-            $categoriesList = $this->getCategoryIdList();
-        } else {
-            $categoriesList = $this->openAi->generateCategories($amount, $ShopBranche);
-        }
+        $categoriesList = $this->openAi->generateRootCategories($rootAmount, $shopBranche);
+        print_r(" SHOP-branche: " .$shopBranche."\n");
+        print_r(" ROOT-amount: " .$rootAmount."\n");
+        print_r(" SUB-amount: " .$subAmount."\n\n");
 
 
         for ($i = 0; $i < count($categoriesList); $i++) {
 
-
-            if ($this->deleteFlag) {
-                $uuid = $this->getCategoryIdOnIndex($i);
-            } else {
-                $uuid = Uuid::randomHex();
-            }
-
+            $subCategory = $this->createSubCategoryPayload($subAmount, $categoriesList[$i], $cmsPageId);
+            $uuid = Uuid::randomHex();
 
             $rootCategoryPayload[$i] = [
-                'id' => $uuid, //TODO: Instand of just creating IDs, we have to keep track of them, we need them to remove the demo data.
+                'id' => $uuid,
                 'cmsPageId' => '695477e02ef643e5a016b83ed4cdf63a',
+                'active' => true,
+                'displayNestedProducts' => true,
+                'visible' => true,
+                'type' => 'page',
+                'name' => $this->aiTranslationHelper->adjustTranslations([
+                    'de-DE' => $categoriesList[$i]
+                ]),
+                'children' => $subCategory
+            ];
+        }
+        return $rootCategoryPayload;
+    }
+
+    private function createSubCategoryPayload(int $amount, string $rootCategory, string $cmsPageId): array{
+
+        $categoriesList = $this->openAi->generateUnderCategories($amount, $rootCategory);
+
+        for ($i = 0; $i < count($categoriesList); $i++) {
+
+            $uuid = Uuid::randomHex();
+
+            $subCategoryPayload[$i] = [
+                'id' => $uuid,
+                'cmsPageId' => $cmsPageId,
                 'active' => true,
                 'displayNestedProducts' => true,
                 'visible' => true,
@@ -160,6 +169,6 @@ class AiCategoryProvider extends AiDemoDataProvider
                 ])
             ];
         }
-        return $rootCategoryPayload;
+        return $subCategoryPayload;
     }
 }

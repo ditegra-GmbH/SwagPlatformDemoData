@@ -15,7 +15,7 @@ use Swag\PlatformDemoData\Resources\helper\AiTranslationHelper;
 use Swag\PlatformDemoData\DataProvider\CmsPageProvider;
 
 #[Package('services-settings')]
-class AiCmsPageProvider extends AiDemoDataProvider
+class AiCmsPageProvider extends CmsPageProvider
 {
     private AiTranslationHelper $aiTranslationHelper;
     private CmsPageProvider $cmsPageProvider;
