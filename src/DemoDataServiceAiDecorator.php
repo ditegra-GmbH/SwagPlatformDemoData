@@ -9,15 +9,16 @@ declare(strict_types=1);
 
 namespace Swag\PlatformDemoData;
 
-use Bezhanov\Faker\Provider\Demographic;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+
+use Error;
+
 use Shopware\Core\Framework\Api\Controller\SyncController;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\Write\Validation\RestrictDeleteViolationException;
 use Shopware\Core\Framework\Log\Package;
-use Shopware\Core\PlatformRequest;
-use Swag\PlatformDemoData\AiDataProvider\AiDemoDataProvider;
+
+use Swag\PlatformDemoData\DataProvider\DemoDataProvider;
 use Swag\PlatformDemoData\DemoDataService;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -29,7 +30,7 @@ class DemoDataServiceAiDecorator extends DemoDataService
     private SyncController $sync;
 
     /**
-     * @var iterable<AiDemoDataProvider>
+     * @var iterable<DemoDataProvider>
      */
     private iterable $demoDataProvider;
 
@@ -39,7 +40,7 @@ class DemoDataServiceAiDecorator extends DemoDataService
     private DemoDataService $innerDemoDataService;
 
     /**
-     * @param iterable<AiDemoDataProvider> $demoDataProvider
+     * @param iterable<DemoDataProvider> $demoDataProvider
      */
 
     public function __construct(SyncController $sync, iterable $demoDataProvider, RequestStack $requestStack)
@@ -57,9 +58,7 @@ class DemoDataServiceAiDecorator extends DemoDataService
     }
 
     public function delete(Context $context):void{
-        foreach ($this->demoDataProvider as $dataProvider) {
-            $dataProvider->setDeleteFlag(true);
-        }
-        $this->innerDemoDataService->delete($context);
+        throw new Error("delete function is not implemented");
+        // $this->innerDemoDataService->delete($context);
     }
 }
