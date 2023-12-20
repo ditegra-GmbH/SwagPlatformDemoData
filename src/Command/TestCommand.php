@@ -8,12 +8,14 @@ declare(strict_types=1);
 
 namespace Swag\PlatformDemoData\Command;
 
-
+use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Context;
+use Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider;
 use Swag\PlatformDemoData\DemoDataServiceAiDecorator;
 use Swag\PlatformDemoData\OpenAi\GeneratorOpenAi;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -23,11 +25,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'dataai:test')]
 class TestCommand extends Command
 {
-    private string $apiSecret;
     private DemoDataServiceAiDecorator $demoDataServiceAiDecorator;
+    private Connection $connection;
 
-    public function __construct(DemoDataServiceAiDecorator $demoDataServiceAiDecorator) {
-    
+    public function __construct(DemoDataServiceAiDecorator $demoDataServiceAiDecorator, Connection $connection)
+    {
+        $this->connection = $connection;
         $this->demoDataServiceAiDecorator = $demoDataServiceAiDecorator;
         parent::__construct();
     }
@@ -40,16 +43,33 @@ class TestCommand extends Command
         $test = $input->getOption('test');
         $apiKey = $input->getOption('api-key');
 
-        if($rm){
-            $this->demoDataServiceAiDecorator->delete(Context::createDefaultContext());//ask if that is right
+        if ($rm) {
+            // $this->demoDataServiceAiDecorator->delete(Context::createDefaultContext());//ask if that is right
+            //TODO:Fix problem
+            $this->connection->fetchOne(
+                '
+                DELETE FROM category;
+                '
+            );
         }
-        if($mk){
-            $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());//ask if that is right
+        if ($mk) {
+            $rootAmount = $input->getOption('root');
+            $subAmount = $input->getOption('sub');
+            $shopBranche = $input->getArgument('branche');
+
+            GeneratorOpenAi::$apiKey = "customAPIkey";
+            AiCategoryProvider::$rootAmount =  (int) $rootAmount;
+            AiCategoryProvider::$subAmount = (int) $subAmount; //When there is no int in the input, it will instant just output 0
+            AiCategoryProvider::$shopBranche = $shopBranche;
+
+            $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());
+            $output->writeln("Data successful created!");
         }
 
-        if($test){
-           $ai = new GeneratorOpenAi();
-           $ai->generateCategories(10,"test");
+        if ($test) {
+            $ai = new GeneratorOpenAi();
+            $ai->generateRootCategories(5, "Autohaus");
+            $ai->generateUnderCategories(5, "Kleinwagen");
         }
         //TODO: access Service here! Add the Commandlineinterface Input here!
 
@@ -75,10 +95,12 @@ class TestCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption('api-key',null,InputOption::VALUE_REQUIRED, 'Your secrete Open API key','0')
-            ->addOption('rm',null,InputOption::VALUE_NONE, 'Remove generated Data')
-            ->addOption('test',null,InputOption::VALUE_NONE,'test ai Outputs')
-            ->addOption('mk',null,InputOption::VALUE_NONE, 'Creates Data');
-
+            ->addOption('api-key', null, InputOption::VALUE_REQUIRED, 'Your secrete Open API key', '0')
+            ->addOption('rm', null, InputOption::VALUE_NONE, 'Remove generated Data')
+            ->addOption('test', null, InputOption::VALUE_NONE, 'test ai Outputs')
+            ->addOption('mk', null, InputOption::VALUE_NONE, 'Creates Data')
+            ->addOption('root', null, InputOption::VALUE_REQUIRED, 'The amount of root categories to generate', 1)
+            ->addOption('sub', null, InputOption::VALUE_REQUIRED, 'The amount of sub categories to generate', 1)
+            ->addArgument('branche', InputArgument::REQUIRED, 'Shop branche');
     }
 }
