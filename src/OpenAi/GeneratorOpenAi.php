@@ -12,8 +12,8 @@ class GeneratorOpenAi
 {
 
   private OpenAI $openAi;
-  private int $maxRootCategories = 4; //should use the Config later
-  private int $maxUnderCategories = 6; //should use the Config later
+  private static int $maxRootCategories = 4; //should use the Config later
+  private static int $maxUnderCategories = 6; //should use the Config later
 
   public static string $apiKey;
 
@@ -72,9 +72,9 @@ class GeneratorOpenAi
   public function generateRootCategories(int $amount, string $branche): array
   {
     
-    if($amount > $this->maxRootCategories){
-      echo 'Too many Categories are selected! ('. $amount .') Reducing to '. $this->maxRootCategories.".\n";
-      $amount = $this->maxRootCategories;
+    if($amount > self::$maxRootCategories){
+      print_r('Too many Root-Categories are selected! ('. $amount .') reducing to '. self::$maxRootCategories.".\n");
+      $amount = self::$maxRootCategories;
     }
     
     $msg = 'Erstelle Demo-Kategorien, trennen die Kategorien mit ";". Schreiben nur die Kategorien und keine Unter-Kategorien auf. Die Kategorien sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Die Branche der Produkte sollte sein: ' . $branche . ' Erstelle nur ' . $amount . ' Kategorien!';
@@ -86,9 +86,9 @@ class GeneratorOpenAi
   public function generateUnderCategories(int $amount, string $rootCategory): array
   {
 
-    if($amount > $this->maxUnderCategories){
-      echo 'Too many Categories are selected! ('. $amount .') Reducing to '. $this->maxUnderCategories.".\n";
-      $amount = $this->maxUnderCategories;
+    if($amount > self::$maxUnderCategories){
+      print_r('Too many Sub-Categories are selected! ('. $amount .') reducing to '. self::$maxUnderCategories.".\n");
+      $amount = self::$maxUnderCategories;
     }
 
     $msg = 'Nenne für '. $rootCategory .' Unterkategorien, trennen die Kategorien mit ";". Schreibe nur die Unterkategorien auf. Die Unterkategorien sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Erstelle nur '.$amount.' Kategorien!';
