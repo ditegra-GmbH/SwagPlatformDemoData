@@ -12,7 +12,7 @@ Arguments:
   branche                Shop branche of the Demoshop
 
 Options:
-      --api-key=API-KEY  Your secrete Open API key
+      --apikey=API-KEY   Your secrete Open API key
       --root=ROOT        The amount of root categories to generate
       --sub=SUB          The amount of sub categories to generate
 ```
