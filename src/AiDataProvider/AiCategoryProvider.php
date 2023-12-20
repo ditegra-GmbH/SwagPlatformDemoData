@@ -30,11 +30,6 @@ use Swag\PlatformDemoData\OpenAi\GeneratorOpenAi;
 #[Package('services-settings')]
 class AiCategoryProvider extends CategoryProvider
 {
-    /**
-     * @var EntityRepository<CategoryCollection> $categoryRepository
-     */
-    private EntityRepository $categoryRepository;
-    private Connection $connection;
     private AiTranslationHelper $aiTranslationHelper;
     private GeneratorOpenAi $openAi;
     private CategoryProvider $categoryProvider;
@@ -49,8 +44,6 @@ class AiCategoryProvider extends CategoryProvider
      */
     public function __construct(EntityRepository $categoryRepository, Connection $connection, CategoryProvider $categoryProvider)
     {
-        $this->categoryRepository = $categoryRepository;
-        // $this->connection = $connection;
         $this->aiTranslationHelper = new AiTranslationHelper($connection);
         // $this->demoDataServiceAiDecorator = $demoDataServiceAiDecorator;
         $this->categoryProvider = $categoryProvider; //uses decorating pattern to extend it
@@ -123,10 +116,6 @@ class AiCategoryProvider extends CategoryProvider
         $rootCategoryPayload = [];
         $this->openAi = new GeneratorOpenAi();
         $categoriesList = $this->openAi->generateRootCategories($rootAmount, $shopBranche);
-        print_r(" SHOP-branche: " .$shopBranche."\n");
-        print_r(" ROOT-amount: " .$rootAmount."\n");
-        print_r(" SUB-amount: " .$subAmount."\n\n");
-
 
         for ($i = 0; $i < count($categoriesList); $i++) {
 
@@ -156,6 +145,10 @@ class AiCategoryProvider extends CategoryProvider
         for ($i = 0; $i < count($categoriesList); $i++) {
 
             $uuid = Uuid::randomHex();
+            //AIProductProvider needs some values set
+            //SubCategory UUI
+            //SubCategory name
+            //Amount of products to create
 
             $subCategoryPayload[$i] = [
                 'id' => $uuid,
