@@ -66,7 +66,7 @@ class AiCategoryProvider extends CategoryProvider
     {
         $rootCategory = $this->createRootCategoryPayload(self::$rootAmount, self::$subAmount, self::$shopBranche); //CLI will set the values here.
 
-        return [
+        $array = [
             [
                 'id' => $this->getRootCategoryId(),
                 'cmsPageId' => '695477e02ef643e5a016b83ed4cdf63a',
@@ -77,11 +77,11 @@ class AiCategoryProvider extends CategoryProvider
                 'name' => $this->aiTranslationHelper->adjustTranslations([
                     'de-DE' => 'Katalog #1',
                     'en-GB' => 'Catalogue #1',
-                    'pl-PL' => 'Katalog #1',
                 ]),
                 'children' => $rootCategory
             ]
         ];
+        return $array;
     }
 
     // private function getCategoryIdOnIndex(int $index): string
@@ -123,6 +123,8 @@ class AiCategoryProvider extends CategoryProvider
             $subCategory = $this->createSubCategoryPayload($subAmount, $categoriesList[$i], $cmsPageId);
             $uuid = Uuid::randomHex();
 
+            AiProductProvider::addRootCategoryName($categoriesList[$i]);
+
             $rootCategoryPayload[$i] = [
                 'id' => $uuid,
                 'cmsPageId' => '695477e02ef643e5a016b83ed4cdf63a',
@@ -148,7 +150,9 @@ class AiCategoryProvider extends CategoryProvider
             $uuid = Uuid::randomHex();
             //AIProductProvider needs some values set
             //->SubCategory UUI
+            AiProductProvider::addSubCategoryID($uuid);
             //->SubCategory name
+            AiProductProvider::addSubCategoryName($categoriesList[$i]);
 
             $subCategoryPayload[$i] = [
                 'id' => $uuid,
