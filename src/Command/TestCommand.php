@@ -11,6 +11,7 @@ namespace Swag\PlatformDemoData\Command;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Context;
 use Swag\PlatformDemoData\AiDataProvider\AiCategoryProvider;
+use Swag\PlatformDemoData\AiDataProvider\AiProductProvider;
 use Swag\PlatformDemoData\DemoDataServiceAiDecorator;
 use Swag\PlatformDemoData\OpenAi\GeneratorOpenAi;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -41,7 +42,16 @@ class TestCommand extends Command
         $rm = $input->getOption('rm');
         $mk = $input->getOption('mk');
         $test = $input->getOption('test');
+        $providerTest = $input->getOption('provider');
         $apiKey = $input->getOption('api-key');
+
+
+        GeneratorOpenAi::$apiKey = "customAPIkey";
+        
+        AiCategoryProvider::$rootAmount = 0;
+        AiCategoryProvider::$subAmount = 0; //When there is no int in the input, it will instant just output 0
+        AiProductProvider::$productAmount = 1; 
+        AiCategoryProvider::$shopBranche ="null";
 
         if ($rm) {
             // $this->demoDataServiceAiDecorator->delete(Context::createDefaultContext());//ask if that is right
@@ -57,7 +67,6 @@ class TestCommand extends Command
             $subAmount = $input->getOption('sub');
             $shopBranche = $input->getArgument('branche');
 
-            GeneratorOpenAi::$apiKey = "customAPIkey";
             AiCategoryProvider::$rootAmount =  (int) $rootAmount;
             AiCategoryProvider::$subAmount = (int) $subAmount; //When there is no int in the input, it will instant just output 0
             AiCategoryProvider::$shopBranche = $shopBranche;
@@ -70,6 +79,14 @@ class TestCommand extends Command
             $ai = new GeneratorOpenAi();
             $ai->generateRootCategories(5, "Autohaus");
             $ai->generateUnderCategories(5, "Kleinwagen");
+        }
+        if ($providerTest){
+            $ai = new GeneratorOpenAi();
+            $ai->generateRootCategories(1, "Autohaus");
+            $ai->generateUnderCategories(1, "Kleinwagen");
+            $ai->generateProducts(1,"Audi","Kleinwagen");
+            $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());
+            $output->writeln("Data successful created!");
         }
         //TODO: access Service here! Add the Commandlineinterface Input here!
 
@@ -101,6 +118,7 @@ class TestCommand extends Command
             ->addOption('mk', null, InputOption::VALUE_NONE, 'Creates Data')
             ->addOption('root', null, InputOption::VALUE_REQUIRED, 'The amount of root categories to generate', 1)
             ->addOption('sub', null, InputOption::VALUE_REQUIRED, 'The amount of sub categories to generate', 1)
-            ->addArgument('branche', InputArgument::REQUIRED, 'Shop branche');
+            ->addOption('provider',null, InputOption::VALUE_NONE, 'Tests the usage of the provider.')
+            ->addArgument('branche', InputArgument::OPTIONAL, 'Shop branche');
     }
 }
