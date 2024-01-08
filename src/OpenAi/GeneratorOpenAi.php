@@ -111,7 +111,7 @@ class GeneratorOpenAi
 
     $msg = 'Nenne für ' . $rootCategory ." ". $subCategory . ' Produktnamen, trennen die Kategorien mit ";". Schreibe nur die Produktnamen auf. Die Produktnamen sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Erstelle nur ' . $amount . ' Produktnamen!';
     $categoriesList = $this->createDataAi($msg);
-    return ["Wrangler", "Cherokee", "Grand Cherokee", "Renegade", "Compass"]; //$categoriesList;
+    return ["Wrangler", "Cherokee"]; //$categoriesList;
   }
 
   private function createDataAi(string $msg): array
