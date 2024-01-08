@@ -79,7 +79,7 @@ class AiProductProvider extends ProductProvider
         for ($rootIndex = 0; $rootIndex < count(AiProductProvider::$rootCategoryNames); $rootIndex++) {
             for ($subIndex = 0; $subIndex < count(AiProductProvider::$subCategoryNames); $subIndex++) {
                 $nameList = $this->openAi->generateProducts(AiProductProvider::$productAmount, AiProductProvider::$subCategoryNames[$subIndex], AiProductProvider::$rootCategoryNames[$rootIndex]);
-                print_r("creating products for: " . AiProductProvider::$rootCategoryNames[$rootIndex] . " " . AiProductProvider::$subCategoryNames[$subIndex] . "\n\n"); //TODO: REMOVE
+                print_r("->creating products for: " . AiProductProvider::$rootCategoryNames[$rootIndex] . " " . AiProductProvider::$subCategoryNames[$subIndex] . "\n"); //TODO: REMOVE
 
                 for ($productIndex = 0; $productIndex < count($nameList); $productIndex++) {
                     $productList[$produktListIndex] = $this->createProduct($nameList[$productIndex], $subIndex);
@@ -87,10 +87,7 @@ class AiProductProvider extends ProductProvider
                 }
             }
         }
-        //Arrays are warped in createProduct!
-        //TODO: Products are not in the Right subcategory. Need checking why that dose not work
-
-        return $productList; //TODO: Find my wrongdoings.
+        return $productList; 
 
     }
 
@@ -174,7 +171,7 @@ class AiProductProvider extends ProductProvider
 
     private function createPrice(): array
     {
-        $randi = rand(1,10000)/100;
+        $randi = rand(1,1000000)/100;
         return [[
             'net' => $randi,
             'gross' => $randi,

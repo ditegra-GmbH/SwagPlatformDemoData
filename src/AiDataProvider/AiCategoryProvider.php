@@ -120,6 +120,8 @@ class AiCategoryProvider extends CategoryProvider
 
         for ($i = 0; $i < count($categoriesList); $i++) {
 
+            print_r("->creating Root Category ". $categoriesList[$i] . "\n");
+
             $subCategory = $this->createSubCategoryPayload($subAmount, $categoriesList[$i], $cmsPageId);
             $uuid = Uuid::randomHex();
 
@@ -146,6 +148,8 @@ class AiCategoryProvider extends CategoryProvider
         $categoriesList = $this->openAi->generateUnderCategories($amount, $rootCategory);
 
         for ($i = 0; $i < count($categoriesList); $i++) {
+
+            print_r("\t ->creating Sub Category ". $categoriesList[$i] . "\n");
 
             $uuid = Uuid::randomHex();
             //AIProductProvider needs some values set
