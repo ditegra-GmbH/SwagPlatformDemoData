@@ -36,10 +36,10 @@ class CreateDataCommand extends Command
     {
 
         $io = new SymfonyStyle($input, $output);
+        $branche = $input->getArgument('branche');
         $apiKey = $input->getOption('apikey');
         $root = $input->getOption('root');
         $sub = $input->getOption('sub');
-        $branche = $input->getArgument('branche');
 
         $io->title('Generate Demo-Shop-Data with AI!');
 
