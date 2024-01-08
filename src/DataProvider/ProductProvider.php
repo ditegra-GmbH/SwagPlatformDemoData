@@ -615,8 +615,8 @@ class ProductProvider extends DemoDataProvider
             ],
         ];
     }
-
-    private function getTaxId(): string
+    //had to be changed from private to protected
+    protected function getTaxId(): string
     {
         $result = $this->connection->fetchOne('
             SELECT LOWER(HEX(COALESCE(
@@ -631,8 +631,8 @@ class ProductProvider extends DemoDataProvider
 
         return (string) $result;
     }
-
-    private function getStorefrontSalesChannel(): string
+    //had to be changed from private to protected
+    protected function getStorefrontSalesChannel(): string 
     {
         $result = $this->connection->fetchOne('
             SELECT LOWER(HEX(`id`))
