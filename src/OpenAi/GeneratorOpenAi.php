@@ -13,7 +13,9 @@ class GeneratorOpenAi
 
   private OpenAI $openAi;
   private static int $maxRootCategories = 4; //should use the Config later
-  private static int $maxUnderCategories = 6; //should use the Config later
+  private static int $maxUnderCategories = 2; //should use the Config later
+  private static int $maxProductAmount = 20; //should use the Config later
+
 
   public static string $apiKey;
 
@@ -33,14 +35,15 @@ class GeneratorOpenAi
           {
             "message": {
               "role": "assistant",
-              "content": "Sedan; Coupé; Cabriolet; Kombi"
+              "content": "Sedan"
             },
             "finish_reason": "stop",
             "index": 0
           }
         ]
       }';
-      private string $exampleResponseWrong = '{
+  //Coupé; Cabriolet; Kombi"
+  private string $exampleResponseWrong = '{
         "id": "chatcmpl-abc123xyz456",
         "object": "chat.completion",
         "created": 1677649421,
@@ -61,7 +64,7 @@ class GeneratorOpenAi
           }
         ]
       }';
-      //TODO: REMOVE DEMO DATA
+  //TODO: REMOVE DEMO DATA
 
 
   public function __construct()
@@ -71,30 +74,44 @@ class GeneratorOpenAi
 
   public function generateRootCategories(int $amount, string $branche): array
   {
-    
-    if($amount > self::$maxRootCategories){
-      print_r('Too many Root-Categories are selected! ('. $amount .') reducing to '. self::$maxRootCategories.".\n");
+
+    if ($amount > self::$maxRootCategories) {
+      print_r('Too many Root-Categories are selected! (' . $amount . ') reducing to ' . self::$maxRootCategories . ".\n");
       $amount = self::$maxRootCategories;
     }
-    
+
     $msg = 'Erstelle Demo-Kategorien, trennen die Kategorien mit ";". Schreiben nur die Kategorien und keine Unter-Kategorien auf. Die Kategorien sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Die Branche der Produkte sollte sein: ' . $branche . ' Erstelle nur ' . $amount . ' Kategorien!';
     $categoriesList = $this->createDataAi($msg);
-    
-    return $categoriesList;
+
+    return ["Geländewagen"]; //$categoriesList;
   }
 
   public function generateUnderCategories(int $amount, string $rootCategory): array
   {
 
-    if($amount > self::$maxUnderCategories){
-      print_r('Too many Sub-Categories are selected! ('. $amount .') reducing to '. self::$maxUnderCategories.".\n");
+    if ($amount > self::$maxUnderCategories) {
+      print_r('Too many Sub-Categories are selected! (' . $amount . ') reducing to ' . self::$maxUnderCategories . ".\n");
       $amount = self::$maxUnderCategories;
     }
 
-    $msg = 'Nenne für '. $rootCategory .' Unterkategorien, trennen die Kategorien mit ";". Schreibe nur die Unterkategorien auf. Die Unterkategorien sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Erstelle nur '.$amount.' Kategorien!';
+    $msg = 'Nenne für ' . $rootCategory . ' Markennamen, trennen die Kategorien mit ";". Schreibe nur die Markennamen auf. Die Markennamen sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Erstelle nur ' . $amount . ' Kategorien!';
     $categoriesList = $this->createDataAi($msg);
 
-    return ["UNDER1","UNDER2","UNDER3","UNDER4","UNDER5","UNDER6","UNDER7","UNDER8","UNDER9"];//$categoriesList;
+    //TODO: Remove tests
+    return ["Jeep","Ford"]; //$categoriesList;
+    //return ["UNDER1","UNDER2","UNDER3","UNDER4","UNDER5","UNDER6","UNDER7","UNDER8","UNDER9"];//$categoriesList;
+  }
+  public function generateProducts(int $amount, string $subCategory, string $rootCategory): array
+  {
+
+    if ($amount > self::$maxProductAmount) {
+      print_r('Too many Products are selected! (' . $amount . ') reducing to ' . self::$maxProductAmount . ".\n");
+      $amount = self::$maxProductAmount;
+    }
+
+    $msg = 'Nenne für ' . $rootCategory ." ". $subCategory . ' Produktnamen, trennen die Kategorien mit ";". Schreibe nur die Produktnamen auf. Die Produktnamen sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Erstelle nur ' . $amount . ' Produktnamen!';
+    $categoriesList = $this->createDataAi($msg);
+    return ["Wrangler", "Cherokee", "Grand Cherokee", "Renegade", "Compass"]; //$categoriesList;
   }
 
   private function createDataAi(string $msg): array
@@ -113,7 +130,7 @@ class GeneratorOpenAi
     //TODO: the AI sometimes crates a list. I have to find a way to check if this is a list. "Thru line checks?"
 
     //  $responseObj = json_decode($response, true);
-     $responseObj = json_decode($this->exampleResponse, true);
+    $responseObj = json_decode($this->exampleResponse, true);
     //  $responseObj = json_decode($this->exampleResponseWrong, true);
     //  $responseObj = '{}'; //when te respond is an empty json
     //when the response body dose not have any of the keyword go to the end and say that there is something wrong
@@ -125,7 +142,7 @@ class GeneratorOpenAi
     if (isset($responseObj['choices'][0]['message']['content'])) {
 
       $ai_dataLump = (string) $responseObj['choices'][0]['message']['content'];
-      
+
       //Checks if the AI message content has a line brake. This can help when the AI output formatted data with
       // if(preg_match("/r|n/",$ai_dataLump)){
       //   return ["AI_OUTPUT_WRONG"];
