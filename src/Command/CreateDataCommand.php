@@ -53,7 +53,7 @@ class CreateDataCommand extends Command
 
         //User inputs
         if (!$apiKey) {
-            $apiKey = $io->askHidden('Please enter OpenAI api key');
+            $apiKey = str_replace(" ","", $io->askHidden('Please enter OpenAI api key'));
         }
         if (!$branche) {
             $branche = $io->ask('Please enter the Shop-branche', null, function (string|null $text): string {
@@ -110,7 +110,7 @@ class CreateDataCommand extends Command
 
         //start processing
         //Initializes first values.
-        GeneratorOpenAi::setApiKey("customAPIkey"); //TODO: replace with getter/setter
+        GeneratorOpenAi::setApiKey($apiKey);
         AiCategoryProvider::setShopBranche($branche);
         AiCategoryProvider::setRootAmount((int) $root);
         AiCategoryProvider::setSubAmount((int) $sub);
