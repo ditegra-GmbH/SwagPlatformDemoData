@@ -5,6 +5,7 @@
  * file that was distributed with this source code.
  */
 
+ //TODO: DECORATE THE ORIGINAL!!
 namespace Swag\PlatformDemoData\Resources\helper;
 
 use Doctrine\DBAL\Connection;
