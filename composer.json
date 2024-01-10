@@ -15,8 +15,7 @@
     ],
     "require": {
         "shopware/core": "~6.5.0",
-        "mbezhanov/faker-provider-collection": "2.0.1.0",
-        "orhanerday/open-ai": "4.9.1.0"
+        "orhanerday/open-ai": "5.0"
     },
     "extra": {
         "shopware-plugin-class": "Swag\\PlatformDemoData\\SwagPlatformDemoData",
