@@ -12,5 +12,5 @@ use Swag\PlatformDemoData\DataProvider\MediaProvider;
 
 #[Package('services-settings')]
 class AiMediaProvider extends MediaProvider{
-    
+    //Image generation with AI
 }
