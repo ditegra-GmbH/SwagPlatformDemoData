@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>Diga AiDD</title>
+        <input-field type="string">
+            <name>Open AI API key</name>
+            <label>API Key</label>
+        </input-field>
+    </card>
+
+    <card prvate="true">
+    <title>Configs</title>
+        <input-field type="int">
+            <name></name>
+            <defaultValue></defaultValue>
+        </input-field>
+    </card>
+</config>
