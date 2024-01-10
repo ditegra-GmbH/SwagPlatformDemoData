@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Swag\PlatformDemoData\OpenAi;
 
 use Orhanerday\OpenAi\OpenAi;
+use Faker;
 use Exception;
 use Generator;
 
@@ -12,12 +13,13 @@ class GeneratorOpenAi
 {
 
   private OpenAI $openAi;
+  
   private static int $maxRootCategories = 4; //should use the Config later
   private static int $maxUnderCategories = 2; //should use the Config later
   private static int $maxProductAmount = 20; //should use the Config later
 
-  private static bool $usingFakeResponse = true; //make private and use Getter/Setter 
-  private static string $apiKey; //make private and use Getter/Setter 
+  private static bool $usingFakeResponse = true;
+  private static string $apiKey; 
 
 
 
@@ -81,7 +83,7 @@ class GeneratorOpenAi
     }
 
     if (self::$usingFakeResponse) {
-      return ["Geländewagen"]; //$categoriesList;
+      return ["Geländewagen"];
     }
     $msg = 'Erstelle Demo-Kategorien, trennen die Kategorien mit ";". Schreiben nur die Kategorien und keine Unter-Kategorien auf. Die Kategorien sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Die Branche der Produkte sollte sein: ' . $branche . ' Erstelle nur ' . $amount . ' Kategorien!';
     $categoriesList = $this->createDataAi($msg);
