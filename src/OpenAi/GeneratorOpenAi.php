@@ -6,7 +6,7 @@ namespace Swag\PlatformDemoData\OpenAi;
 
 use Orhanerday\OpenAi\OpenAi;
 use Exception;
-
+use Generator;
 
 class GeneratorOpenAi
 {
@@ -16,10 +16,10 @@ class GeneratorOpenAi
   private static int $maxUnderCategories = 2; //should use the Config later
   private static int $maxProductAmount = 20; //should use the Config later
 
-  private bool $usingFakeResponse = true;
+  private static bool $usingFakeResponse = true; //make private and use Getter/Setter 
+  private static string $apiKey; //make private and use Getter/Setter 
 
 
-  public static string $apiKey;
 
   //TODO: REMOVE DEMO DATA
   private string $exampleResponse = '{
@@ -80,14 +80,12 @@ class GeneratorOpenAi
       $amount = self::$maxRootCategories;
     }
 
+    if (self::$usingFakeResponse) {
+      return ["Geländewagen"]; //$categoriesList;
+    }
     $msg = 'Erstelle Demo-Kategorien, trennen die Kategorien mit ";". Schreiben nur die Kategorien und keine Unter-Kategorien auf. Die Kategorien sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Die Branche der Produkte sollte sein: ' . $branche . ' Erstelle nur ' . $amount . ' Kategorien!';
     $categoriesList = $this->createDataAi($msg);
-
-    if ($this->usingFakeResponse) {
-      return ["Geländewagen"]; //$categoriesList;
-    } else {
-      return $categoriesList;
-    }
+    return $categoriesList;
   }
 
   public function generateUnderCategories(int $amount, string $rootCategory): array
@@ -98,16 +96,12 @@ class GeneratorOpenAi
       $amount = self::$maxUnderCategories;
     }
 
+    if (self::$usingFakeResponse) {
+      return ["Jeep", "Ford"];
+    }
     $msg = 'Nenne für ' . $rootCategory . ' Markennamen, trennen die Kategorien mit ";". Schreibe nur die Markennamen auf. Die Markennamen sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Erstelle nur ' . $amount . ' Kategorien!';
     $categoriesList = $this->createDataAi($msg);
-
-    //TODO: Remove tests
-    if ($this->usingFakeResponse) {
-      return ["Jeep", "Ford"]; //$categoriesList;
-    } else {
-      return $categoriesList;
-    }
-    //return ["UNDER1","UNDER2","UNDER3","UNDER4","UNDER5","UNDER6","UNDER7","UNDER8","UNDER9"];//$categoriesList;
+    return $categoriesList;
   }
   public function generateProducts(int $amount, string $subCategory, string $rootCategory): array
   {
@@ -117,19 +111,18 @@ class GeneratorOpenAi
       $amount = self::$maxProductAmount;
     }
 
+    if (self::$usingFakeResponse) {
+      return ["Wrangler", "Cherokee"]; //$categoriesList;
+    }
     $msg = 'Nenne für ' . $rootCategory . " " . $subCategory . ' Produktnamen, trennen die Kategorien mit ";". Schreibe nur die Produktnamen auf. Die Produktnamen sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Erstelle nur ' . $amount . ' Produktnamen!';
     $productList = $this->createDataAi($msg);
-
-    if ($this->usingFakeResponse) {
-      return ["Wrangler", "Cherokee"]; //$categoriesList;
-    } else {
-      return $productList;
-    }
+    return $productList;
   }
 
   private function createDataAi(string $msg): array
   {
-    //TODO: $response needs type check
+    //TODO: the AI sometimes crates a list. I have to find a way to check if this is a list. "Thru line checks?"
+
     $response = $this->openAi->completion([
       'model' => "text-davinci-003", //Deprecated. Will shutdown on January 2024
       'prompt' => $msg, //the question for the AI like hello or so
@@ -139,13 +132,9 @@ class GeneratorOpenAi
       'frequency_penalty' => 0.0,
       'presence_penalty' => 0.0,
     ]);
+    $responseObj = json_decode($response, true);
 
-    //TODO: the AI sometimes crates a list. I have to find a way to check if this is a list. "Thru line checks?"
 
-    //  $responseObj = json_decode($response, true);
-    $responseObj = json_decode($this->exampleResponse, true);
-    //  $responseObj = json_decode($this->exampleResponseWrong, true);
-    //  $responseObj = '{}'; //when te respond is an empty json
     //when the response body dose not have any of the keyword go to the end and say that there is something wrong
     if (isset($responseObj['error'])) {
       //TODO: Implement Error msg
@@ -168,6 +157,19 @@ class GeneratorOpenAi
     }
     throw new Exception("Unexpected response body of AI request. Please check the response JSON for \"choices\",\"error\": \n" . $responseObj);
     return ["NO_DATA"]; //When nothing is found
+  }
 
+  public static function getFakeResponseStatus(): bool
+  {
+    return GeneratorOpenAi::$usingFakeResponse;
+  }
+
+  public static function setApiKey(string $apiKey): void
+  {
+    GeneratorOpenAi::$apiKey = $apiKey;
+  }
+  public static function getApiKey(): string
+  {
+    return GeneratorOpenAi::$apiKey;
   }
 }

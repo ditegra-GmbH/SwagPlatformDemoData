@@ -34,10 +34,9 @@ class AiCategoryProvider extends CategoryProvider
     private GeneratorOpenAi $openAi;
     private CategoryProvider $categoryProvider;
 
-    //TODO:create Getter/Setter
-    public static int $rootAmount;
-    public static int $subAmount;
-    public static string $shopBranche;
+    private static int $rootAmount;
+    private static int $subAmount;
+    private static string $shopBranche;
 
 
     /**
@@ -45,10 +44,10 @@ class AiCategoryProvider extends CategoryProvider
      */
     public function __construct(EntityRepository $categoryRepository, Connection $connection, CategoryProvider $categoryProvider)
     {
+        parent::__construct($categoryRepository, $connection); //needs to call the parent constructor to initialize the connection bevor using it. 
         $this->aiTranslationHelper = new AiTranslationHelper($connection);
         // $this->demoDataServiceAiDecorator = $demoDataServiceAiDecorator;
-        $this->categoryProvider = $categoryProvider; //uses decorating pattern to extend it
-        parent::__construct($categoryRepository, $connection);//needs to call the parent constructor to initialize the connection bevor using it. 
+        $this->categoryProvider = $categoryProvider; //uses decorating pattern to extend it 
     }
 
     public function getAction(): string
@@ -113,14 +112,14 @@ class AiCategoryProvider extends CategoryProvider
     private function createRootCategoryPayload(int $rootAmount, int $subAmount, string $shopBranche): array
     {
         $cmsPageId = $this->getDefaultCmsListingPageId();
-        $categoriesList = [];//TODO: make Attribute. Data needed for sub categories
+        $categoriesList = []; //TODO: make Attribute. Data needed for sub categories
         $rootCategoryPayload = [];
         $this->openAi = new GeneratorOpenAi();
         $categoriesList = $this->openAi->generateRootCategories($rootAmount, $shopBranche);
 
         for ($i = 0; $i < count($categoriesList); $i++) {
 
-            print_r("->creating Root Category ". $categoriesList[$i] . "\n");
+            print_r("->creating Root Category " . $categoriesList[$i] . "\n");
 
             $subCategory = $this->createSubCategoryPayload($subAmount, $categoriesList[$i], $cmsPageId);
             $uuid = Uuid::randomHex();
@@ -143,13 +142,14 @@ class AiCategoryProvider extends CategoryProvider
         return $rootCategoryPayload;
     }
 
-    private function createSubCategoryPayload(int $amount, string $rootCategory, string $cmsPageId): array{
+    private function createSubCategoryPayload(int $amount, string $rootCategory, string $cmsPageId): array
+    {
 
         $categoriesList = $this->openAi->generateUnderCategories($amount, $rootCategory);
 
         for ($i = 0; $i < count($categoriesList); $i++) {
 
-            print_r("\t ->creating Sub Category ". $categoriesList[$i] . "\n");
+            print_r("\t ->creating Sub Category " . $categoriesList[$i] . "\n");
 
             $uuid = Uuid::randomHex();
             //AIProductProvider needs some values set
@@ -171,5 +171,34 @@ class AiCategoryProvider extends CategoryProvider
             ];
         }
         return $subCategoryPayload;
+    }
+
+
+
+    public static function setRootAmount(int $rootAmount): void
+    {
+        AiCategoryProvider::$rootAmount = $rootAmount;
+    }
+    public static function getRootAmount(): int
+    {
+        return AiCategoryProvider::$rootAmount;
+    }
+
+    public static function setSubAmount(int $subAmount): void
+    {
+        AiCategoryProvider::$subAmount = $subAmount;
+    }
+    public static function getSubAmount(): int
+    {
+        return AiCategoryProvider::$subAmount;
+    }
+
+    public static function setShopBranche(string $shopBranche): void
+    {
+        AiCategoryProvider::$shopBranche = $shopBranche;
+    }
+    public static function getShopBranche(): string
+    {
+        return AiCategoryProvider::$shopBranche;
     }
 }

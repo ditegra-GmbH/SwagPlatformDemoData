@@ -46,12 +46,12 @@ class TestCommand extends Command
         $apiKey = $input->getOption('api-key');
 
 
-        GeneratorOpenAi::$apiKey = "customAPIkey";
+        GeneratorOpenAi::setApiKey('customAPIkey');
         
-        AiCategoryProvider::$rootAmount = 0;
-        AiCategoryProvider::$subAmount = 0; //When there is no int in the input, it will instant just output 0
-        AiProductProvider::$productAmount = 1; 
-        AiCategoryProvider::$shopBranche ="null";
+        AiCategoryProvider::setRootAmount(0);
+        AiCategoryProvider::setSubAmount(0); //When there is no int in the input, it will instant just output 0
+        AiProductProvider::setProductAmount(1); 
+        AiCategoryProvider::setShopBranche('null');
 
         if ($rm) {
             // $this->demoDataServiceAiDecorator->delete(Context::createDefaultContext());//ask if that is right
@@ -67,9 +67,9 @@ class TestCommand extends Command
             $subAmount = $input->getOption('sub');
             $shopBranche = $input->getArgument('branche');
 
-            AiCategoryProvider::$rootAmount =  (int) $rootAmount;
-            AiCategoryProvider::$subAmount = (int) $subAmount; //When there is no int in the input, it will instant just output 0
-            AiCategoryProvider::$shopBranche = $shopBranche;
+            AiCategoryProvider::setRootAmount((int) $rootAmount);
+            AiCategoryProvider::setSubAmount((int) $subAmount); //When there is no int in the input, it will instant just output 0
+            AiCategoryProvider::setShopBranche($shopBranche);
 
             $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());
             $output->writeln("Data successful created!");

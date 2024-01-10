@@ -34,17 +34,18 @@ class AiProductProvider extends ProductProvider
 
     private int $productIndex = 1;
 
-    public static int $productAmount;
     private static array $subCategoryNames = [];
     private static array $rootCategoryNames = [];
     private static array $subCategoryIdList = [];
+    private static int $productAmount;
+
 
     public function __construct(Connection $connection, ProductProvider $productProvider)
     {
+        parent::__construct($connection);
         $this->productProvider = $productProvider;
         $this->connection = $connection;
         $this->translationHelper = new AiTranslationHelper($connection);
-        parent::__construct($connection);
         $this->taxId = $this->getTaxId();
         $this->storefrontSalesChannel = $this->getStorefrontSalesChannel();
     }
@@ -67,9 +68,9 @@ class AiProductProvider extends ProductProvider
          * This needs to generate products for for every subcategory
          * Find a way to store the UUI from subcategory and the name of that subcategory 
          * 
-         * Produckt needs:
+         * Product needs:
          * Rule -> maybe we can remove it?
-         * Media
+         * Media -> for now its 
          * Manufacture -> we can fake it
          */
 
@@ -87,8 +88,7 @@ class AiProductProvider extends ProductProvider
                 }
             }
         }
-        return $productList; 
-
+        return $productList;
     }
 
     private function createProduct(string $nameList, int $categoryIndex): array
@@ -171,7 +171,7 @@ class AiProductProvider extends ProductProvider
 
     private function createPrice(): array
     {
-        $randi = rand(1,1000000)/100;
+        $randi = rand(1, 1000000) / 100;
         return [[
             'net' => $randi,
             'gross' => $randi,
@@ -198,6 +198,14 @@ class AiProductProvider extends ProductProvider
     public static function addRootCategoryName(string $name): void
     {
         array_push(AiProductProvider::$rootCategoryNames, $name);
+    }
+    public static function getProductAmount(): int
+    {
+        return AiProductProvider::$productAmount;
+    }
+    public static function setProductAmount(int $productAmount): void
+    {
+        AiProductProvider::$productAmount = $productAmount;
     }
 }
 
