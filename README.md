@@ -1,9 +1,9 @@
 # DigaAIDemoData
 Demo Data generation based on the SwagPlatformDemoData Plugin
 
-Right now, the Plugin uses a demo Data set from OpenAI to generate the Categories.
+<bold> **Do not use in production environments!** </bold>
 
-To try out the generation:<br>
+To try out the generator:<br>
 ```Ruby
 Usage:
   dataai:create [options] [--] [<branche>]
@@ -12,9 +12,10 @@ Arguments:
   branche                Shop branche of the Demoshop
 
 Options:
-      --apikey=API-KEY   Your secrete Open API key
+      --apikey=APIKEY    Your secrete Open API key
       --root=ROOT        The amount of root categories to generate
       --sub=SUB          The amount of sub categories to generate
+      --product=PRODUCT  Amount of products to generate for every Category
 ```
 
 
