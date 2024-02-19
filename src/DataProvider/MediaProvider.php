@@ -18,14 +18,8 @@ use Shopware\Core\Framework\Log\Package;
 #[Package('services-settings')]
 class MediaProvider extends DemoDataProvider
 {
-    private FileSaver $fileSaver;
-
-    private Connection $connection;
-
-    public function __construct(Connection $connection, FileSaver $fileSaver)
+    public function __construct(private readonly Connection $connection, private readonly FileSaver $fileSaver)
     {
-        $this->fileSaver = $fileSaver;
-        $this->connection = $connection;
     }
 
     public function getAction(): string

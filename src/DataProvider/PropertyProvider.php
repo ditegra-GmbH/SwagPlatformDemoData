@@ -17,7 +17,7 @@ use Swag\PlatformDemoData\Resources\helper\TranslationHelper;
 #[Package('services-settings')]
 class PropertyProvider extends DemoDataProvider
 {
-    private TranslationHelper $translationHelper;
+    private readonly TranslationHelper $translationHelper;
 
     public function __construct(Connection $connection)
     {

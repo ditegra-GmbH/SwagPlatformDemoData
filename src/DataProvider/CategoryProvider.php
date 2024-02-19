@@ -23,23 +23,14 @@ use Swag\PlatformDemoData\Resources\helper\TranslationHelper;
 #[Package('services-settings')]
 class CategoryProvider extends DemoDataProvider
 {
-    /**
-     * @var EntityRepository<CategoryCollection> $categoryRepository
-     */
-    private EntityRepository $categoryRepository;
-
-    private Connection $connection;
-
-    private TranslationHelper $translationHelper;
+    private readonly TranslationHelper $translationHelper;
 
     /**
      * @param EntityRepository<CategoryCollection> $categoryRepository
      */
-    public function __construct(EntityRepository $categoryRepository, Connection $connection)
+    public function __construct(private readonly EntityRepository $categoryRepository, private readonly Connection $connection)
     {
-        $this->categoryRepository = $categoryRepository;
-        $this->connection = $connection;
-        $this->translationHelper = new TranslationHelper($connection);
+        $this->translationHelper = new TranslationHelper($this->connection);
     }
 
     public function getAction(): string

@@ -21,23 +21,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
 #[Package('services-settings')]
 class DemoDataService
 {
-    private SyncController $sync;
-
-    /**
-     * @var iterable<DemoDataProvider>
-     */
-    private iterable $demoDataProvider;
-
-    private RequestStack $requestStack;
-
     /**
      * @param iterable<DemoDataProvider> $demoDataProvider
      */
-    public function __construct(SyncController $sync, iterable $demoDataProvider, RequestStack $requestStack)
+    public function __construct(private readonly SyncController $sync, private readonly iterable $demoDataProvider, private readonly RequestStack $requestStack)
     {
-        $this->sync = $sync;
-        $this->demoDataProvider = $demoDataProvider;
-        $this->requestStack = $requestStack;
     }
 
     public function generate(Context $context): void

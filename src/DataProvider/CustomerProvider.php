@@ -22,20 +22,11 @@ use Shopware\Core\Framework\Log\Package;
 #[Package('services-settings')]
 class CustomerProvider extends DemoDataProvider
 {
-    private Connection $connection;
-
-    /**
-     * @var EntityRepository<CategoryCollection> $categoryRepository
-     */
-    private EntityRepository $categoryRepository;
-
     /**
      * @param EntityRepository<CategoryCollection> $categoryRepository
      */
-    public function __construct(Connection $connection, EntityRepository $categoryRepository)
+    public function __construct(private readonly Connection $connection, private readonly EntityRepository $categoryRepository)
     {
-        $this->connection = $connection;
-        $this->categoryRepository = $categoryRepository;
     }
 
     public function getAction(): string

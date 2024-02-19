@@ -6,11 +6,8 @@ use Doctrine\DBAL\Connection;
 
 class ProductStreamProvider extends DemoDataProvider
 {
-    private Connection $connection;
-    
-    public function __construct(Connection $connection)
+    public function __construct(private readonly Connection $connection)
     {
-        $this->connection = $connection;
     }
 
     public function getAction(): string

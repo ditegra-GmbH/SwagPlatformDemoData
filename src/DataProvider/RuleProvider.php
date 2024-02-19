@@ -15,11 +15,8 @@ use Shopware\Core\Framework\Log\Package;
 #[Package('services-settings')]
 class RuleProvider extends DemoDataProvider
 {
-    private Connection $connection;
-
-    public function __construct(Connection $connection)
+    public function __construct(private readonly Connection $connection)
     {
-        $this->connection = $connection;
     }
 
     public function getAction(): string

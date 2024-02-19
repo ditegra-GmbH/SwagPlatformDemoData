@@ -21,14 +21,11 @@ class ProductProvider extends DemoDataProvider
 {
     private const LOREM_IPSUM = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
 
-    private Connection $connection;
+    private readonly TranslationHelper $translationHelper;
 
-    private TranslationHelper $translationHelper;
-
-    public function __construct(Connection $connection)
+    public function __construct(private readonly Connection $connection)
     {
-        $this->connection = $connection;
-        $this->translationHelper = new TranslationHelper($connection);
+        $this->translationHelper = new TranslationHelper($this->connection);
     }
 
     public function getAction(): string

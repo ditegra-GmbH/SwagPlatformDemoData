@@ -18,7 +18,7 @@ class TranslationHelper
     // Which language to use if no translation for the wanted language is available
     private const DEFAULT_TRANSLATION_LANGUAGE = 'en-GB';
 
-    private DbHelper $dbHelper;
+    private readonly DbHelper $dbHelper;
 
     public function __construct(Connection $connection)
     {
