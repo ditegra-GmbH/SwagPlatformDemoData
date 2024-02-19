@@ -783,7 +783,7 @@ class ProductProvider extends DemoDataProvider
                         'quantityEnd' => null,
                     ],
                     [
-                        'ruleId' => '018c2470bfca719c978c7ee92fa0de7d',
+                        'ruleId' => '3858957016644de4ae48c0500bf3ccc8',
                         'price' => [[
                             'net' => 0.747899159,
                             'gross' => 0.89,
@@ -794,7 +794,7 @@ class ProductProvider extends DemoDataProvider
                         'quantityEnd' => null,
                     ],
                     [
-                        'ruleId' => '018c2470bfca719c978c7ee92fa0de7d',
+                        'ruleId' => '3858957016644de4ae48c0500bf3ccc8',
                         'price' => [[
                             'net' => 1.336134453,
                             'gross' => 1.59,
@@ -805,7 +805,7 @@ class ProductProvider extends DemoDataProvider
                         'quantityEnd' => 30,
                     ],
                     [
-                        'ruleId' => '018c2470bfca719c978c7ee92fa0de7d',
+                        'ruleId' => '3858957016644de4ae48c0500bf3ccc8',
                         'price' => [[
                             'net' => 1.663865546,
                             'gross' => 1.98,
@@ -961,7 +961,7 @@ class ProductProvider extends DemoDataProvider
                         'id' => '78c53f3f6dd14eb4927978415bfb74db',
                     ]
                 ],
-            ],
+            ]
         ];
     }
 

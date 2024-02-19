@@ -35,5 +35,10 @@
         "psr-4": {
             "Swag\\PlatformDemoData\\": "src/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true
+        }
     }
 }

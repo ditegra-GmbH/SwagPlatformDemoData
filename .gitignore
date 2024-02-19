@@ -5,7 +5,6 @@ vendor/
 var/
 phpstan.neon
 phpstan-report.json
-composer.lock
 
 node_modules
 /src/Resources/app/storefront/test/e2e/cypress/results/
