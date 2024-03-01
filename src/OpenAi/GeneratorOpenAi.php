@@ -71,7 +71,6 @@ class GeneratorOpenAi
       'presence_penalty' => 0.0,
     ]);
     $responseObj = json_decode($response, true);
-    // $responseObj = json_decode($this->exampleResponse,true);
 
 
     //when the response body dose not have any of the keyword go to the end and say that there is something wrong
@@ -82,19 +81,8 @@ class GeneratorOpenAi
     }
     if (isset($responseObj['choices'][0]['text'])) {
 
-      $ai_dataLump = (string) $responseObj['choices'][0]['text'];
-
-
-      $ai_dataLump =  preg_replace('/\s+/', '', $ai_dataLump); //removes whitespace
-      $ai_dataList = explode(';', $ai_dataLump);
-      $ai_dataListFiltered = [];
-
-      for($i=0 ;count($ai_dataList) > $i ;$i++){
-        if(!(empty($ai_dataList[$i]) || $ai_dataList[$i] === "")){
-          array_push($ai_dataListFiltered, $ai_dataList[$i]);
-        }
-      }
-      return $ai_dataListFiltered;
+      $ai_dataList =  json_decode($responseObj['choices'][0]['text'],true);
+      return $ai_dataList;
     }
     throw new Exception("Unexpected response body of AI request. Please check the response JSON for \"choices\",\"error\": \n" . $response);
     return ["NO_DATA"]; //When nothing is found
