@@ -15,7 +15,7 @@
     ],
     "require": {
         "shopware/core": "~6.5.0",
-        "orhanerday/open-ai": "5.0"
+        "orhanerday/open-ai": "5.1"
     },
     "extra": {
         "shopware-plugin-class": "Swag\\PlatformDemoData\\SwagPlatformDemoData",
