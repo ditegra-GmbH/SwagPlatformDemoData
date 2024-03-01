@@ -22,8 +22,8 @@ use Swag\PlatformDemoData\Resources\helper\AiTranslationHelper;
 use Swag\PlatformDemoData\OpenAi\GeneratorOpenAi;
 
 #[Package('services-settings')]
-class AiProductProvider extends ProductProvider
-{
+
+class AiProductProvider extends ProductProvider {
     private AiTranslationHelper $translationHelper;
     private GeneratorOpenAi $openAi;
     private Connection $connection;
@@ -37,7 +37,7 @@ class AiProductProvider extends ProductProvider
     private static array $subCategoryNames = [];
     private static array $rootCategoryNames = [];
     private static array $subCategoryIdList = [];
-    private static int $productAmount;
+    private static int $productAmount = 0;
 
 
     public function __construct(Connection $connection, ProductProvider $productProvider)
@@ -73,6 +73,7 @@ class AiProductProvider extends ProductProvider
          * Media -> for now its 
          * Manufacture -> we can fake it
          */
+    
 
         $productList = [];
         $produktListIndex = 0;
@@ -211,7 +212,6 @@ class AiProductProvider extends ProductProvider
         AiProductProvider::$productAmount = $productAmount;
     }
 }
-
 
 /*
 'id' => '11dc680240b04f469ccba354cbf0b967', //generate random UUID

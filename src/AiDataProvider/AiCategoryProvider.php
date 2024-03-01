@@ -124,7 +124,7 @@ class AiCategoryProvider extends CategoryProvider
 
             print_r("->creating Root Category " . $categoriesList[$i] . "\n");
 
-            $subCategory = $this->createSubCategoryPayload($subAmount, $categoriesList[$i], $cmsPageId);
+           //$subCategory = $this->createSubCategoryPayload($subAmount, $categoriesList[$i], $cmsPageId); //TODO: reenable when starting with subcategories
             $uuid = Uuid::randomHex();
 
             AiProductProvider::addRootCategoryName($categoriesList[$i]);
@@ -139,7 +139,7 @@ class AiCategoryProvider extends CategoryProvider
                 'name' => $this->aiTranslationHelper->adjustTranslations([
                     'de-DE' => $categoriesList[$i]
                 ]),
-                'children' => $subCategory
+                'children' => null //$subCategory
             ];
         }
         return $rootCategoryPayload;
