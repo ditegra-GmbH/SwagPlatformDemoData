@@ -34,9 +34,9 @@ class AiCategoryProvider extends CategoryProvider
     private GeneratorOpenAi $openAi;
     private CategoryProvider $categoryProvider;
 
-    private static int $rootAmount;
-    private static int $subAmount;
-    private static string $shopBranche;
+    private static int $rootAmount = 0;
+    private static int $subAmount = 0;
+    private static string $shopBranche = "";
 
 
     /**
@@ -116,6 +116,9 @@ class AiCategoryProvider extends CategoryProvider
         $rootCategoryPayload = [];
         $this->openAi = new GeneratorOpenAi();
         $categoriesList = $this->openAi->generateRootCategories($rootAmount, $shopBranche);
+        if($categoriesList == null){
+            return null;
+        }
 
         for ($i = 0; $i < count($categoriesList); $i++) {
 
@@ -144,8 +147,12 @@ class AiCategoryProvider extends CategoryProvider
 
     private function createSubCategoryPayload(int $amount, string $rootCategory, string $cmsPageId): array
     {
-
+        
         $categoriesList = $this->openAi->generateUnderCategories($amount, $rootCategory);
+
+        if($categoriesList == null){
+            return null;
+        }
 
         for ($i = 0; $i < count($categoriesList); $i++) {
 
