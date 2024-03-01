@@ -46,10 +46,6 @@ class CreateDataCommand extends Command
         $product = $input->getOption('product');
 
         $io->title('Generate Demo-Shop-Data with AI!');
-        if(GeneratorOpenAi::getFakeResponseStatus()){
-            // maybe add Faker to the response when Faking AI?
-            $io->info('Using Fake AI Response Data. No real API Key needed.'); 
-        }
 
         //User inputs
         if (!$apiKey) {
@@ -75,7 +71,7 @@ class CreateDataCommand extends Command
                 $root = 0;
             }
         }
-
+        /* Excluding under categories and products.
         if (!$sub) {
             $sub = $io->ask('Please enter the Amount of sub-categories to generate', null, function (string|null $number): int {
                 if (!is_numeric($number)) {
@@ -98,13 +94,15 @@ class CreateDataCommand extends Command
                 $product = 0;
             }
         }
+        */
+
         //Confirmations on input
         $io->info(
             'Api-Key: ' . $apiKey . "\n" .
                 'Shop-Branche: ' . $branche . "\n" .
-                'Amount of root-categories: ' . $root . "\n" .
-                'Amount of sub-categories: ' . $sub . "\n" . 
-                'Amount of products for every category: ' . $sub . "\n"
+                'Amount of root-categories: ' . $root . "\n" //.
+                // 'Amount of sub-categories: ' . $sub . "\n" . 
+                // 'Amount of products for every category: ' . $sub . "\n"
         );
 
 
@@ -112,9 +110,11 @@ class CreateDataCommand extends Command
         //Initializes first values.
         GeneratorOpenAi::setApiKey($apiKey);
         AiCategoryProvider::setShopBranche($branche);
+        /*
         AiCategoryProvider::setRootAmount((int) $root);
         AiCategoryProvider::setSubAmount((int) $sub);
         AiProductProvider::setProductAmount((int) $product);
+        */
 
         //execute generation
         $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());
@@ -127,8 +127,8 @@ class CreateDataCommand extends Command
         $this
             ->addOption('apikey', null, InputOption::VALUE_REQUIRED, 'Your secrete Open API key')
             ->addOption('root', null, InputOption::VALUE_REQUIRED, 'The amount of root categories to generate')
-            ->addOption('sub', null, InputOption::VALUE_REQUIRED, 'The amount of sub categories to generate')
-            ->addOption('product',null, InputOption::VALUE_REQUIRED, 'Amount of products to generate for every Category')
+            // ->addOption('sub', null, InputOption::VALUE_REQUIRED, 'The amount of sub categories to generate')
+            // ->addOption('product',null, InputOption::VALUE_REQUIRED, 'Amount of products to generate for every Category')
             ->addArgument('branche', InputArgument::OPTIONAL, 'Shop branche of the Demoshop');
     }
 }
