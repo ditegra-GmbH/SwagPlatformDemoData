@@ -14,9 +14,6 @@ class GeneratorOpenAi
 
   private OpenAI $openAi;
   
-  private static int $maxRootCategories = 1; //should use the Config later
-  private static int $maxUnderCategories = 1; //should use the Config later
-  private static int $maxProductAmount = 1; //should use the Config later
 
   private static string $apiKey; 
 
@@ -27,18 +24,12 @@ class GeneratorOpenAi
 
   public function generateRootCategories(int $amount, string $branche): array
   {
-
-    if ($amount > self::$maxRootCategories) {
-      print_r('Too many Root-Categories are selected! (' . $amount . ') reducing to ' . self::$maxRootCategories . ".\n");
-      $amount = self::$maxRootCategories;
-    }
-
-    $msg = 'Erstelle Demo-Kategorien, trennen die Kategorien mit ";". Schreiben nur die Kategorien und keine Unter-Kategorien auf. Die Kategorien sollen alle in einer Zeile sein. Erstelle keine Nummerierung. Die Branche der Produkte sollte sein: ' . $branche . ' Erstelle nur ' . $amount . ' Kategorien!';
+    $msg = $msg = "Erstelle mir ein JSON-Array. Fülle dieses Array mit ".  $amount ." " . ($amount === 1 ? "Stichwort"  : "Stichwörtern")   ." über " . $branche . ".";
     $categoriesList = $this->createDataAi($msg);
     return $categoriesList;
   }
 
-  
+
   public function generateUnderCategories(int $amount, string $rootCategory): array{return [];}
   public function generateProducts(int $amount, string $subCategory, string $rootCategory): array{return [];}
   /* Excluding under categories and products.
