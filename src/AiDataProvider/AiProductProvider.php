@@ -80,7 +80,10 @@ class AiProductProvider extends ProductProvider
         for ($rootIndex = 0; $rootIndex < count(AiProductProvider::$rootCategoryNames); $rootIndex++) {
             for ($subIndex = 0; $subIndex < count(AiProductProvider::$subCategoryNames); $subIndex++) {
                 $nameList = $this->openAi->generateProducts(AiProductProvider::$productAmount, AiProductProvider::$subCategoryNames[$subIndex], AiProductProvider::$rootCategoryNames[$rootIndex]);
-                print_r("->creating products for: " . AiProductProvider::$rootCategoryNames[$rootIndex] . " " . AiProductProvider::$subCategoryNames[$subIndex] . "\n"); //TODO: REMOVE
+                if($nameList == null){
+                    continue;
+                }
+                print_r("->creating products for: " . AiProductProvider::$rootCategoryNames[$rootIndex] . " " . AiProductProvider::$subCategoryNames[$subIndex] . "\n");
 
                 for ($productIndex = 0; $productIndex < count($nameList); $productIndex++) {
                     $productList[$produktListIndex] = $this->createProduct($nameList[$productIndex], $subIndex);
