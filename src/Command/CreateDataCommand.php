@@ -42,8 +42,8 @@ class CreateDataCommand extends Command
         $branche = $input->getArgument('branche');
         $apiKey = $input->getOption('apikey');
         $root = $input->getOption('root');
-        $sub = $input->getOption('sub');
-        $product = $input->getOption('product');
+        // $sub = $input->getOption('sub');
+        // $product = $input->getOption('product');
 
         $io->title('Generate Demo-Shop-Data with AI!');
 
@@ -110,8 +110,8 @@ class CreateDataCommand extends Command
         //Initializes first values.
         GeneratorOpenAi::setApiKey($apiKey);
         AiCategoryProvider::setShopBranche($branche);
-        /*
         AiCategoryProvider::setRootAmount((int) $root);
+         /*
         AiCategoryProvider::setSubAmount((int) $sub);
         AiProductProvider::setProductAmount((int) $product);
         */
