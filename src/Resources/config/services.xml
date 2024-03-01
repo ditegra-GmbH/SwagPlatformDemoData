@@ -99,11 +99,11 @@
         </service>
 
 
-         <service id="Swag\PlatformDemoData\AiDataProvider\AiProductProvider" decorates="Swag\PlatformDemoData\DataProvider\ProductProvider">
+         <!-- <service id="Swag\PlatformDemoData\AiDataProvider\AiProductProvider" decorates="Swag\PlatformDemoData\DataProvider\ProductProvider">
             <argument type="service" id="Doctrine\DBAL\Connection" />
             <argument type="service" id="Swag\PlatformDemoData\AiDataProvider\AiProductProvider.inner"/>
             <tag name="swag.ai.demo_data.data_provider" priority="400" />
-        </service>
+        </service> -->
 
 
 
