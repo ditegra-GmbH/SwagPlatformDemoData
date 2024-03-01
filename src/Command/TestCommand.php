@@ -20,105 +20,79 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
-
+use Orhanerday\OpenAi\OpenAi;
 
 #[AsCommand(name: 'dataai:test')]
 class TestCommand extends Command
 {
-    private DemoDataServiceAiDecorator $demoDataServiceAiDecorator;
-    private Connection $connection;
+  private OpenAI $openAi;
 
-    public function __construct(DemoDataServiceAiDecorator $demoDataServiceAiDecorator, Connection $connection)
-    {
-        $this->connection = $connection;
-        $this->demoDataServiceAiDecorator = $demoDataServiceAiDecorator;
-        parent::__construct();
+  private array $mokList = [
+    "Autohersteller",
+    "Klamotten",
+    "Radio",
+    "Schuhe",
+    "E-Commerce-Agenturen",
+    "Spiele Entwickler",
+    "Einzelhandel Lebensmittel",
+    "Elektronikeinzelhandel",
+    "Möbel",
+    "Bücher",
+    "Spielzeug",
+    "Sport- und Outdoor-Einzelhandel",
+    "Hygiene"
+
+  ];
+
+  public function __construct(DemoDataServiceAiDecorator $demoDataServiceAiDecorator, Connection $connection)
+  {
+    parent::__construct();
+  }
+
+  protected function execute(InputInterface $input, OutputInterface $output): int
+  {
+    $io = new SymfonyStyle($input, $output);
+    $this->openAi = new OpenAi("");
+  
+    $number = 1;
+
+    $io->title("Testing API Responses");
+    $io->text("Question Text:;" . "AI Response:;");
+
+    for ($i = 0; $i < count($this->mokList); $i++) {
+
+      $msg = "Erstelle mir ein JSON-Array. Fülle dieses Array mit ". $number ." " . ($number === 1 ? "Stichwort"  : "Stichwörtern")   ." über " . $this->mokList[$i] . ".";
+      $io->text($msg . ";" . $this->askAI($msg) . ";");
+
+
+      $number = random_int(1,2);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
+    return Command::SUCCESS;
+  }
+  protected function configure(): void
+  {
+  }
 
-        $rm = $input->getOption('rm');
-        $mk = $input->getOption('mk');
-        $test = $input->getOption('test');
-        $providerTest = $input->getOption('provider');
-        $apiKey = $input->getOption('api-key');
+  private function askAI(string $msg): string
+  {
+    $response = $this->openAi->completion([
+      'model' => "gpt-3.5-turbo-instruct", //"text-davinci-003" Deprecated. Will shutdown on January 2024
+      'prompt' => $msg, //the question for the AI like hello or so
+      'temperature' => 0.2, //0 means 100% predictability same answer every time on the same question.
+      'max_tokens' => 140, //how many "Words" the answer and question has. I limit the tokens to about 200, the Question takes about 70 Tokens to process.
+      'top_p' => 0.1, //diversity of answers
+      'frequency_penalty' => 0.0,
+      'presence_penalty' => 0.0,
+    ]);
 
+    $responseObj = json_decode($response, true);
 
-        GeneratorOpenAi::setApiKey('customAPIkey');
-        
-        AiCategoryProvider::setRootAmount(0);
-        AiCategoryProvider::setSubAmount(0); //When there is no int in the input, it will instant just output 0
-        AiProductProvider::setProductAmount(1); 
-        AiCategoryProvider::setShopBranche('null');
-
-        if ($rm) {
-            // $this->demoDataServiceAiDecorator->delete(Context::createDefaultContext());//ask if that is right
-            //TODO:Fix problem
-            $this->connection->fetchOne(
-                '
-                DELETE FROM category;
-                '
-            );
-        }
-        if ($mk) {
-            $rootAmount = $input->getOption('root');
-            $subAmount = $input->getOption('sub');
-            $shopBranche = $input->getArgument('branche');
-
-            AiCategoryProvider::setRootAmount((int) $rootAmount);
-            AiCategoryProvider::setSubAmount((int) $subAmount); //When there is no int in the input, it will instant just output 0
-            AiCategoryProvider::setShopBranche($shopBranche);
-
-            $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());
-            $output->writeln("Data successful created!");
-        }
-
-        if ($test) {
-            $ai = new GeneratorOpenAi();
-            $ai->generateRootCategories(5, "Autohaus");
-            $ai->generateUnderCategories(5, "Kleinwagen");
-        }
-        if ($providerTest){
-            $ai = new GeneratorOpenAi();
-            $ai->generateRootCategories(1, "Autohaus");
-            $ai->generateUnderCategories(1, "Kleinwagen");
-            $ai->generateProducts(1,"Audi","Kleinwagen");
-            $this->demoDataServiceAiDecorator->generate(Context::createDefaultContext());
-            $output->writeln("Data successful created!");
-        }
-        //TODO: access Service here! Add the Commandlineinterface Input here!
-
-        // $this->openAi = new GeneratorOpenAi();
-        // $categories = $this->openAi->generateCategories((int)"100" , "Autos");//Uses local test data for now
-        // foreach($categories as $element){
-        //     $output->writeln($element);
-        // }
-        // this method must return an integer number with the "exit status code"
-        // of the command. You can also use these constants to make code more readable
-        // return this if there was no problem running the command
-        // (it's equivalent to returning int(0))
-        return Command::SUCCESS;
-
-        // or return this if some error happened during the execution
-        // (it's equivalent to returning int(1))
-        // return Command::FAILURE;
-
-        // or return this to indicate incorrect command usage; e.g. invalid options
-        // or missing arguments (it's equivalent to returning int(2))
-        // return Command::INVALID
+    if (isset($responseObj['choices'][0]['text'])) {
+      return  (string) $responseObj['choices'][0]['text'];
     }
-    protected function configure(): void
-    {
-        $this
-            ->addOption('api-key', null, InputOption::VALUE_REQUIRED, 'Your secrete Open API key', '0')
-            ->addOption('rm', null, InputOption::VALUE_NONE, 'Remove generated Data')
-            ->addOption('test', null, InputOption::VALUE_NONE, 'test ai Outputs')
-            ->addOption('mk', null, InputOption::VALUE_NONE, 'Creates Data')
-            ->addOption('root', null, InputOption::VALUE_REQUIRED, 'The amount of root categories to generate', 1)
-            ->addOption('sub', null, InputOption::VALUE_REQUIRED, 'The amount of sub categories to generate', 1)
-            ->addOption('provider',null, InputOption::VALUE_NONE, 'Tests the usage of the provider.')
-            ->addArgument('branche', InputArgument::OPTIONAL, 'Shop branche');
-    }
+    return preg_replace('/\s+/', '', $response);
+  }
 }
