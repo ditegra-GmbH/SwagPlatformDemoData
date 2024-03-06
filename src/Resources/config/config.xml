@@ -4,17 +4,8 @@
 
     <card>
         <title>Diga AiDD</title>
-        <input-field type="string">
-            <name>Open AI API key</name>
-            <label>API Key</label>
-        </input-field>
     </card>
-
-    <card prvate="true">
+    <card>
     <title>Configs</title>
-        <input-field type="int">
-            <name></name>
-            <defaultValue></defaultValue>
-        </input-field>
     </card>
 </config>
